@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import styles from "styles/header.module.css";
-import NavLinks from './NavLinks';
 import LogInBtn from 'components/LogInBtn';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import getApi from 'api/get';
@@ -33,8 +32,6 @@ function Header() {
         {open && (
           <div className={styles.popup}>
             <UserBtn setIsOpened={setIsOpened} setIsOpenedUF={setIsOpenedUF} />
-
-            <NavLinks />
           </div>
         )}
         <div className={styles.container}>

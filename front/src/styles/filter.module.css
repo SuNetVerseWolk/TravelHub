@@ -1,0 +1,10 @@
+.filterContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background: rgba(182, 182, 182, 0.551);
+    height: 200px;
+    padding: 20px;
+    width: 100%;
+}
