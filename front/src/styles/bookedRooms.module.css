@@ -1,0 +1,29 @@
+.room {
+    background: #20202a;
+    border: #c1beb1 1px solid;
+  }
+  .room * {
+    color: #c1beb1;
+  }
+  .room button {
+    border: #c1beb1 1px solid;
+  }
+  .room button:hover {
+    color: #bc9191;
+    border: #bc9191 1px solid;
+  }
+  .arrow {
+    background: #20202a !important;
+    color: #c1beb1;
+    border: #c1beb1 1px solid !important;
+  }
+  .arrow:hover {
+    color: #20202a !important;
+    background: #c1beb1 !important;
+  }
+  .room .bookBtn:hover {
+    color: #20202a;
+    background: #c1beb1;
+    border-color: #c1beb1;
+  }
+  

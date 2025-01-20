@@ -1,0 +1,182 @@
+header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    border-bottom: #20202a 1px solid;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    transition: background 0.3s ease-out;
+  }
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(60px, 3.5svw, 100px);
+    padding-inline: clamp(30px, 3.5svw, 30px);
+    width: clamp(320px, 95svw, 1000px);
+  }
+  header ul {
+    display: flex;
+    gap: 30px;
+  }
+  header ul a {
+    position: relative;
+  }
+  header ul a::before, header ul a::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 0.5px;
+    background: #20202a;
+    scale: 0;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+  }
+  header ul a::before {
+    top: -5px;
+    right: 0;
+  }
+  header ul a::after {
+    bottom: -5px;
+    left: 0;
+  }
+  header ul a:hover::before, header ul a:hover::after {
+    scale: 1;
+    opacity: 1;
+  }
+  header button {
+    padding: 10px 40px;
+    border: #20202a 1px solid;
+    background: none;
+    transition: all 0.3s ease-out;
+  }
+  header button:hover {
+    color: #c1beb1;
+    background: #20202a;
+  }
+  a:has(img) {
+    height: 100%;
+  }
+  img {
+    width: 150px;
+    height: 100%;
+  }
+  .burgerMenu, .burgerMenu::after, .burgerMenu::before {
+    background: #20202a;
+    width: 40px;
+    height: 1px;
+  }
+  .burgerMenu::after, .burgerMenu::before {
+    position: absolute;
+    z-index: 5;
+    content: '';
+  }
+  .burgerMenu {
+    position: relative;
+    z-index: 5;
+  }
+  .burgerMenu::after {
+    top: 10px;
+    left: 0;
+  }
+  .burgerMenu::before {
+    bottom: 10px;
+    left: 0;
+  }
+  .burgerContainer {
+    display: none;
+    position: relative;
+    z-index: 5;
+    height: 40px;
+    padding: 10px;
+  }
+  .burgerContainer:hover {
+    border: #c1beb1 1px solid;
+  }
+  .burgerContainer:hover .burgerMenu, .burgerContainer:hover .burgerMenu::after, .burgerContainer:hover .burgerMenu::before {
+    background: #c1beb1;
+  }
+  .popup, .popup ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .popup {
+    justify-content: center;
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    width: 50%;
+    translate: 0 -100%;
+    height: 100vh;
+    background: #2f2f33;
+    animation: appear 0.3s forwards ease-in;
+  }
+  @keyframes appear {
+    to {
+      translate: 0 0;
+    }
+  }
+  .popup * {
+    color: #c1beb1;
+  }
+  .popup button {
+    border: #c1beb1 1px solid;
+  }
+  .popup button:hover {
+    background: #c1beb1;
+    color: #20202a;
+  }
+  .popup ul a::before, .popup ul a::after {
+    background: #c1beb1;
+  }
+  @media (max-width: 768px) {
+    header {
+      justify-content: start;
+    }
+    .container {
+      justify-content: space-between;
+      width: 100%;
+    }
+    header ul, .buttonAccount {
+      display: none;
+    }
+    .burgerContainer {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .exit:hover {
+    color: #bc9191 !important;
+    background: none !important;
+    border: #bc9191 1px solid;
+  }
+  .headerBlack {
+    background: #20202a;
+    border-bottom: #c1beb1 1px solid;
+    transition: background 0.3s ease-in;
+  }
+  .headerBlack * {
+    color: #c1beb1;
+  }
+  .headerBlack ul a::before, .headerBlack ul a::after {
+    background: #c1beb1;
+  }
+  .headerBlack button {
+    border: #c1beb1 1px solid;
+  }
+  .headerBlack button:hover {
+    background: #c1beb1;
+    color: #20202a;
+  }
+  .headerBlack .burgerMenu, .headerBlack .burgerMenu::after, .headerBlack .burgerMenu::before {
+    background: #c1beb1;
+  }
+  .headerBlack .burgerContainer:hover .burgerMenu, .headerBlack .burgerContainer:hover .burgerMenu::after, .headerBlack .burgerContainer:hover .burgerMenu::before {
+    background: #2f2f33;
+  }
+  

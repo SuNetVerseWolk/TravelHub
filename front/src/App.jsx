@@ -1,28 +1,29 @@
 import { Route, Routes } from 'react-router-dom'
-import { useState, useMemo } from 'react'
+import Home from 'pages/Home'
+import LogIn from 'pages/LogIn'
+import SignUp from 'pages/SignUp'
+import Rooms from 'layouts/Rooms'
+import Users from 'pages/Users'
 
-function App() {
-  const [userInfo, setUserInfo] = useState(localStorage.getItem('info') && JSON.parse(localStorage.getItem('info')));
-	const main = useMemo(e =>
-		userInfo?.id === import.meta.env.VITE_ADMIN_ID ? (
-			// <Admin setUserInfo={setUserInfo} />
-			<>Admin</>
-		) : userInfo ? (
-			// <Materials userInfo={userInfo} setUserInfo={setUserInfo} />
-			<>Materials idk w's it</>
-		) : (
-			// <Login setUserInfo={setUserInfo} />
-			<>Login</>
-		), [userInfo]);
-
+const App = () => {
   return (
     <Routes>
-			<Route path='' element={main} >
-				<Route path=':id' element={<></>} >
-					<Route path=':teacherID' element={<></>} />
-				</Route>
-			</Route>
-			<Route path='/singUp' element={<>Sing up page</>}></Route>
+			<Route path='/' element={<Home />}>
+        <Route path='/:type' element={null}/>
+      </Route>
+
+			<Route
+        path='/logIn'
+        element={<LogIn />}
+      />
+
+			<Route
+        path='/signUp'
+        element={<SignUp />}
+      />
+      <Route path='/users/' element={<Users />}>
+        <Route path='/users/:type'/>
+      </Route>
     </Routes>
   )
 }

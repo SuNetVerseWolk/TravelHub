@@ -1,0 +1,20 @@
+.main {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    min-height: calc(100svh - 100px);
+}
+.main > section, .main #booked > div, .main > div:not(#rooms), .main #rooms > div:not(#booked) {
+    width: clamp(320px, 95svw, 900px);
+}
+#booked {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    background: #20202a;
+}
+#booked h2 {
+    color: #c1beb1;
+    margin-top: 20px;
+}

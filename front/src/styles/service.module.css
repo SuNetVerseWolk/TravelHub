@@ -1,0 +1,41 @@
+.serviceContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  
+  min-height: 400px;
+  width: 100%;
+}
+.serviceContainer h3 {
+  font-size: 15px;
+}
+.serviceContainer p {
+  width: 250px;
+  font-size: 10px;
+  padding: 10px;
+}
+.serviceContainer > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.serviceContainer > div > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+.serviceContainer > div > div div {
+  display: grid;
+  place-items: center;
+  height: 100px;
+  width: 100px;
+
+  transition: all 0.3s ease-in-out;
+}
+.serviceContainer img {
+  height: 50px;
+  width: 50px;
+}
+  

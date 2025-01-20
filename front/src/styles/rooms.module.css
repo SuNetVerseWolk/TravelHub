@@ -1,0 +1,37 @@
+.rooms {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding-block: 2.5vmin;
+  }
+  .rooms > button {
+    width: 5%;
+    aspect-ratio: 1;
+    height: 250px;
+    border: #20202a 1px solid;
+    background: none;
+    transition: all 0.3s ease-out;
+  }
+  .rooms > button:hover {
+    color: #c1beb1;
+    background: #20202a;
+  }
+  .rooms > button.left {
+    margin-right: 2%;
+  }
+  .rooms > button.right {
+    margin-left: 2%;
+  }
+  .rooms > div {
+    display: flex;
+    align-items: center;
+    gap: 5%;
+    width: 100%;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    overflow-x: scroll;
+  }
+  .rooms > div::-webkit-scrollbar {
+    height: 0;
+  }
+  
