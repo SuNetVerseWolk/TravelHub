@@ -3,10 +3,8 @@ import React, { useRef } from 'react'
 import { roomLayout } from 'styles/roomLayout.module.css'
 import main from 'styles/main.module.css'
 import getApi from 'api/get'
-import Alert from 'components/Alert'
-import BookedRooms from 'layouts/BookedRooms'
 import style from 'styles/main.module.css'
-import Rooms from 'layouts/Rooms'
+import ToursLayout from 'layouts/ToursLayout'
 import BookForm from 'layouts/BookForm'
 
 const Users = () => {
@@ -24,7 +22,7 @@ const Users = () => {
         <div id={main.rooms} className={roomLayout}>
           <div id={main.booked}>
             <h2>Варианты номеров</h2>
-            <Rooms isBlack={true} popupForm={popupForm} />
+            <ToursLayout isBlack={true} popupForm={popupForm} />
           </div>
 
           {isLoading ? (
@@ -35,7 +33,7 @@ const Users = () => {
 
               return hasBooked && (<>
                 <h2>{user.number}</h2>
-                <BookedRooms bookedRooms={user.bookedRooms} userID={user.id} />
+                {/* <BookedRooms bookedRooms={user.bookedRooms} userID={user.id} /> */}
               </>)
             })
           )}

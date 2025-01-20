@@ -1,5 +1,5 @@
 import React from 'react'
-import Room from 'layouts/Room'
+import ToursLayout from 'layouts/ToursLayout'
 import { main } from 'styles/main.module.css'
 import Services from './Services'
 import Filter from 'components/Filter'
@@ -9,7 +9,7 @@ const Main = ({ popupForm }) => {
     <main className={main}>
       <Filter />
       <Services />
-      <Room popupForm={popupForm} />
+      <ToursLayout popupForm={popupForm} />
     </main>
   )
 }

@@ -1,7 +1,5 @@
 import React, { useRef } from 'react'
 import Room from 'components/Room';
-import style from 'styles/rooms.module.css'
-import booked from 'styles/bookedRooms.module.css'
 import getApi from 'api/get';
 
 const BookedRooms = ({ bookedRooms, isBlack, userID }) => {

@@ -26,7 +26,7 @@ const Services = () => {
             <div>
                 {
                     services.map((service, index) => (
-                        <Service image={service.image} mainText={service.mainText} text={service.text} />
+                        <Service key={index} image={service.image} mainText={service.mainText} text={service.text} />
                     ))
                 }
             </div>

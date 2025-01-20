@@ -1,5 +1,4 @@
 import React from 'react'
-import { room } from 'styles/room.module.css'
 import BookButton from './BookButton'
 import apart1 from '/apart1.jpg'
 import apart2 from '/apart2.jpg'
@@ -12,9 +11,9 @@ const getImgBySrc = (src) => {
   return ''
 }
 
-const Room = ({ src, id, name, price, description, value, amount, bookedAmount, popupForm, black, userID }) => {
+const Tour = ({ src, id, name, price, description, value, amount, bookedAmount, popupForm, black, userID }) => {
   return (
-    <div className={`${room} ${black}`}>
+    <div className={`${black}`}>
       <img src={getImgBySrc(src)} alt="..." />
       <div>
         <h1>{name}</h1>
@@ -29,4 +28,4 @@ const Room = ({ src, id, name, price, description, value, amount, bookedAmount, 
   )
 }
 
-export default Room
+export default Tour
