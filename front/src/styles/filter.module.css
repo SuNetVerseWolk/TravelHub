@@ -18,10 +18,11 @@
     font-size: 15px;
     padding: 10px 10px 10px 0;
     width: 500px;
+    height: 160px;
 }
 
 .filterContainer > div {
-    background: #ffffff59;
+    background: #ffffff38;
     margin-top: 50px;
     backdrop-filter: blur(4px);
     border-radius: 20px;
@@ -52,4 +53,16 @@
 .filterContainer form button:hover {
     color: #c1beb1;
     background: #000000;
+}
+
+.picture {
+    position: absolute;
+    top: -20px;
+    right: -50px;
+
+    width: 350px;
+    height: 220px;
+    background: url(/nature.jpg) no-repeat 50%;
+    border-radius: 20px;
+    background-size: cover;
 }

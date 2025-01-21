@@ -5,13 +5,13 @@ const Footer = () => {
   return (
     <footer id='data'>
       <div>
-        <h2>Контакты</h2>
-
-        <p>Адрес: 123, г. Москва, ул. Горная дом 5</p>
-
+        <p>© 2025 "Виста" Все права защищены. Используя сайт, вы принимаете условия пользовательского соглашения. Информация на сайте не является публичной офертой. Условия сотрудничества.. This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.</p>
+      
         <div>
-          <p>Телефон: +7 (800) 200-70-80</p>
-          <p>E-mail: prestige@mail.com</p>
+          <h2>Контакты</h2>
+
+          <p>Телефон: +7 (900) 300-30-30</p>
+          <p>E-mail: vista@mail.com</p>
         </div>
       </div>
     </footer>
