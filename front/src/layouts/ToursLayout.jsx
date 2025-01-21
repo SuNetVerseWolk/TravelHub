@@ -11,9 +11,9 @@ const ToursLayout = ({ popupForm }) => {
   //   path: '/users/' + localStorage.getItem('id')
   // });
 
-  const { data: rooms, isLoading, isError } = getApi({
-      key: ['rooms'],
-      path: 'rooms'
+  const { data: tours, isLoading, isError } = getApi({
+      key: ['tours'],
+      path: 'tours'
   });
   const types = useMemo(() => [
     {text: 'Рыбалка', src: '/'},
@@ -51,10 +51,10 @@ const ToursLayout = ({ popupForm }) => {
           <Alert>Загрузка...</Alert>
         ) : isError ? (
           <Alert>Что-то пошло не так, или комнат нет</Alert>
-        ) : rooms?.length <= 0 ? (
+        ) : tours?.length <= 0 ? (
           <Alert>Свободных комнат нет!!!</Alert>
         ) : (
-          rooms?.map(room => <Tour popupForm={popupForm} key={room.id} {...room} />)
+          tours?.map(tour => <Tour key={tour.id} data={tour} />)
         )}
       </div>
     </div>

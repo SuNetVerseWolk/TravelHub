@@ -1,7 +1,10 @@
 import React from 'react'
 
-export const TourTitle = () => {
+export const TourTitle = ({location, title}) => {
   return (
-    <div>TourTitle</div>
+    <div>
+			<p>{location}</p>
+			<h4>{title}</h4>
+		</div>
   )
 }

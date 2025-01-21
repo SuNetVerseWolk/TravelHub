@@ -1,51 +1,83 @@
 .main {
-    display: flex;
-    flex-direction: column-reverse;
+	display: flex;
+	flex-direction: column-reverse;
 
-    background: var(--img) no-repeat;
-    background-size: cover;
+	background: var(--img) no-repeat;
+	background-size: cover;
 
-    /* width: 210px; */
-    aspect-ratio: 6/11;
-    border-radius: 6px;
-    padding: .5rem;
+	aspect-ratio: 6/11;
+	border-radius: 6px;
+	padding: .5rem;
 
-    position: relative;
+	position: relative;
 }
 
-.main > :nth-child(2) {
-    z-index: 5;
-}
-.main > div:last-child {
-    background: linear-gradient(transparent 30%,#000414b3 70%);
+.main>div:first-child {
+	background: linear-gradient(transparent 30%, #000414b3 70%);
+	border-radius: inherit;
 
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
-
-.main > div > div {
-    color: #fff;
+.main>*:not(:first-child) {
+	z-index: 5;
 }
 
-.main > div > div:last-child {
-    display: flex;
-    flex-direction: column;
+.main>div *:not(button) {
+	color: #fff;
+}
 
-    width: 100%;
-    max-height: 164px;
-    padding: .75rem;
+.main>div>div:first-child {
+	margin-bottom: .3rem;
+}
+.main>div>div:last-child {
+	display: flex;
+	flex-direction: column;
 
-    background: #f3f9ff4d;
-    border-radius: 4px;
-    backdrop-filter: blur(4px);
+	width: 100%;
+	max-height: 164px;
+	padding: .75rem;
 
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 23px;
-    word-wrap: break-word;
-    font-family: Open Sans, Helvetica, sans-serif;
+	background: #f3f9ff4d;
+	border-radius: 4px;
+	backdrop-filter: blur(4px);
+
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 23px;
+	word-wrap: break-word;
+	font-family: Open Sans, Helvetica, sans-serif;
+}
+.main>div>div:last-child>ul {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-flow: row nowrap;
+	font-size: .8rem;
+}
+.main>div>div:last-child>ul>li:nth-child(2) {
+	font-family: Open Sans, Helvetica, sans-serif;
+	padding: .125rem .5rem;
+	border-radius: 12px;
+	background: rgba(243,249,255,.3);
+	font-size: .625rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+.main button {
+	padding: .5rem;
+	margin: .5rem 0 0 0;
+
+	border: solid 1px #f2801c;
+	border-radius: 3px;
+}
+.main button>span {
+	color: black;
+	font-weight: bolder;
+}
+.main button:hover {
+	background: #f2801c;
 }

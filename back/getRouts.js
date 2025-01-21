@@ -1,4 +1,4 @@
 module.exports = {
-	rooms: require('./scripts/rooms'),
-	users: require('./scripts/users')
+	tours: require('./routs/tours'),
+	users: require('./routs/users')
 }
