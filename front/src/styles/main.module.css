@@ -5,8 +5,16 @@
 
     min-height: calc(100svh - 100px);
 }
-.main > section, .main #rooms > div:not(#booked) {
+.main > section,
+.main #tours > div:not(#booked) {
     width: clamp(320px, 95svw, 900px);
+}
+#tours {
+    margin-bottom: 6rem;
+}
+#tours > h2 {
+    text-align: center;
+    margin-bottom: 1rem;
 }
 #booked {
     display: flex;
