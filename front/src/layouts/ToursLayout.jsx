@@ -1,7 +1,7 @@
 import React from 'react'
 import main from 'styles/main.module.css'
 import getApi from 'api/get'
-import style from 'components/Tour'
+import styles from 'styles/tours.module.css'
 import Alert from 'components/Alert'
 import Tour from 'components/Tour'
 
@@ -19,7 +19,7 @@ const ToursLayout = ({ popupForm }) => {
   return (
     <div id={main.rooms}>
       <h2>Варианты номеров</h2>
-      <div className={style.tours}>
+      <div className={styles.tours}>
         {isLoading ? (
           <Alert>Загрузка...</Alert>
         ) : isError ? (

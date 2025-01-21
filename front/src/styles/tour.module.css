@@ -1,0 +1,51 @@
+.main {
+    display: flex;
+    flex-direction: column-reverse;
+
+    background: var(--img) no-repeat;
+    background-size: cover;
+
+    /* width: 210px; */
+    aspect-ratio: 6/11;
+    border-radius: 6px;
+    padding: .5rem;
+
+    position: relative;
+}
+
+.main > :nth-child(2) {
+    z-index: 5;
+}
+.main > div:last-child {
+    background: linear-gradient(transparent 30%,#000414b3 70%);
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.main > div > div {
+    color: #fff;
+}
+
+.main > div > div:last-child {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-height: 164px;
+    padding: .75rem;
+
+    background: #f3f9ff4d;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 23px;
+    word-wrap: break-word;
+    font-family: Open Sans, Helvetica, sans-serif;
+}
