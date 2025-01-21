@@ -8,8 +8,8 @@ const Main = ({ popupForm }) => {
   return (
     <main className={main}>
       <Filter />
-      <Services />
       <ToursLayout popupForm={popupForm} />
+      <Services />
     </main>
   )
 }
