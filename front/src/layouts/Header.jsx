@@ -35,7 +35,7 @@ function Header() {
           </div>
         )}
         <div className={styles.container}>
-          <a to=''><img src="logo2.png" alt="..." /></a>
+          <a href='' to=''><div className={styles.logo}></div></a>
 
           {checkWorker ? (
             <>

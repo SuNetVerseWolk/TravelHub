@@ -3,8 +3,53 @@
     justify-content: center;
     align-items: center;
     
-    background: rgba(182, 182, 182, 0.551);
-    height: 200px;
+    background: url(/nature_2.jpg) no-repeat 50% 50%;
+    background-size: cover;
+    height: 500px;
     padding: 20px;
     width: 100%;
+}
+
+.filterContainer h3 {
+    font-size: 30px;
+}
+
+.filterContainer p {
+    font-size: 15px;
+    padding: 10px 10px 10px 0;
+    width: 500px;
+}
+
+.filterContainer > div {
+    background: #ffffff59;
+    margin-top: 50px;
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.filterContainer form {
+    margin-top: 20px;
+}
+
+.filterContainer form input {
+    padding: 10px 5px;
+    width: 150px;
+    margin-inline: 3px;
+    border: 0;
+    border-radius: 5px;
+}
+
+.filterContainer form button {
+    padding: 10px 25px;
+    border: 0;
+    border-radius: 10px;
+    background: #fff;
+
+    transition: all .2s linear;
+}
+
+.filterContainer form button:hover {
+    color: #c1beb1;
+    background: #000000;
 }
