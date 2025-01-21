@@ -10,11 +10,16 @@
     width: clamp(320px, 95svw, 900px);
 }
 #tours {
-    margin-bottom: 6rem;
+    margin-top: 6rem;
 }
-#tours > h2 {
+#tours > h2, #tours > h3, #tours > h5 {
     text-align: center;
-    margin-bottom: 1rem;
+}
+#tours > h2:nth-child(1) {
+    margin-bottom: .5rem;
+}
+#tours > h3, #tours > h5 {
+    margin-bottom: 1.5rem;
 }
 #booked {
     display: flex;
@@ -27,4 +32,53 @@
 #booked h2 {
     color: #c1beb1;
     margin-top: 20px;
+}
+
+
+#tours > ul {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: .5rem;
+    flex-wrap: wrap;
+    width: clamp(320px, 95svw, 900px);
+    margin-bottom: 4.5rem;
+    padding: .5rem;
+    background: #fff;
+
+    border: 1px solid #fff;
+    border-radius: .75rem;
+    box-shadow: 0 2px 8px rgba(15,85,126,.04),4px 4px 16px rgba(18,102,152,.08);
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 23px;
+    color: #313140;
+    word-wrap: break-word;
+    font-family: Open Sans, Helvetica, sans-serif;
+}
+#tours > ul > li {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    background-color: #fff;
+    color: #313140;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    padding: .5rem .375rem;
+    
+    font-size: .75rem;
+    line-height: 1.33;
+    word-wrap: break-word;
+    
+    cursor: pointer;
+    transition: all .2s;
+}
+
+#tours > ul > li:hover {
+    background: #f2801c26;
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styles from 'styles/main.module.css'
 import getApi from 'api/get'
 import toursStyles from 'styles/tours.module.css'
@@ -15,10 +15,37 @@ const ToursLayout = ({ popupForm }) => {
       key: ['rooms'],
       path: 'rooms'
   });
+  const types = useMemo(() => [
+    {text: 'Рыбалка', src: '/'},
+    {text: 'Автобусный тур', src: '/'},
+    {text: 'Фестивали', src: '/'},
+    {text: 'Экскурсионный тур', src: '/'},
+    {text: 'Экскурсия', src: '/'},
+    {text: 'В горы', src: '/'},
+    {text: 'Водная прогулка', src: '/'},
+    {text: 'Термальные источники', src: '/'},
+    {text: 'Активный тур', src: '/'},
+    {text: 'На выходные', src: '/'},
+    {text: 'Палатки', src: '/'},
+    {text: 'Гастрономический тур', src: '/'},
+    {text: 'Наблюдение за животными', src: '/'},
+    {text: 'Винный тур', src: '/'},
+    {text: 'Снегоходы', src: '/'},
+  ], []);
 
   return (
     <div id={styles.tours}>
-      <h2>Варианты номеров</h2>
+      <h2>Сложно определиться?</h2>
+      <h5>Подберите идеальное направление с помощью фильтра по предпочтениям и датам</h5>
+      <ul>
+        {types.map((value, index) => (
+          <li>
+            <img src={value.src} alt="" />
+            <span>{value.text}</span>
+          </li>
+        ))}
+      </ul>
+      <h3>Туры</h3>
       <div className={toursStyles.tours}>
         {isLoading ? (
           <Alert>Загрузка...</Alert>
