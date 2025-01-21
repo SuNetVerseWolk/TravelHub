@@ -23,7 +23,6 @@ const Services = () => {
 
     return (
         <div id='services' className={styles.serviceContainer}>
-            Straight up, it's none now
             <div>
                 {
                     services.map((service, index) => (
