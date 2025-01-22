@@ -6,7 +6,7 @@ const LogInBtn = () => {
   const navigate = useNavigate();
 
   return (
-    <button className={styles.buttonAccount} onClick={e => navigate('/logIn')}>Личный кабинет</button>
+    <button className={styles.buttonAccount} onClick={e => navigate('/logIn')}><div className={styles.user}><img src='/user.png'></img></div>Личный кабинет</button>
   )
 }
 

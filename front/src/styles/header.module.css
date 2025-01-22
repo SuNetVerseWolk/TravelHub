@@ -47,6 +47,8 @@ header {
     opacity: 1;
   }
   header button {
+    position: relative;
+
     padding: 15px 40px;
     border: 0;
     border-bottom: 0px #f2801c26 solid;
@@ -59,8 +61,12 @@ header {
     /* color: #c1beb1; */
     background: transparent;
     border-bottom-width: 5px;
-
-    /* transition: border 1s; */
+  }
+  header button:hover .user {
+    background: #f2801c26;
+  }
+  header button:hover .user img {
+    filter: invert(50%);
   }
   .logo{
     background: url(/logo.png) no-repeat 50%;
@@ -183,4 +189,26 @@ header {
   .headerBlack .burgerContainer:hover .burgerMenu, .headerBlack .burgerContainer:hover .burgerMenu::after, .headerBlack .burgerContainer:hover .burgerMenu::before {
     background: #2f2f33;
   }
+
+.user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: -10px;
+  right: -10px;
+
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50px;
+
+  transition: all .1s linear;
+}
+
+.user img {
+  width: 25px;
+  height: 25px;
+}
   

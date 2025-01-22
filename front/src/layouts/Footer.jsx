@@ -8,7 +8,7 @@ const Footer = () => {
         <p>© 2025 "Виста" Все права защищены. Используя сайт, вы принимаете условия пользовательского соглашения. Информация на сайте не является публичной офертой. Условия сотрудничества.. This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.</p>
       
         <div>
-          <h2>Контакты</h2>
+          <h3>Контакты</h3>
 
           <p>Телефон: +7 (900) 300-30-30</p>
           <p>E-mail: vista@mail.com</p>

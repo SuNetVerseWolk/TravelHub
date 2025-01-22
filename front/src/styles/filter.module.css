@@ -42,7 +42,9 @@
 }
 
 .filterContainer form button {
-    padding: 10px 25px;
+    position: relative;
+
+    padding: 10px 10px 10px 34px;
     border: 0;
     border-radius: 10px;
     background: #fff;
@@ -55,6 +57,10 @@
     background: #000000;
 }
 
+.filterContainer form button:hover .loupe {
+    background: #fff;
+}
+
 .picture {
     position: absolute;
     top: -20px;
@@ -65,4 +71,25 @@
     background: url(/nature.jpg) no-repeat 50%;
     border-radius: 20px;
     background-size: cover;
+}
+
+.loupe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    left: 2px;
+    top: 3px;
+
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    
+    transition: all .2s linear;
+}
+
+.loupe img {
+    width: 15px;
+    height: 15px;
 }

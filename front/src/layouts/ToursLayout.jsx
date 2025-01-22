@@ -16,21 +16,21 @@ const ToursLayout = ({ popupForm }) => {
       path: 'tours'
   });
   const types = useMemo(() => [
-    {text: 'Рыбалка', src: '/'},
-    {text: 'Автобусный тур', src: '/'},
-    {text: 'Фестивали', src: '/'},
-    {text: 'Экскурсионный тур', src: '/'},
-    {text: 'Экскурсия', src: '/'},
-    {text: 'В горы', src: '/'},
-    {text: 'Водная прогулка', src: '/'},
-    {text: 'Термальные источники', src: '/'},
-    {text: 'Активный тур', src: '/'},
-    {text: 'На выходные', src: '/'},
-    {text: 'Палатки', src: '/'},
-    {text: 'Гастрономический тур', src: '/'},
-    {text: 'Наблюдение за животными', src: '/'},
-    {text: 'Винный тур', src: '/'},
-    {text: 'Снегоходы', src: '/'},
+    {text: 'Рыбалка', src: '/koi-fish.png'},
+    {text: 'Автобусный тур', src: '/school-bus.png'},
+    {text: 'Фестивали', src: '/fireworks.png'},
+    {text: 'Экскурсионный тур', src: '/bus-tour.png'},
+    {text: 'Экскурсия', src: '/government.png'},
+    {text: 'В горы', src: '/mountain.png'},
+    {text: 'Водная прогулка', src: '/ferry-boat.png'},
+    {text: 'Термальные источники', src: '/hot-spring.png'},
+    {text: 'Активный тур', src: '/climbing.png'},
+    {text: 'На выходные', src: '/sunbathing.png'},
+    {text: 'Палатки', src: '/tent.png'},
+    {text: 'Гастрономический тур', src: '/citizenship.png'},
+    {text: 'Наблюдение за животными', src: '/animal-care.png'},
+    {text: 'Винный тур', src: '/drink.png'},
+    {text: 'Снегоходы', src: '/snowmobile.png'},
   ], []);
 
   return (

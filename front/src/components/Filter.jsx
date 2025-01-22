@@ -20,7 +20,7 @@ const Filter = () => {
                     <input id='countAdults' type="number" placeholder='Кол-во взрослых' />
                     <input id='countChildren' type="number" placeholder='Кол-во детей' />
 
-                    <button className={styles.buttonFind}>Найти</button>
+                    <button className={styles.buttonFind}>Найти<div className={styles.loupe}><img src='/loupe.png'></img></div></button>
                 </form>
             </div>
         </div>

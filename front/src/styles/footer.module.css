@@ -25,11 +25,11 @@ footer > div > div {
   padding: 10px 20px;
 }
 footer > div > div p {
-  font-size: 12px;
+  font-size: 10px;
 }
 
 footer > div * {
-  margin: 10px 20px;
+  margin: 5px 10px;
 }
 
 footer > div p {
