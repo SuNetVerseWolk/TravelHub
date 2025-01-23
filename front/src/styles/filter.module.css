@@ -30,6 +30,9 @@
 }
 
 .filterContainer form {
+    display: flex;
+    flex-direction: row;
+
     margin-top: 20px;
 }
 
@@ -41,7 +44,7 @@
     border-radius: 5px;
 }
 
-.filterContainer form button {
+.buttonFind {
     position: relative;
 
     padding: 10px 10px 10px 34px;
@@ -52,12 +55,48 @@
     transition: all .2s linear;
 }
 
-.filterContainer form button:hover {
+.buttonFind:hover {
     color: #c1beb1;
     background: #000000;
 }
+.dates {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-.filterContainer form button:hover .loupe {
+    background: #fff;
+    border-radius: 5px;
+    gap: 3px;
+}
+.dates button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 7px;
+    height: 100%;
+    width: 110px;
+    border: 0;
+    background: #fff;
+    border-radius: 5px;
+
+    transition: all .2s linear;
+}
+.dates span {
+    display: block;
+    border-bottom: #00000082 1px solid;
+    height: 20px;
+    width: 100%;
+}
+.dates button:hover {
+    color: #000000;
+    background: #fdecdd;
+}
+.dates button:hover span {
+    border-bottom: #c1beb1 1px solid;
+}
+
+.buttonFind:hover .loupe {
     background: #fff;
 }
 
@@ -88,7 +127,6 @@
     
     transition: all .2s linear;
 }
-
 .loupe img {
     width: 15px;
     height: 15px;
