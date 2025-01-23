@@ -71,7 +71,7 @@
 	padding: .5rem;
 	margin: .5rem 0 0 0;
 
-	border: solid 1px #f2801c;
+	border: solid 1px #fdecdd;
 	border-radius: 3px;
 }
 .main button>span {
@@ -79,5 +79,5 @@
 	font-weight: bolder;
 }
 .main button:hover {
-	background: #f2801c;
+	background: #fdecdd;
 }
