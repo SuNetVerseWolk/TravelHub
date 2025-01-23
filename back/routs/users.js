@@ -68,10 +68,10 @@ router.post('/book', (req, res) => {
 });
 router.post('/logIn', (req, res) => {
 	if (
-		req.body.number === process.env.WORKER_NAME
+		req.body.number === process.env.ADMIN_NAME
 		&&
-		req.body.password === process.env.WORKER_PASSWORD
-	) return res.json({ id: process.env.WORKER_ID });
+		req.body.password === process.env.ADMIN_PASSWORD
+	) return res.json({ id: process.env.ADMIN_ID, type: 'admin' });
 
 	const users = getUsers();
 	let user = users.find(user => user.number === req.body.number);

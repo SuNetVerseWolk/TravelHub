@@ -10,15 +10,11 @@ const LogIn = () => {
   const { mutate } = useMutation({
     mutationFn: data => axios.post(`/api/users/logIn`, data),
     onSuccess: res => {
-      if (res.data.id === import.meta.env.VITE_WORKER_ID) {
+      if (res.data.id) {
         localStorage.setItem('id', res.data.id);
-        navigate('/users');
-
-        return;
+        queryClient.invalidateQueries(['user']);
+        navigate('..');
       }
-      localStorage.setItem('id', res.data.id);
-      queryClient.invalidateQueries(['user']);
-      navigate('..');
     },
     onError: res => {
       switch (res.response.status) {
@@ -27,7 +23,7 @@ const LogIn = () => {
           ref.current.number.reportValidity();
           break;
         case 403:
-          ref.current.password.setCustomValidity('Пароль не найден!');
+          ref.current.password.setCustomValidity('Пароль не верный!');
           ref.current.password.reportValidity();
           break;
       }
