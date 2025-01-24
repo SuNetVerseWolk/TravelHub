@@ -1,22 +1,55 @@
-import Header from 'layouts/Header'
-import React, { useRef } from 'react'
-import { roomLayout } from 'styles/roomLayout.module.css'
-import main from 'styles/main.module.css'
-import getApi from 'api/get'
-import style from 'styles/main.module.css'
-import ToursLayout from 'layouts/ToursLayout'
-import BookForm from 'layouts/BookForm'
-import Alert from 'components/Alert'
+import React, { useState } from 'react'
+import styles from 'styles/adminPage.module.css'
+import { Outlet, useNavigate } from 'react-router-dom'
+import {motion} from 'framer-motion'
 
 const AdminPage = () => {
-  const popupForm = useRef();
-  const { data: users, isLoading } = getApi({
-    key: ['users'],
-    path: '/users'
-  })
+  // const popupForm = useRef();
+  // const { data: users, isLoading } = getApi({
+  //   key: ['users'],
+  //   path: '/users'
+  // })
+  const navigate = useNavigate();
+  const [buttons, setbuttons] = useState([
+    {
+      id: 0,
+      text: 'Пользователи',
+      checked: false,
+      page: '/users'
+    },
+    {
+      id: 1,
+      text: 'Туры',
+      checked: true,
+      page: '/'
+    },
+    {
+      id: 2,
+      text: 'Добавить тур',
+      checked: false,
+      page: '/'
+    },
+  ])
 
   return (
-    <div>ADMIN</div>
+    <div className={styles.main}>
+      <div>
+        <Outlet />
+        <section>
+          <h1>АДМИН</h1>
+          <ul>
+            {buttons.map(btn => (
+              <motion.li key={btn.id} className={btn.checked && styles.checked} onClick={e => {
+                setbuttons(prevButtons => prevButtons.map(b => 
+                  b.id == btn.id ? { ...b, checked: true } : { ...b, checked: false }
+                ));
+                navigate(btn.page);
+              }}>{btn.text}</motion.li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </div>
   )
 }
 

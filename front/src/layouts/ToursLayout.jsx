@@ -5,12 +5,7 @@ import toursStyles from 'styles/tours.module.css'
 import Alert from 'components/Alert'
 import Tour from 'components/Tour'
 
-const ToursLayout = ({ popupForm }) => {
-  // const { data: user, isUserLoading } = getApi({
-  //   key: ['user'],
-  //   path: '/users/' + localStorage.getItem('id')
-  // });
-
+const ToursLayout = ({ popupForm, showAdminPanel, extraStyles }) => {
   const { data: tours, isLoading, isError } = getApi({
       key: ['tours'],
       path: 'tours'
@@ -34,17 +29,21 @@ const ToursLayout = ({ popupForm }) => {
   ], []);
 
   return (
-    <div id={styles.tours}>
-      <h2>Сложно определиться?</h2>
-      <h5>Подберите идеальное направление с помощью фильтра по предпочтениям и датам</h5>
-      <ul>
-        {types.map((value, index) => (
-          <li>
-            <img src={value.src} alt="" />
-            <span>{value.text}</span>
-          </li>
-        ))}
-      </ul>
+    <div id={styles.tours} className={extraStyles}>
+      {!showAdminPanel && (
+        <>
+          <h2>Сложно определиться?</h2>
+          <h5>Подберите идеальное направление с помощью фильтра по предпочтениям и датам</h5>
+          <ul>
+            {types.map((value, index) => (
+              <li key={index}>
+                <img src={value.src} alt="" />
+                <span>{value.text}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
       <h3>Туры</h3>
       <div className={toursStyles.tours}>
         {isLoading ? (
