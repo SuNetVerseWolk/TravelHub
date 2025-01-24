@@ -25,7 +25,7 @@ footer > div > div {
   padding: 10px 20px;
 }
 footer > div > div p {
-  font-size: 10px;
+  font-size: .6rem;
 }
 
 footer > div * {
@@ -33,16 +33,25 @@ footer > div * {
 }
 
 footer > div p {
-  font-size: 10px;
-  width: 300px;
+  font-size: .5rem;
+  width: 245px;
 }
 footer > div > p {
   color: #c1beb1;
 }
 
-@media (min-width: 2560px) {
+/* @media (min-width: 2560px) {
   footer {
     position: absolute;
     bottom: 0;
+  }
+} */
+
+@media (max-width: 768px) {
+  footer > div {
+    flex-direction: column-reverse;
+  }
+  footer > div > div p {
+    width: 120px;
   }
 }

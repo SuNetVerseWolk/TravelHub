@@ -7,7 +7,7 @@
 }
 .main > section,
 .main #tours > div:not(#booked) {
-    width: clamp(320px, 95svw, 900px);
+    /* width: clamp(320px, 95svw, 900px); */
 }
 #tours {
     margin-top: 6rem;
@@ -34,14 +34,14 @@
     margin-top: 20px;
 }
 
-
 #tours > ul {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-gap: .5rem;
     flex-wrap: wrap;
-    width: clamp(320px, 95svw, 900px);
+    /* width: clamp(320px, 95svw, 900px); */
+    max-width: 900px;
     margin-bottom: 4.5rem;
     padding: .5rem;
     background: #fff;
@@ -81,4 +81,15 @@
 
 #tours > ul > li:hover {
     background: #f2801c26;
+}
+
+@media (max-width: 760px) {
+    #tours > ul {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 320px) {
+    #tours > ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

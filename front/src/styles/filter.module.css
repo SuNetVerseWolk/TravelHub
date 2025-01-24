@@ -5,20 +5,20 @@
     
     background: url(/nature_2.jpg) no-repeat 50% 50%;
     background-size: cover;
-    height: 500px;
+    min-height: 500px;
     padding: 20px;
     width: 100%;
 }
 
 .filterContainer h3 {
-    font-size: 30px;
+    font-size: 1.5rem;
 }
 
 .filterContainer p {
-    font-size: 15px;
+    font-size: .9rem;
     padding: 10px 10px 10px 0;
-    width: 500px;
-    height: 160px;
+    max-width: 500px;
+    min-height: 160px;
 }
 
 .filterContainer > div {
@@ -27,11 +27,13 @@
     backdrop-filter: blur(4px);
     border-radius: 20px;
     padding: 20px;
+    max-width: 100%;
 }
 
 .filterContainer form {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 
     margin-top: 20px;
 }
@@ -130,4 +132,31 @@
 .loupe img {
     width: 15px;
     height: 15px;
+}
+
+@media (max-width: 1030px) {
+    .picture {
+        display: none;
+    }
+    .filterContainer form {
+        display: grid;
+        grid-template-rows: repeat(6, 1fr);
+        justify-content: center;
+    }
+    .filterContainer form input,
+    .filterContainer form button {
+        width: 100%;
+        margin-block: 5px;
+    }
+    /* .filterContainer form button {
+        width: 100%;
+        margin-block: 5px;
+    } */
+    .dates, .filterContainer form button {
+        margin-left: 3px;
+        margin-right: -1px;
+    }
+    .dates button {
+        padding-block: 0;
+    }
 }

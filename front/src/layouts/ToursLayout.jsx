@@ -37,7 +37,7 @@ const ToursLayout = ({ popupForm }) => {
     <div id={styles.tours}>
       <h2>Сложно определиться?</h2>
       <h5>Подберите идеальное направление с помощью фильтра по предпочтениям и датам</h5>
-      <ul>
+      <ul className={styles.typesContainer}>
         {types.map((value, index) => (
           <li>
             <img src={value.src} alt="" />
@@ -45,7 +45,7 @@ const ToursLayout = ({ popupForm }) => {
           </li>
         ))}
       </ul>
-      <h3>Туры</h3>
+      <h3>Виды туров на выбор</h3>
       <div className={toursStyles.tours}>
         {isLoading ? (
           <Alert>Загрузка...</Alert>
