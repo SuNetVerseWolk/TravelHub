@@ -46,40 +46,26 @@ const SignUp = () => {
   return (
     <div className={styles.containerForm}>
        <div id={styles.signUp}>
-          <img id={styles.i1} src="apart9.jpg" alt="..." />
-          <img id={styles.i2} src="apart13.jpg" alt="..." />
-
           <h2>Регистрация</h2>
+
+          <img id={styles.i1} src="/woowNature.jpg" alt="" />
 
           <form ref={ref} onSubmit={submit}>
             <div>
               <div>
-                <label htmlFor="lastName">
-                  Фамилия:
-                  <input id='lastName' onChange={setMissedFill} name='lastName' type="text" placeholder='Павлов' required />
-                </label>
-                <label htmlFor="name">
-                  Имя:
-                  <input id='name' name='name' type="text" placeholder='Вадим' required />
-                </label>
-                <label htmlFor="fatherName">
-                  Отчество:
-                  <input id='fatherName' name='fatherName' type="text" placeholder='Владимирович' required />
-                </label>
+                <input id='lastName' placeholder='Фамилия' onChange={setMissedFill} name='lastName' type="text" required />
+                
+                <input id='name' name='name' type="text" placeholder='Имя' required />
+                
+                
+                <input id='fatherName' name='fatherName' type="text" placeholder='Отчество' required />
               </div>
               <div>
-                <label htmlFor="number">
-                  Номер:
-                  <input id='number' name='number' type="tel" placeholder='+7 (900) 800-90-90' required />
-                </label>
-                <label htmlFor="email">
-                  Email:
-                  <input id='email' name='email' type="email" required placeholder='pavlov@gmail.com' />
-                </label>
-                <label htmlFor="password">
-                  Пароль:
-                  <input id='password' name='password' type="password" required />
-                </label>
+                <input id='number' name='number' type="tel" placeholder='Номер' required />
+                
+                <input id='email' name='email' type="email" required placeholder='Email' />
+                
+                <input id='password' name='password' type="password" placeholder='Пароль' required />
               </div>
             </div>
             <button>Зарегистрироваться</button>

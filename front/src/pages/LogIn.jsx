@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from 'styles/forms.module.css'
 
-const LogIn = () => {
+const LogIn = ({popUpLogIn, setPopUpLogIn}) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { mutate } = useMutation({
@@ -45,30 +45,33 @@ const LogIn = () => {
     else e.target.setCustomValidity('');
   }
 
+  const [isVisible, setIsVisible] = useState(true);
+
   return (
-    <div className={styles.containerForm}>
-       <div>
-          <img id={styles.i1} src="apart8.jpg" alt="..." />
-          <img id={styles.i2} src="apart10.jpg" alt="..." />
+    <>
+      {popUpLogIn && (
+        <div className={styles.containerForm}>
+           <div>
+              <div className={styles.exit} onClick={() => setPopUpLogIn(false)}></div>
 
-          <h2>Авторизация</h2>
-
-          <form ref={ref} onSubmit={submit}>
-            <label htmlFor="number">
-              Номер:
-              <input id='number' name='number' type="text" onChange={setMissedFill} required />
-            </label>
-            <label htmlFor="password">
-              Пароль:
-              <input id='password' name='password' type="password" onChange={setMissedFill} required />
-            </label>
-
-            <Link to='/signUp'>Зарегистрироваться</Link>
-            
-            <button>Войти</button>
-          </form>
-       </div>
-    </div>
+              {/* <img id={styles.i1} src="apart8.jpg" alt="..." />
+              <img id={styles.i2} src="apart10.jpg" alt="..." /> */}
+    
+              <h2>Авторизация</h2>
+    
+              <form ref={ref} onSubmit={submit}>
+                <input id='number' name='number' type="text" placeholder='Номер' onChange={setMissedFill} required />
+              
+                <input id='password' name='password' type="password" placeholder='Логин' onChange={setMissedFill} required />
+                
+                <Link to='/signUp'>Зарегистрироваться</Link>
+                
+                <button>Войти</button>
+              </form>
+           </div>
+        </div>
+      )}
+    </>
   )
 }
 

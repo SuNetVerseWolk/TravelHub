@@ -6,13 +6,13 @@ import styles from "styles/header.module.css";
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 // import getApi from 'api/get';
 import UserBtn from 'components/UserBtn';
-import BurgerBtn from 'components/BurgerBtn';
+import UserIconButton from 'components/UserIconButton';
 import UserForm from './UserForm';
 
 function Header() {
   const queryClient = useQueryClient();
   // const navigate = useNavigate();
-  const [open, setIsOpened] = useState(false);
+  // const [open, setIsOpened] = useState(false);
   const [openUserForm, setIsOpenedUF] = useState(false);
 
   const exit = e => {
@@ -27,18 +27,16 @@ function Header() {
       <UserForm openUserForm={openUserForm} setIsOpenedUF={setIsOpenedUF}/>
 
       <header>
-        {open && (
-          <div className={styles.popup}>
-            <UserBtn setIsOpened={setIsOpened} setIsOpenedUF={setIsOpenedUF} />
-          </div>
-        )}
+        {/* <div className={styles.popup}>
+          <UserBtn  setIsOpenedUF={setIsOpenedUF} />
+        </div> */}
         <div className={styles.container}>
           <a href='' to=''><div className={styles.logo}></div></a>
 
           {/* {checkWorker ? ( */}
             <>
               <UserBtn setIsOpenedUF={setIsOpenedUF} />
-              <BurgerBtn setIsOpened={setIsOpened} />
+              <UserIconButton />
             </>
           {/* ) : (
             <button className={styles.exit} onClick={exit}>Выйти</button>
