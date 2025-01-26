@@ -13,10 +13,10 @@ const UserBtn = ({ setIsOpenedUF, setIsOpened }) => {
   //});
 
   return (
-    //<>
+    // <>
     //  {localStorage.getItem("id") ? (
     //    isLoading ? (
-		//			<button type="button">Загрузка...</button>
+		// 			<button type="button">Загрузка...</button>
     //    ) : !isError ? (
     //      <button onClick={e => {
     //        setIsOpenedUF(true);

@@ -95,11 +95,8 @@
   background: #fdecdd;
   border-radius: 5px;
   border: 0;
-  border-bottom: 0px #f2801c26 solid;
+  border-bottom: 5px #f2801c26 solid;
   transition: all 0.3s ease-out;
-}
-.containerForm > div form button:hover {
-  border-bottom-width: 5px;
 }
 
 .containerForm > div form a {
@@ -311,20 +308,6 @@
   right: 30%;
 
   font-size: 20px;
-
-  
-}
-.exit:hover::after {
-  animation: .7s move forwards;
-}
-
-@keyframes move {
-  0% {
-    transform: translateX(5px);
-  }
-  100% {
-    transform: translateX(0);
-  }
 }
 
 @media (max-width: 540px) {
