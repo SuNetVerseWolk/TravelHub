@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styles from "styles/header.module.css";
-import LogIn from 'pages/LogIn';
+import LogIn from 'layouts/LogInPopUp';
 
 const UserIconButton = () => {
   const [popUpLogIn, setPopUpLogIn] = useState(false);

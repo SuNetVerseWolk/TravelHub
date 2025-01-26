@@ -1,17 +1,17 @@
-import React from 'react'
+import React from "react";
 
-const Service = ({ image, mainText, text }) => {
+const Service = ({ image, title, text }) => {
   return (
     <div>
-        <div>
-            <img src={image} alt="" />
-        </div>
+      <div>
+        <img src={image} alt="" />
+      </div>
 
-        <h3>{mainText}</h3>
-        
-        <p>{text}</p>
+      <h3>{title}</h3>
+
+      <p>{text}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Service
+export default Service;

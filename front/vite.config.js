@@ -5,8 +5,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const backPath = process.env.VITE_BACK;
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), jsconfigPaths()],
@@ -15,7 +13,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         //target: 'http://localhost:3002',
-				target: backPath,
+				target: process.env.VITE_BACK,
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }

@@ -1,19 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import styles from 'styles/forms.module.css'
 
-const LogIn = ({popUpLogIn, setPopUpLogIn}) => {
+const LogInPopUp = ({popUpLogIn, setPopUpLogIn}) => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationFn: data => axios.post(`/api/users/logIn`, data),
     onSuccess: res => {
       if (res.data.id) {
         localStorage.setItem('id', res.data.id);
-        queryClient.invalidateQueries(['user']);
-        navigate('..');
+        queryClient.invalidateQueries(['user', 'role']);
       }
     },
     onError: res => {
@@ -45,7 +43,7 @@ const LogIn = ({popUpLogIn, setPopUpLogIn}) => {
     else e.target.setCustomValidity('');
   }
 
-  const [isVisible, setIsVisible] = useState(true);
+  //const [isVisible, setIsVisible] = useState(true);
 
   return (
     <>
@@ -75,4 +73,4 @@ const LogIn = ({popUpLogIn, setPopUpLogIn}) => {
   )
 }
 
-export default LogIn
+export default LogInPopUp

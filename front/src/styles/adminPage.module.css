@@ -21,6 +21,21 @@
     border-radius: 10px;
     box-shadow: #c5c5c5 1px 1px 10px;
 }
+.main section > div {
+	display: flex;
+	align-items: center;
+	gap: .5rem;
+}
+.main section > div button {
+	background-color: transparent;
+	padding: .3rem;
+	border-radius: .15rem;
+	border: 0;
+	box-shadow: #f0f0f0 0 0 10px;
+}
+.main section > div button:hover {
+	box-shadow: #e0e0e0 0 0 10px;
+}
 .main section > ul {
     display: flex;
     justify-content: center;
@@ -29,9 +44,9 @@
 .main section > ul li {
     background: #fafafa;
     padding: 1rem;
-    border-radius: 15px;
+    border-radius: 1rem;
     cursor: pointer;
-    margin-inline: 5px;
+    margin-inline: .5rem;
 }
 .main section > ul li:not(.checked):hover {
     background: #f0f0f0;
@@ -44,7 +59,7 @@
     overflow: hidden;
     padding: 1rem;
     box-shadow: #f0f0f0 0 0 10px;
-    border-radius: 10px;
+    border-radius: .7rem;
     width: 100%;
 }
 .toursLayout > div {

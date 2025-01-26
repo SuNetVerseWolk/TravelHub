@@ -1,6 +1,5 @@
-import LogIn from 'pages/LogIn';
+import LogIn from 'layouts/LogInPopUp';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import styles from "styles/header.module.css";
 
 const LogInBtn = () => {

@@ -40,13 +40,6 @@ footer > div > p {
   color: #c1beb1;
 }
 
-/* @media (min-width: 2560px) {
-  footer {
-    position: absolute;
-    bottom: 0;
-  }
-} */
-
 @media (max-width: 768px) {
   footer > div {
     flex-direction: column-reverse;
