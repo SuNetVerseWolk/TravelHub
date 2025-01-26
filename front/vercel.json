@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://travelhub-h84q.onrender.com/:path*"
+    }
+  ]
+}
