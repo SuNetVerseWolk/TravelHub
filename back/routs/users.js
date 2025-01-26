@@ -6,7 +6,6 @@ router = express.Router();
 const getUsers = e => getData('users');
 const setUsers = data => setData('users', data);
 
-
 router.get('/', (req, res) => {
 	const users = getUsers();
 	
