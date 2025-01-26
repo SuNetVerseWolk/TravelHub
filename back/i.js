@@ -5,9 +5,14 @@ port = process.env.PORT || 3002,
 express = require('express'),
 cors = require('cors'),
 app = express(),
-{ users, tours } = require('./getRouts')
+{ users, tours } = require('./getRouts'),
+corsOptions = {
+  origin: ['http://localhost:5173', 'https://travel-hub-lyart.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ extended: true }));
 
