@@ -60,7 +60,7 @@ const LogInPopUp = ({popUpLogIn, setPopUpLogIn}) => {
               <form ref={ref} onSubmit={submit}>
                 <input id='number' name='number' type="text" placeholder='Номер' onChange={setMissedFill} required />
               
-                <input id='password' name='password' type="password" placeholder='Логин' onChange={setMissedFill} required />
+                <input id='password' name='password' type="password" placeholder='Пароль' onChange={setMissedFill} required />
                 
                 <Link to='/signUp'>Зарегистрироваться</Link>
                 

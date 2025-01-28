@@ -1,16 +1,16 @@
-//import getApi from "api/get";
+import getApi from "api/get";
 import React from "react";
 import LogInBtn from "./LogInBtn";
 
 const UserBtn = ({ setIsOpenedUF, setIsOpened }) => {
-  //const {
-  //  data: user,
-  //  isLoading,
-  //  isError,
-  //} = getApi({
-  //  key: ['user'],
-  //  path: "users/" + localStorage.getItem("id"),
-  //});
+  const {
+   data: user,
+   isLoading,
+   isError,
+  } = getApi({
+   key: ['user'],
+   path: "users/" + localStorage.getItem("id"),
+  });
 
   return (
     // <>

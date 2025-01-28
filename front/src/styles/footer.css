@@ -45,6 +45,6 @@ footer > div > p {
     flex-direction: column-reverse;
   }
   footer > div > div p {
-    width: 120px;
+    width: 200px;
   }
 }
