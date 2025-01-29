@@ -14,4 +14,13 @@ const getApi = ({ key, path, onSuccess }) => {
   })
 }
 
+export const getUsers = () => getApi({
+	key: ['users'],
+	path: "users",
+});
+export const getUser = () => getApi({
+	key: ['user'],
+	path: "users/" + localStorage.getItem("id"),
+});
+
 export default getApi

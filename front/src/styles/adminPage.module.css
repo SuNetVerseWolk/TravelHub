@@ -1,78 +1,123 @@
 .main {
-    display: grid;
-    place-items: center;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
 }
-.main > div {
-    display: grid;
-    grid-template-rows: 11fr 1fr;
-    justify-items: center;
-    gap: 1rem;
-    width: 70vw;
-    max-height: 97vh;
-    padding: 1rem;
+
+.main>div {
+	display: grid;
+	grid-template-rows: 11fr 1fr;
+	justify-items: center;
+	gap: 1rem;
+	width: 70vw;
+	max-height: 97vh;
+	padding: 1rem;
 }
+
 .main section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-    padding: 1rem;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: #c5c5c5 1px 1px 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 70%;
+	padding: 1rem;
+	background: #ffffff;
+	border-radius: 10px;
+	box-shadow: #c5c5c5 1px 1px 10px;
 }
-.main section > div {
+
+.main section>div {
 	display: flex;
 	align-items: center;
 	gap: .5rem;
 }
-.main section > div button {
+
+.main section>div button {
 	background-color: transparent;
 	padding: .3rem;
 	border-radius: .15rem;
 	border: 0;
 	box-shadow: #f0f0f0 0 0 10px;
 }
-.main section > div button:hover {
+
+.main section>div button:hover {
 	box-shadow: #e0e0e0 0 0 10px;
 }
-.main section > ul {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+
+.main section>ul {
+	display: flex;
+	justify-content: center;
+	width: 100%;
 }
-.main section > ul li {
-    background: #fafafa;
-    padding: 1rem;
-    border-radius: 1rem;
-    cursor: pointer;
-    margin-inline: .5rem;
+
+.main section>ul li {
+	background: #fafafa;
+	padding: 1rem;
+	border-radius: 1rem;
+	cursor: pointer;
+	margin-inline: .5rem;
 }
-.main section > ul li:not(.checked):hover {
-    background: #f0f0f0;
-    box-shadow: inset #fff 0 0 10px;
+
+.main section>ul li:not(.checked):hover {
+	background: #f0f0f0;
+	box-shadow: inset #fff 0 0 10px;
 }
+
 .toursLayout {
-    display: grid;
-    align-items: center;
-    margin-top: 0 !important;
-    overflow: hidden;
-    padding: 1rem;
-    box-shadow: #f0f0f0 0 0 10px;
-    border-radius: .7rem;
-    width: 100%;
+	display: grid;
+	align-items: center;
+	margin-top: 0 !important;
+	overflow: hidden;
+	padding: 1rem;
+	box-shadow: #f0f0f0 0 0 10px;
+	border-radius: .7rem;
+	width: 100%;
 }
-.toursLayout > div {
-    height: fit-content;
-    max-height: 100%;
-    grid-template-columns: repeat(6, 1fr) !important;
-    overflow-y: scroll;
-    padding: 1rem;
+
+.toursLayout>div {
+	height: fit-content;
+	max-height: 100%;
+	/*grid-template-columns: repeat(6, 1fr) !important;*/
+	grid-template-columns: repeat(auto-fit, minmax(200px, max-content)) !important;
+	overflow-y: scroll;
+	padding: 1rem;
 }
-.toursLayout > div::-webkit-scrollbar {
-    display: none;
+
+.toursLayout>div::-webkit-scrollbar {
+	display: none;
 }
+
 .main li.checked {
-    background: #c0c0c0;
-    font-weight: bold;
+	background: #c0c0c0;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+	.main>div {
+		grid-template-columns: 1fr;
+		grid-template-rows: 10fr 2fr;
+		width: 100%;
+		padding: 0;
+		height: 100svh;
+		gap: 0;
+	}
+
+	.main section {
+		width: 100%;
+		flex-flow: column;
+		padding: 0;
+	}
+
+	.toursLayout {
+		padding: .3rem;
+	}
+	.main section div {
+		margin-bottom: 1rem;
+	}
+	.main section>ul li {
+		background: #fafafa;
+		padding: .5rem 1rem;
+		border-radius: 1rem;
+		cursor: pointer;
+		margin-inline: auto;
+	}
 }
