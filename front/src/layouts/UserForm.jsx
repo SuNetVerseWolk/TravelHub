@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useRef } from 'react'
 import styles from 'styles/forms.module.css'
 
-const UserForm = ({ openUserForm, setIsOpenedUF }) => {
+const UserForm = ({ popUpUserForm, setPopUpUserForm }) => {
   const useClient = useQueryClient();
   const formRef = useRef();
   const getFormData = (e) => Object.fromEntries(new FormData(formRef.current).entries());
@@ -17,7 +17,7 @@ const UserForm = ({ openUserForm, setIsOpenedUF }) => {
   const exit = e => {
     localStorage.removeItem('id')
     queryClient.setQueryData(['user'], {});
-    setIsOpenedUF(false);
+    setPopUpUserForm(false);
   }
   
   const { mutate: deleteUser } = useMutation({
@@ -37,10 +37,10 @@ const UserForm = ({ openUserForm, setIsOpenedUF }) => {
   return (
     <>
       {
-        openUserForm && (
+        popUpUserForm && (
           <div className={styles.userPopupForm}>
             <button
-              onClick={(e) => setIsOpenedUF(false)}
+              onClick={(e) => setPopUpUserForm(false)}
               className={styles.close}
             ></button>
 

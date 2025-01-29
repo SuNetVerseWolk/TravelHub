@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { main } from 'styles/main.module.css'
 import headerstyles from "styles/header.module.css";
 import UserBtn from "components/UserBtn";
@@ -10,6 +10,8 @@ import Services from "layouts/Services";
 const Home = () => {
   const popupForm = useRef();
 
+  const [isUser, setIsUser] = useState(false);
+
   return (
     <>
       <header>
@@ -17,8 +19,11 @@ const Home = () => {
           <a href="" to="">
             <div className={headerstyles.logo}></div>
           </a>
-          <UserBtn />
-          <UserIconButton />
+          {!isUser ? (
+            <UserBtn isUser={isUser} setIsUser={setIsUser} />
+          ): (
+            <UserIconButton isUser={isUser} setIsUser={setIsUser} />
+          )}
         </div>
       </header>
 			<main className={main}>

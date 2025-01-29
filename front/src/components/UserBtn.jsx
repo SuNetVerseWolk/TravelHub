@@ -1,8 +1,10 @@
 import getApi from "api/get";
-import React from "react";
+import React, { useState} from "react";
 import LogInBtn from "./LogInBtn";
+import style from '../styles/userBtn.module.css'
+import UserForm from "layouts/UserForm";
 
-const UserBtn = ({ setIsOpenedUF, setIsOpened }) => {
+const UserBtn = ({ isUser, setIsUser }) => {
   const {
    data: user,
    isLoading,
@@ -11,24 +13,27 @@ const UserBtn = ({ setIsOpenedUF, setIsOpened }) => {
    key: ['user'],
    path: "users/" + localStorage.getItem("id"),
   });
-
+    
+  const [popUpUserForm, setPopUpUserForm] = useState(false);
+  
   return (
-    // <>
-    //  {localStorage.getItem("id") ? (
-    //    isLoading ? (
-		// 			<button type="button">Загрузка...</button>
-    //    ) : !isError ? (
-    //      <button onClick={e => {
-    //        setIsOpenedUF(true);
-    //        setIsOpened && setIsOpened(false);
-    //      }}>{user?.number}</button>
-    //    ) : (
-    //      <LogInBtn />
-    //    )
-    //  ) : (
-        <LogInBtn />
-    //  )}
-    //</>
+    <>
+     {isUser && localStorage.getItem("id") ? (
+       isLoading ? (
+					<button type="button">Загрузка...</button>
+       ) : !isError ? (
+         <button className={style.userBtn} onClick={e => {
+          setPopUpUserForm(true)
+         }}>{user?.number}</button>
+       ) : (
+         <LogInBtn setIsUser={setIsUser} />
+       )
+     ) : (
+        <LogInBtn setIsUser={setIsUser} />
+     )}
+
+      {popUpUserForm && <UserForm popUpUserForm={popUpUserForm} setPopUpUserForm={setPopUpUserForm} />}
+    </>
   );
 };
 

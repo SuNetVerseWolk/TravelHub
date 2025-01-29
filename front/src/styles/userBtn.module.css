@@ -1,0 +1,10 @@
+.userBtn {
+    font-size: .7rem;
+}
+
+@media (max-width: 425px) {
+    .userBtn {
+        padding: 10px;
+        font-size: .5rem;
+    }
+}

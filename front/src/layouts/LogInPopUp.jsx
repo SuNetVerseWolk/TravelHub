@@ -4,7 +4,7 @@ import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import styles from 'styles/forms.module.css'
 
-const LogInPopUp = ({popUpLogIn, setPopUpLogIn}) => {
+const LogInPopUp = ({ popUpLogIn, setPopUpLogIn, setIsUser }) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: data => axios.post(`/api/users/logIn`, data),
@@ -12,6 +12,9 @@ const LogInPopUp = ({popUpLogIn, setPopUpLogIn}) => {
       if (res.data.id) {
         localStorage.setItem('id', res.data.id);
         queryClient.invalidateQueries(['user', 'role']);
+    
+        setPopUpLogIn(false);
+        setIsUser(true);
       }
     },
     onError: res => {
