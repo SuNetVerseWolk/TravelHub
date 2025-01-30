@@ -20,6 +20,7 @@ export const Users = ({ extraStyles }) => {
           <p>{formatPhoneNumberForDisplay(user.number)}</p>
           <motion.button
             whileHover={{ background: "#000", color: "#fff" }}
+            whileTap={{ background: "#000", color: "#fff" }}
             initial={{ background: "#fff", color: "#000" }}
 						transition={{ duration: .3 }}
           >
