@@ -22,9 +22,12 @@ const Home = () => {
             <div className={headerstyles.logo}></div>
           </a>
           {role === Roles.User ? (
-            <UserIconButton />
-					): (
             <UserBtn />
+					): (
+            <>
+              <UserBtn />
+              <UserIconButton />
+            </>
           )}
         </div>
       </header>

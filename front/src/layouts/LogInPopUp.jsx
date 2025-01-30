@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import styles from 'styles/forms.module.css'
+import headerstyles from "styles/header.module.css";
 
 const LogInPopUp = ({ popUpLogIn, setPopUpLogIn }) => {
   const queryClient = useQueryClient();
@@ -45,17 +46,12 @@ const LogInPopUp = ({ popUpLogIn, setPopUpLogIn }) => {
     else e.target.setCustomValidity('');
   }
 
-  //const [isVisible, setIsVisible] = useState(true);
-
   return (
     <>
       {popUpLogIn && (
         <div className={styles.containerForm}>
            <div>
-              <div className={styles.exit} onClick={() => setPopUpLogIn(false)}></div>
-
-              {/* <img id={styles.i1} src="apart8.jpg" alt="..." />
-              <img id={styles.i2} src="apart10.jpg" alt="..." /> */}
+              <div className={`${styles.exit} ${headerstyles.exit}`} onClick={() => setPopUpLogIn(false)}></div>
     
               <h2>Авторизация</h2>
     

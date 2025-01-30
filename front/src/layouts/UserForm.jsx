@@ -3,6 +3,7 @@ import getApi from 'api/get';
 import axios from 'axios';
 import React, { useRef } from 'react'
 import styles from 'styles/forms.module.css'
+import headerstyles from "styles/header.module.css";
 
 const UserForm = ({ popUpUserForm, setPopUpUserForm }) => {
   const useClient = useQueryClient();
@@ -39,42 +40,28 @@ const UserForm = ({ popUpUserForm, setPopUpUserForm }) => {
       {
         popUpUserForm && (
           <div className={styles.userPopupForm}>
-            <button
-              onClick={(e) => setPopUpUserForm(false)}
-              className={styles.close}
-            ></button>
-
             <form ref={formRef} onSubmit={e => {
               e.preventDefault();
               changeUserData(Object.fromEntries(new FormData(e.target).entries()))
             }}>
-              <h2>Данные клиента</h2>
+              <button
+                onClick={(e) => setPopUpUserForm(false)}
+                className={`${styles.exit} ${headerstyles.exit}`}
+              ></button>
+              <h3>Данные клиента</h3>
 
-              <label htmlFor="lastName">
-                Фамилия:
-                <input id='lastName' name='lastName' type="text" defaultValue={user?.lastName} required />
-              </label>
-              <label htmlFor="name">
-                Имя:
-                <input id='name' name='name' type="text" defaultValue={user?.name} required />
-              </label>
-              <label htmlFor="fatherName">
-                Отчество:
-                <input id='fatherName' name='fatherName' defaultValue={user?.lastName} type="text" required />
-              </label>
-              <label htmlFor="email">
-                Email:
-                <input id='email' name='email' type="text" defaultValue={user?.email} required />
-              </label>
-              <label htmlFor="number">
-                Номер:
-                <input id='number' name='number' type="tel" defaultValue={user?.number}  required />
-              </label>
-              <label htmlFor="password">
-                Пароль:
-                <input id='password' name='password' defaultValue={user?.password}  required />
-              </label>
-      
+              <input id='lastName' name='lastName' type="text" defaultValue={user?.lastName} required />
+              
+              <input id='name' name='name' type="text" defaultValue={user?.name} required />
+
+              <input id='fatherName' name='fatherName' defaultValue={user?.lastName} type="text" required />
+              
+              <input id='email' name='email' type="text" defaultValue={user?.email} required />
+              
+              <input id='number' name='number' type="tel" defaultValue={user?.number}  required />
+              
+              <input id='password' name='password' defaultValue={user?.password}  required />
+              
               <button type='submit'>Изменить</button>
               <button onClick={e => exit()}>Выйти</button>
               <button onClick={e => deleteUser()}>Удалить</button>
