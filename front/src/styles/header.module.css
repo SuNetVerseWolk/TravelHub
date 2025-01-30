@@ -1,90 +1,105 @@
 header {
-    display: flex;
-    justify-content: center;
+	display: flex;
+	justify-content: center;
 
-    width: 100%;
-    height: 120px;
-    background: #fff;
-    padding: 10px;
+	width: 100%;
+	height: 120px;
+	background: #fff;
+	padding: 10px;
 
-    transition: background 0.3s ease-out;
-  }
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: clamp(60px, 3.5svw, 100px);
-    padding-inline: clamp(30px, 3.5svw, 30px);
-    width: clamp(320px, 95svw, 1000px);
-  }
-  header ul {
-    display: flex;
-    gap: 30px;
-  }
-  header ul a {
-    position: relative;
-  }
-  header ul a::before, header ul a::after {
-    position: absolute;
-    content: '';
-    width: 100%;
-    height: 0.5px;
-    background: #20202a;
-    scale: 0;
-    opacity: 0;
-    transition: all 0.2s ease-in-out;
-  }
-  header ul a::before {
-    top: -5px;
-    right: 0;
-  }
-  header ul a::after {
-    bottom: -5px;
-    left: 0;
-  }
-  header ul a:hover::before, header ul a:hover::after {
-    scale: 1;
-    opacity: 1;
-  }
-  header button {
-    position: relative;
+	transition: background 0.3s ease-out;
+}
 
-    padding: 15px 40px;
-    border: 0;
-    border-bottom: 0px #f2801c26 solid;
-    border-radius: 10px;
-    background: #f2801c26;
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: clamp(60px, 3.5svw, 100px);
+	padding-inline: clamp(30px, 3.5svw, 30px);
+	width: clamp(320px, 95svw, 1000px);
+}
 
-    transition: border .07s cubic-bezier(0.4, 0, 1, 1);
-  }
-  header button:hover {
-    /* color: #c1beb1; */
-    background: transparent;
-    border-bottom-width: 5px;
-  }
-  header button:hover .user {
-    background: #f2801c26;
-  }
-  header button:hover .user img {
-    filter: invert(50%);
-  }
-  .logo{
-    background: url(/logo.png) no-repeat 50%;
-    background-size: contain;
-    width: 80px;
-    height: 80px;
-  }
-  /* .burgerMenu, .burgerMenu::after, .burgerMenu::before {
+header ul {
+	display: flex;
+	gap: 30px;
+}
+
+header ul a {
+	position: relative;
+}
+
+header ul a::before,
+header ul a::after {
+	position: absolute;
+	content: '';
+	width: 100%;
+	height: 0.5px;
+	background: #20202a;
+	scale: 0;
+	opacity: 0;
+	transition: all 0.2s ease-in-out;
+}
+
+header ul a::before {
+	top: -5px;
+	right: 0;
+}
+
+header ul a::after {
+	bottom: -5px;
+	left: 0;
+}
+
+header ul a:hover::before,
+header ul a:hover::after {
+	scale: 1;
+	opacity: 1;
+}
+
+header button {
+	position: relative;
+
+	padding: 15px 40px;
+	border: 0;
+	border-bottom: 0px #f2801c26 solid;
+	border-radius: 10px;
+	background: #f2801c26;
+
+	transition: border .07s cubic-bezier(0.4, 0, 1, 1);
+}
+
+header button:hover {
+	/* color: #c1beb1; */
+	background: transparent;
+	border-bottom-width: 5px;
+}
+
+header button:hover .user {
+	background: #f2801c26;
+}
+
+header button:hover .user img {
+	filter: invert(50%);
+}
+
+.logo {
+	background: url(/logo.png) no-repeat 50%;
+	background-size: contain;
+	width: 80px;
+	height: 80px;
+}
+
+/* .burgerMenu, .burgerMenu::after, .burgerMenu::before {
     background: #20202a;
     width: 40px;
     height: 1px;
   } */
-  /* .burgerMenu::after, .burgerMenu::before {
+/* .burgerMenu::after, .burgerMenu::before {
     position: absolute;
     z-index: 5;
     content: '';
   } */
-  /* .burgerMenu {
+/* .burgerMenu {
     position: relative;
     z-index: 5;
   }
@@ -96,27 +111,28 @@ header {
     bottom: 10px;
     left: 0;
   } */
-  .userIconContainer {
-    display: none;
-    justify-content: center;
-    align-items: center;
+.userIconContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-    position: relative;
+	position: relative;
 
-    z-index: 5;
-    height: 40px;
-    width: 5px;
-  }
-  /* .burgerContainer:hover .burgerMenu, .burgerContainer:hover .burgerMenu::after, .burgerContainer:hover .burgerMenu::before {
+	z-index: 5;
+	height: 40px;
+	width: 5px;
+}
+
+/* .burgerContainer:hover .burgerMenu, .burgerContainer:hover .burgerMenu::after, .burgerContainer:hover .burgerMenu::before {
     background: #c1beb1;
   } */
-  /* .popup, .popup ul {
+/* .popup, .popup ul {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
   } */
-  /* .popup {
+/* .popup {
     justify-content: center;
     position: absolute;
     z-index: 3;
@@ -127,12 +143,13 @@ header {
     background: #2f2f33;
     animation: appear 0.3s forwards ease-in;
   } */
-  @keyframes appear {
-    to {
-      translate: 0 0;
-    }
-  }
-  /* .popup * {
+@keyframes appear {
+	to {
+		translate: 0 0;
+	}
+}
+
+/* .popup * {
     color: #c1beb1;
   }
   .popup button {
@@ -145,28 +162,34 @@ header {
   .popup ul a::before, .popup ul a::after {
     background: #c1beb1;
   } */
-  @media (max-width: 768px) {
-    header {
-      justify-content: start;
-    }
-    .container {
-      justify-content: space-between;
-      width: 100%;
-    }
-    header ul, .buttonAccount {
-      display: none;
-    }
-    .userIconContainer {
-      display: flex;
-      align-items: center;
-    }
-  }
-  .exit:hover {
-    color: #bc9191 !important;
-    background: none !important;
-    border: #bc9191 1px solid;
-  }
-  /* .headerBlack {
+@media (max-width: 768px) {
+	header {
+		justify-content: start;
+	}
+
+	.container {
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	header ul,
+	.buttonAccount {
+		display: none;
+	}
+
+	.userIconContainer {
+		display: flex;
+		align-items: center;
+	}
+}
+
+.exit:hover {
+	color: #bc9191 !important;
+	background: none !important;
+	border: #bc9191 1px solid;
+}
+
+/* .headerBlack {
     background: #20202a;
     border-bottom: #c1beb1 1px solid;
     transition: background 0.3s ease-in;
@@ -184,7 +207,7 @@ header {
     background: #c1beb1;
     color: #20202a;
   } */
-  /* .headerBlack .burgerMenu, .headerBlack .burgerMenu::after, .headerBlack .burgerMenu::before {
+/* .headerBlack .burgerMenu, .headerBlack .burgerMenu::after, .headerBlack .burgerMenu::before {
     background: #c1beb1;
   }
   .headerBlack .burgerContainer:hover .burgerMenu, .headerBlack .burgerContainer:hover .burgerMenu::after, .headerBlack .burgerContainer:hover .burgerMenu::before {
@@ -192,24 +215,23 @@ header {
   } */
 
 .user {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-  position: absolute;
-  top: -10px;
-  right: -10px;
+	position: absolute;
+	top: -10px;
+	right: -10px;
 
-  width: 40px;
-  height: 40px;
-  background: #fff;
-  border-radius: 50px;
+	width: 40px;
+	height: 40px;
+	background: #fff;
+	border-radius: 50px;
 
-  transition: all .1s linear;
+	transition: all .1s linear;
 }
 
 .user img {
-  width: 25px;
-  height: 25px;
+	width: 25px;
+	height: 25px;
 }
-  

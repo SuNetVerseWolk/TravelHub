@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from "styles/header.module.css";
 import LogInPopUp from 'layouts/LogInPopUp';
 
-const UserIconButton = ( isUser, setIsUser) => {
+const UserIconButton = () => {
   const [popUpLogIn, setPopUpLogIn] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ const UserIconButton = ( isUser, setIsUser) => {
         <img src="/user.png" alt="" />
       </button>
 
-      {popUpLogIn && <LogInPopUp popUpLogIn={popUpLogIn} setPopUpLogIn={setPopUpLogIn} setIsUser={setIsUser} />}
+      {popUpLogIn && <LogInPopUp popUpLogIn={popUpLogIn} setPopUpLogIn={setPopUpLogIn} />}
     </>
   )
 }

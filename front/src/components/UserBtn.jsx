@@ -4,7 +4,7 @@ import LogInBtn from "./LogInBtn";
 import style from '../styles/userBtn.module.css'
 import UserForm from "layouts/UserForm";
 
-const UserBtn = ({ isUser, setIsUser }) => {
+const UserBtn = () => {
   const {
    data: user,
    isLoading,
@@ -18,7 +18,7 @@ const UserBtn = ({ isUser, setIsUser }) => {
   
   return (
     <>
-     {isUser && localStorage.getItem("id") ? (
+     {localStorage.getItem("id") ? (
        isLoading ? (
 					<button type="button">Загрузка...</button>
        ) : !isError ? (
@@ -26,10 +26,10 @@ const UserBtn = ({ isUser, setIsUser }) => {
           setPopUpUserForm(true)
          }}>{user?.number}</button>
        ) : (
-         <LogInBtn setIsUser={setIsUser} />
+         <LogInBtn />
        )
      ) : (
-        <LogInBtn setIsUser={setIsUser} />
+        <LogInBtn />
      )}
 
       {popUpUserForm && <UserForm popUpUserForm={popUpUserForm} setPopUpUserForm={setPopUpUserForm} />}

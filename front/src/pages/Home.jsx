@@ -6,11 +6,13 @@ import UserIconButton from "components/UserIconButton";
 import HomeTitle from "components/HomeTitle";
 import ToursLayout from "layouts/ToursLayout";
 import Services from "layouts/Services";
+import Roles from "api/roles";
+import useRole from "api/useRole";
 
 const Home = () => {
   const popupForm = useRef();
 
-  const [isUser, setIsUser] = useState(false);
+  const { data: role } = useRole();
 
   return (
     <>
@@ -19,10 +21,10 @@ const Home = () => {
           <a href="" to="">
             <div className={headerstyles.logo}></div>
           </a>
-          {!isUser ? (
-            <UserBtn isUser={isUser} setIsUser={setIsUser} />
-          ): (
-            <UserIconButton isUser={isUser} setIsUser={setIsUser} />
+          {role === Roles.User ? (
+            <UserIconButton />
+					): (
+            <UserBtn />
           )}
         </div>
       </header>
