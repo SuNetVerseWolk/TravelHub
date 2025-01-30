@@ -11,12 +11,15 @@
 .item {
 	display: flex;
 	flex-flow: column nowrap;
-	gap: .3rem;
 	border-radius: .5rem;
 	box-shadow: #f5f5f5 0 0 7px;
 }
-.item h2 {
-	margin-bottom: .3rem;
+.item p {
+	font-size: var(--font-size-sm);
+}
+.item > p:last-of-type {
+	font-weight: bold;
+	font-size: var(--font-size-bt);
 }
 .item button {
 	border: 0;
@@ -24,4 +27,16 @@
 	padding: .5rem 1rem;
 	background: transparent;
 	box-shadow: #f9f9f9 0 0 5px;
+	font-size: var(--font-size-base);
+	margin-top: .5rem;
+}
+.title {
+	margin-bottom: 1rem;
+}
+.title h2 {
+	font-size: var(--font-size-lg);
+}
+.title p {
+	font-size: var(--font-size-xs);
+	line-height: normal;
 }
