@@ -108,7 +108,7 @@
 	}
 
 	.toursLayout {
-		padding: .3rem;
+		justify-content: center;
 	}
 	.main section div {
 		margin-bottom: 1rem;
