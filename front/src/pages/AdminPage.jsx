@@ -31,6 +31,7 @@ const AdminPage = () => {
   const exit = (e) => {
     localStorage.removeItem("id");
     queryClient.invalidateQueries(["role"]);
+		navigate("/");
   };
 
   return (
