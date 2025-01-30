@@ -1,25 +1,14 @@
-.main {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
-	grid-auto-rows: max-content;
-	gap: 1rem;
-	overflow-y: scroll;
-}
-.main::-webkit-scrollbar {
-	display: none;
-}
 .item {
 	display: flex;
 	flex-flow: column nowrap;
 	border-radius: .5rem;
 	box-shadow: #f5f5f5 0 0 7px;
+	padding: 1rem;
+
+	max-width: 25%;
 }
 .item p {
 	font-size: var(--font-size-sm);
-}
-.item > p:last-of-type {
-	font-weight: bold;
-	font-size: var(--font-size-bt);
 }
 .item button {
 	border: 0;

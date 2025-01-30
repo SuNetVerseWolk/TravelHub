@@ -1,43 +1,46 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "styles/adminPage.module.css";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useQueryClient } from "@tanstack/react-query";
 
 const AdminPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const queryClient = useQueryClient();
 
-  const [buttons, setbuttons] = useState([
+  const buttons = useMemo(() => [
     {
       id: 0,
       text: "Пользователи",
-      checked: false,
+      checked: location.pathname.includes('/user'),
       page: "/users",
     },
     {
       id: 1,
       text: "Туры",
-      checked: true,
+      checked: "/" === location.pathname,
       page: "/",
     },
     {
       id: 2,
       text: "Добавить тур",
-      checked: false,
+      checked: "/" === location.pathname,
       page: "/",
     },
-  ]);
+  ], [location.pathname]);
   const exit = (e) => {
     localStorage.removeItem("id");
     queryClient.invalidateQueries(["role"]);
-		navigate("/");
+    navigate("/");
   };
 
   return (
     <div className={styles.main}>
       <div>
-        <Outlet />
+        <div className={styles.items}>
+          <Outlet />
+        </div>
         <section>
           <div>
             <h1>АДМИН</h1>
@@ -48,16 +51,7 @@ const AdminPage = () => {
               <motion.li
                 key={btn.id}
                 className={btn.checked && styles.checked}
-                onClick={(e) => {
-                  setbuttons((prevButtons) =>
-                    prevButtons.map((b) =>
-                      b.id == btn.id
-                        ? { ...b, checked: true }
-                        : { ...b, checked: false }
-                    )
-                  );
-                  navigate(btn.page);
-                }}
+                onClick={(e) => navigate(btn.page)}
               >
                 {btn.text}
               </motion.li>

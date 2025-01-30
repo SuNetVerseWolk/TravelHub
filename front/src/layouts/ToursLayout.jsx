@@ -1,20 +1,11 @@
 import React, { useMemo } from "react";
 import styles from "styles/main.module.css";
-import getApi from "api/get";
 import toursStyles from "styles/tours.module.css";
 import Alert from "components/Alert";
-import Tour from "components/Tour";
+import adminStyles from "styles/adminPage.module.css";
+import { Tours } from "./Tours";
 
-const ToursLayout = ({ showAdminPanel, extraStyles }) => {
-  const {
-    data: tours,
-    isLoading,
-    isError,
-  } = getApi({
-    key: ["tours"],
-    path: "tours",
-  });
-
+const ToursLayout = ({ showAdminPanel }) => {
   const types = useMemo(() => [
 		{ text: "Рыбалка", src: "/koi-fish.png" },
 		{ text: "Автобусный тур", src: "/school-bus.png" },
@@ -34,7 +25,7 @@ const ToursLayout = ({ showAdminPanel, extraStyles }) => {
 	], []);
 
   return (
-    <div id={styles.tours} className={extraStyles}>
+    <div id={styles.tours} className={adminStyles.items}>
       {!showAdminPanel && (
         <>
           <h2>Сложно определиться?</h2>
@@ -54,15 +45,7 @@ const ToursLayout = ({ showAdminPanel, extraStyles }) => {
       )}
       <h3>Туры</h3>
       <div className={toursStyles.tours}>
-        {isLoading ? (
-          <Alert>Загрузка...</Alert>
-        ) : isError ? (
-          <Alert>Что-то пошло не так, или комнат нет</Alert>
-        ) : tours?.length <= 0 ? (
-          <Alert>Свободных комнат нет!!!</Alert>
-        ) : (
-          tours?.map((tour) => <Tour key={tour.id} data={tour} />)
-        )}
+        <Tours />
       </div>
     </div>
   );

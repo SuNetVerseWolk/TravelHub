@@ -44,6 +44,7 @@ html {
 
 button {
   cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
 }
 h2 {
   font-size: clamp(1rem, 100vw, 1.4rem);
