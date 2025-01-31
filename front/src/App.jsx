@@ -3,7 +3,6 @@ import Home from "pages/Home";
 import SignUp from "pages/SignUp";
 import { TourPage } from "pages/TourPage";
 import AdminPage from "pages/AdminPage";
-import ToursLayout from "layouts/ToursLayout";
 import { Users } from "layouts/Users";
 import Roles from "api/roles";
 import useRole from "api/useRole";

@@ -8,7 +8,7 @@ const Tour = ({ data }) => {
 
   return (
     <div className={styles.main} style={{ "--img": `url(${data.src})` }}>
-      <div onClick={() => navigate("/tour/" + data.id)} />
+      <div onClick={() => navigate("/tour/" + data.id, { state: { tour: data } })} />
       <TourTypes types={data.restTypes} />
       <div>
         <TourTitle {...data} />
