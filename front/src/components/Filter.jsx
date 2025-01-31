@@ -46,8 +46,8 @@ const Filter = () => {
         </button>
       </div>
 
-      <input id='countAdults' type="number" placeholder='Кол-во взрослых' />
-      <input id='countChildren' type="number" placeholder='Кол-во детей' />
+      <input id='countAdults' min='1' max='20' type="number" placeholder='Кол-во взрослых' />
+      <input id='countChildren' min='0' max='12' type="number" placeholder='Кол-во детей' />
 
       <button className={styles.buttonFind}>
         Найти
