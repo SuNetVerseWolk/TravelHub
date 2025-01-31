@@ -190,6 +190,15 @@ header button:hover .user img {
 		display: none;
 	}
 }
+@media (max-width: 340px) {
+	.buttonAccount {
+		padding: 10px 5px;
+		font-size: .9rem;
+	}
+	.buttonAccount > div {
+		display: none;
+	}
+}
 
 .exit:hover {
 	color: #bc9191 !important;
