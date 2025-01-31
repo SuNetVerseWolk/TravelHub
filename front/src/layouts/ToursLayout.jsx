@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import styles from "styles/main.module.css";
 import toursStyles from "styles/tours.module.css";
-import adminStyles from "styles/adminPage.module.css";
 import { Tours } from "./Tours";
 
 const ToursLayout = ({ showAdminPanel }) => {
