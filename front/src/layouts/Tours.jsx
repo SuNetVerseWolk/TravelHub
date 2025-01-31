@@ -1,7 +1,8 @@
+import React, { useState } from "react";
 import getApi from "api/get";
 import Alert from "components/Alert";
 import Tour from "components/Tour";
-import React from "react";
+import style from 'styles/toursComponent.module.css';
 
 export const Tours = () => {
   const {
@@ -13,6 +14,10 @@ export const Tours = () => {
     path: "tours",
   });
 
+  const [showMore, setShowMore] = useState(false);
+
+  const displayedTours = showMore ? tours : tours?.slice(0, 4);
+
   return isLoading ? (
     <Alert>Загрузка...</Alert>
   ) : isError ? (
@@ -20,6 +25,15 @@ export const Tours = () => {
   ) : tours?.length <= 0 ? (
     <Alert>К сожалению туров нет</Alert>
   ) : (
-    tours?.map((tour) => <Tour key={tour.id} data={tour} />)
+    <>
+      {displayedTours.map((tour) => ( <Tour key={tour.id} data={tour} /> ))}
+      {tours.length > 4 && (
+        <div className={style.containerButton}>
+          <button className={style.buttonShowMoreAndHide} onClick={() => setShowMore(!showMore)}>
+            {showMore ? 'Скрыть' : 'Показать еще'}
+          </button>
+        </div>
+      )}
+    </>
   );
-};
+}

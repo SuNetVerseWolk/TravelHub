@@ -41,7 +41,7 @@ const ToursLayout = ({ showAdminPanel }) => {
           </ul>
         </>
       )}
-      <h3>Туры</h3>
+      <h3>Выбор туров</h3>
       <div className={toursStyles.tours}>
         <Tours />
       </div>

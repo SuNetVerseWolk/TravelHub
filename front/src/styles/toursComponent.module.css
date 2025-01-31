@@ -1,0 +1,18 @@
+.containerButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+}
+
+.buttonShowMoreAndHide {
+    padding: 5px 20px;
+    border-radius: 5px;
+	background: transparent;
+	border-bottom-width: 5px;
+	color: #bc9191;
+	background: none;
+	border: #bc9191 1px solid;
+    border-bottom: 3px solid #bc9191;
+}
