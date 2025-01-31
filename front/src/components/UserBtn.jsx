@@ -1,38 +1,31 @@
-import getApi from "api/get";
-import React, { useState} from "react";
+import { getUser } from "api/get";
+import React, { useState } from "react";
 import LogInBtn from "./LogInBtn";
-import style from '../styles/userBtn.module.css'
 import UserForm from "layouts/UserForm";
+import useRole from "api/useRole";
 
 const UserBtn = () => {
-  const {
-   data: user,
-   isLoading,
-   isError,
-  } = getApi({
-   key: ['user'],
-   path: "users/" + localStorage.getItem("id"),
-  });
-    
+	const { data: role} = useRole();
+  const { data: user, isLoading } = getUser();
+
   const [popUpUserForm, setPopUpUserForm] = useState(false);
-  
+
   return (
     <>
-     {localStorage.getItem("id") ? (
-       isLoading ? (
-					<button type="button">Загрузка...</button>
-       ) : !isError ? (
-         <button className={style.userBtn} onClick={e => {
-          setPopUpUserForm(true)
-         }}>{user?.number}</button>
-       ) : (
-         <LogInBtn />
-       )
-     ) : (
+      {isLoading ? (
+        <LogInBtn value="Загрузка..." />
+      ) : role === "user" ? (
+				<LogInBtn value={user.number} onClick={(e) => setPopUpUserForm(true)} />
+      ) : (
         <LogInBtn />
-     )}
+      )}
 
-      {popUpUserForm && <UserForm popUpUserForm={popUpUserForm} setPopUpUserForm={setPopUpUserForm} />}
+      {popUpUserForm && (
+        <UserForm
+          popUpUserForm={popUpUserForm}
+          setPopUpUserForm={setPopUpUserForm}
+        />
+      )}
     </>
   );
 };

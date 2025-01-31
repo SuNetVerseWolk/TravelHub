@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { main } from 'styles/main.module.css'
 import headerstyles from "styles/header.module.css";
 import UserBtn from "components/UserBtn";
@@ -21,14 +21,8 @@ const Home = () => {
           <a href="" to="">
             <div className={headerstyles.logo}></div>
           </a>
-          {role === Roles.User ? (
-            <UserBtn />
-					): (
-            <>
-              <UserBtn />
-              <UserIconButton />
-            </>
-          )}
+					<UserBtn />
+					{role === Roles.Guest && <UserIconButton />}
         </div>
       </header>
 			<main className={main}>

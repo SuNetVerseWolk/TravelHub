@@ -6,7 +6,6 @@ import styles from 'styles/forms.module.css'
 import headerstyles from "styles/header.module.css";
 
 const UserForm = ({ popUpUserForm, setPopUpUserForm }) => {
-  const useClient = useQueryClient();
   const formRef = useRef();
   const getFormData = (e) => Object.fromEntries(new FormData(formRef.current).entries());
   const queryClient = useQueryClient();
@@ -17,14 +16,15 @@ const UserForm = ({ popUpUserForm, setPopUpUserForm }) => {
 
   const exit = e => {
     localStorage.removeItem('id')
-    queryClient.setQueryData(['user'], {});
+		queryClient.setQueryData(['user'], {})
+    queryClient.invalidateQueries(['user', 'role']);
     setPopUpUserForm(false);
   }
   
   const { mutate: deleteUser } = useMutation({
     mutationFn: e => axios.delete('/api/users/' + localStorage.getItem('id')),
     onSuccess: res => {
-      useClient.invalidateQueries(['rooms']);
+      queryClient.invalidateQueries(['rooms']);
       exit()
     }
   })

@@ -2,19 +2,20 @@ import LogInPopUp from "layouts/LogInPopUp";
 import React, { useState } from "react";
 import styles from "styles/header.module.css";
 
-const LogInBtn = () => {
+const LogInBtn = ({ value, onClick }) => {
   const [popUpLogIn, setPopUpLogIn] = useState(false);
 
   return (
     <>
       <button
         className={styles.buttonAccount}
-        onClick={() => setPopUpLogIn(true)}
+        style={{ "--in": onClick ? "flex" : "none" }}
+        onClick={() => (onClick ? onClick() : setPopUpLogIn(true))}
       >
         <div className={styles.user}>
           <img src="/user.png"></img>
         </div>
-        Личный кабинет
+        {value ? value : "Личный кабинет"}
       </button>
 
       {popUpLogIn && (
