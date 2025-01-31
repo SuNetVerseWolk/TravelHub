@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import styles from "styles/main.module.css";
 import toursStyles from "styles/tours.module.css";
-import Alert from "components/Alert";
 import adminStyles from "styles/adminPage.module.css";
 import { Tours } from "./Tours";
 
@@ -25,7 +24,7 @@ const ToursLayout = ({ showAdminPanel }) => {
 	], []);
 
   return (
-    <div id={styles.tours} className={adminStyles.items}>
+    <div id={styles.tours}>
       {!showAdminPanel && (
         <>
           <h2>Сложно определиться?</h2>
