@@ -8,15 +8,17 @@ import ToursLayout from "layouts/ToursLayout";
 import Services from "layouts/Services";
 import Roles from "api/roles";
 import useRole from "api/useRole";
+import Header from "layouts/Header";
+import Footer from "layouts/Footer";
 
 const Home = () => {
   const popupForm = useRef();
 
-  const { data: role } = useRole();
+  // const { data: role } = useRole();
 
   return (
     <>
-      <header>
+      {/* <header>
         <div className={headerstyles.container}>
           <a href="" to="">
             <div className={headerstyles.logo}></div>
@@ -24,13 +26,15 @@ const Home = () => {
 					<UserBtn />
 					{role === Roles.Guest && <UserIconButton />}
         </div>
-      </header>
+      </header> */}
+      <Header/>
 			<main className={main}>
-				<HomeTitle />
-				<ToursLayout popupForm={popupForm} />
-				<Services />
+        <HomeTitle />
+        <ToursLayout popupForm={popupForm} />
+        <Services />
 			</main>
-      <footer>
+      <Footer />
+      {/* <footer>
         <div>
           <p>
             © 2025 "Виста" Все права защищены. Используя сайт, вы принимаете
@@ -47,7 +51,7 @@ const Home = () => {
             <p>E-mail: vista@mail.com</p>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </>
   );
 };
