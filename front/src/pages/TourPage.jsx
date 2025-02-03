@@ -1,3 +1,4 @@
+import useRole from 'api/useRole';
 import Footer from 'layouts/Footer';
 import Header from 'layouts/Header';
 import React, { useState } from 'react';
@@ -6,6 +7,7 @@ import style from 'styles/tourInfo.module.css';
 
 export const TourPage = () => {
   const location = useLocation();
+	const { data: role } = useRole();
 
   const { tour } = location.state || {};
 
@@ -13,7 +15,7 @@ export const TourPage = () => {
     <div>
 			{tour ? (
         <>
-          <Header/>
+          {role != 'admin' && <Header/>}
           <div className={style.mainTourInfo}>
             <div>
               <div className={style.containerImgs}>
