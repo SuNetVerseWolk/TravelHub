@@ -2,7 +2,6 @@ import React from 'react'
 import UserBtn from "components/UserBtn";
 import UserIconButton from "components/UserIconButton";
 import headerstyles from "styles/header.module.css";
-import Roles from "api/roles";
 import useRole from "api/useRole";
 
 const Header = () => {
@@ -15,7 +14,7 @@ const Header = () => {
                 <div className={headerstyles.logo}></div>
             </a>
             <UserBtn />
-            {role === Roles.Guest && <UserIconButton />}
+            {role === 'guest' && <UserIconButton />}
         </div>
         </header>
     )

@@ -23,7 +23,7 @@
     width: 800px;
 }
 
-.mainTourInfo > div > div:nth-child(2) *:not(button) {
+.mainTourInfo > div > div:nth-child(2) *:not(button, label, label *) {
     width: 500px;
 }
 
@@ -75,4 +75,51 @@
 	border-radius: 10px;
 	background: #f2801c26;
 	border-bottom-width: 5px;
+}
+
+.label {
+	display: flex;
+	flex-flow: column nowrap;
+	margin-bottom: .3rem;
+}
+.label * {
+	line-height: normal;
+}
+.itemsBox {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	gap: .1rem;
+}
+.itemsBox * {
+	border: 0;
+}
+.itemsBox .label {
+	display: flex;
+	flex-flow: row nowrap;
+}
+.label.underline {
+	border-bottom: 1px solid;
+	width: 15%;
+}
+.label.underline p {
+	margin-right: .3rem;
+}
+.label.underline * {
+	line-height: 0;
+}
+.label.underline input {
+	width: 100%;
+}
+.dateBox > div {
+	display: flex;
+}
+textarea {
+	width: 100%;
+}
+.scrollable {
+	overflow-y: scroll;
+}
+.scrollable::-webkit-scrollbar {
+	display: none;
 }

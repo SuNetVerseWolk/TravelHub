@@ -4,7 +4,6 @@ import SignUp from "pages/SignUp";
 import { TourPage } from "pages/TourPage";
 import AdminPage from "pages/AdminPage";
 import { Users } from "layouts/Users";
-import Roles from "api/roles";
 import useRole from "api/useRole";
 import { UserLayout } from "layouts/UserLayout";
 import { Tours } from "layouts/Tours";
@@ -14,7 +13,7 @@ const App = () => {
 
   return (
     <Routes>
-      {role === Roles.Admin ? (
+      {role === 'admin' ? (
         <Route path="/" element={<AdminPage />}>
           <Route index element={<Tours />} />
           <Route path="/users" element={<Users />} />

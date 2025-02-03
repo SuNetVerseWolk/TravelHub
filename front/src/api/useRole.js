@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import Roles from "./roles";
+import { Roles } from "./enums";
 
 const useRole = () => {
 	return useQuery({

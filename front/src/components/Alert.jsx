@@ -1,12 +1,16 @@
 import React from 'react'
 import { alert } from 'styles/alert.module.css'
 
-const Alert = ({children}) => {
+const Alert = ({children, isChildrenText=true}) => {
   return (
     <div className={alert}>
-      <h3>
-        {children}
-      </h3>
+      {isChildrenText ? (
+				<h3>
+					{children}
+				</h3>
+			) : (
+				children
+			)}
     </div>
   )
 }
