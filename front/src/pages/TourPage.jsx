@@ -14,6 +14,8 @@ export const TourPage = () => {
 
   const { tour } = location.state || {};
 
+  const [selectedImg, setSelectedImg] = useState();
+
   return (
     <div>
       {tour ? (
@@ -24,7 +26,7 @@ export const TourPage = () => {
               <div className={style.containerImgs}>
                 <div>
                   <img
-                    src={`/${tour.imgs[0]}`}
+                    src={selectedImg ? `/${tour.imgs[selectedImg]}`: `/${tour.imgs[0]}`}
                     alt={tour.title || "Tour Image"}
                   />
                 </div>
@@ -34,6 +36,8 @@ export const TourPage = () => {
                     <img
                       key={id}
                       src={`/${img}`}
+                      onClick={() => setSelectedImg(id)}
+                      className={`thumnails ${selectedImg === id ? 'active' : ''}`}
                       alt={`Tour Image ${id + 1}`}
                     />
                   ))}
