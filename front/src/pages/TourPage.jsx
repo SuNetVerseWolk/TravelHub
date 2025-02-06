@@ -1,18 +1,25 @@
+import { useMutation } from "@tanstack/react-query";
 import { Difficulties, Types } from "api/enums";
+import getApi, { getDateFrom2day } from "api/get";
 import useRole from "api/useRole";
+import axios from "axios";
 import Alert from "components/Alert";
 import { DatesUI } from "components/Filter";
 import Footer from "layouts/Footer";
 import Header from "layouts/Header";
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import style from "styles/tourInfo.module.css";
 
 export const TourPage = () => {
   const location = useLocation();
   const { data: role } = useRole();
 
-  const { tour } = location.state || {};
+  const { id } = useParams();
+  const { data: tour } = getApi({
+    key: ["tour"],
+    path: [`tours/${id}`]
+  });
 
   const [selectedImg, setSelectedImg] = useState();
 
@@ -26,7 +33,11 @@ export const TourPage = () => {
               <div className={style.containerImgs}>
                 <div>
                   <img
-                    src={selectedImg ? `/${tour.imgs[selectedImg]}`: `/${tour.imgs[0]}`}
+                    src={
+                      selectedImg
+                        ? `/${tour.imgs[selectedImg]}`
+                        : `/${tour.imgs[0]}`
+                    }
                     alt={tour.title || "Tour Image"}
                   />
                 </div>
@@ -37,7 +48,9 @@ export const TourPage = () => {
                       key={id}
                       src={`/${img}`}
                       onClick={() => setSelectedImg(id)}
-                      className={`thumnails ${selectedImg === id ? 'active' : ''}`}
+                      className={`thumnails ${
+                        selectedImg === id ? "active" : ""
+                      }`}
                       alt={`Tour Image ${id + 1}`}
                     />
                   ))}
@@ -46,7 +59,7 @@ export const TourPage = () => {
               {role != "admin" ? (
                 <TourInfo tour={tour} />
               ) : (
-                <TourInfoAdmin tour={tour} />
+                <TourInfoAdmin tour={tour} id={id} />
               )}
             </div>
             {/* {Object.keys(tour).map((key, i) => typeof tour[key] != 'object' && <p key={i}>{key}: {tour[key]}</p>)} */}
@@ -93,11 +106,50 @@ export const TourInfo = ({ tour }) => {
   );
 };
 
-export const TourInfoAdmin = ({ tour }) => {
+export const TourInfoAdmin = ({ tour, id }) => {
   const [data, setData] = useState(tour);
+  const { mutate, isPending, isError } = useMutation({
+    mutationFn: (data) => axios.post(`/api/tours/${id}`, data),
+    onError: (res) => {
+      console.log(res);
+      //switch (res.response.status) {
+      //  case 403:
+      //    ref.current.lastName.setCustomValidity("Пользователь уже имеется!");
+      //    ref.current.lastName.reportValidity();
+      //    break;
+      //  case 500:
+      //    ref.current.lastName.setCustomValidity("Что-то пошло не так...");
+      //    ref.current.lastName.reportValidity();
+      //    break;
+      //}
+    },
+  });
 
   const changeData = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const setDate = (id, value) =>
+    setData((prev) => ({
+      ...prev,
+      dates: [...prev.dates.map((date) => (date.id === id ? value : date))],
+    }));
+  const addDate = (e) => {
+    setData({
+      ...data,
+      dates: [
+        ...data.dates,
+        {
+          id: Date.now(),
+          date: `${getDateFrom2day().replaceAll("-", ".")} - ${getDateFrom2day(
+            1
+          ).replaceAll("-", ".")}`,
+          price: 0,
+        },
+      ],
+    });
+  };
+  const removeDate = (id) => {
+    setData({ ...data, dates: data.dates.filter((item) => item.id !== id) });
   };
 
   return (
@@ -177,12 +229,31 @@ export const TourInfoAdmin = ({ tour }) => {
           <p>Даты</p>
           {data.dates.map((date) => (
             <div key={date.id}>
-              <DatesUI />
-              <input type="number" placeholder="Стоимость" value={date.price} />
+              <DatesUI
+                date={date.date}
+                onChange={(value) => {
+                  console.log(value);
+                  setDate(date.id, { ...date, date: value });
+                }}
+                unicId={date.id}
+                data={date}
+              />
+              <input
+                name="price"
+                type="number"
+                placeholder="Стоимость"
+                value={date.price}
+                onChange={(e) =>
+                  setDate(date.id, { ...date, price: e.target.value })
+                }
+              />
+              <button onClick={(e) => removeDate(date.id)}>X</button>
             </div>
           ))}
           <Alert isChildrenText={false}>
-            <button className={style.bookButton}>Добавить дату</button>
+            <button className={style.bookButton} onClick={addDate}>
+              Добавить дату
+            </button>
           </Alert>
         </div>
         <label>
@@ -192,7 +263,13 @@ export const TourInfoAdmin = ({ tour }) => {
           </textarea>
         </label>
         <Alert isChildrenText={false}>
-          <button className={style.bookButton}>Сохранить</button>
+          <button className={style.bookButton} onClick={(e) => mutate(data)}>
+            {isPending
+              ? "Обрабатывается..."
+              : isError
+              ? "Что-то пошло не так"
+              : "Сохранить"}
+          </button>
         </Alert>
       </div>
     </div>

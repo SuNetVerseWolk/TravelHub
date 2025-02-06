@@ -50,7 +50,7 @@ const AdminPage = () => {
             {buttons.map((btn) => (
               <motion.li
                 key={btn.id}
-                className={btn.checked && styles.checked}
+                className={btn.checked ? styles.checked : undefined}
                 onClick={(e) => navigate(btn.page)}
               >
                 {btn.text}

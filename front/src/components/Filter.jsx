@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { getDateFrom2day } from "api/get";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "styles/filter.module.css";
 
 const Filter = () => {
@@ -6,7 +7,7 @@ const Filter = () => {
     <form>
       <input id="from" type="text" placeholder="Откуда" />
       <input id="where" type="text" placeholder="Куда" />
-			<DatesUI />
+      <DatesUI />
 
       <input
         id="countAdults"
@@ -33,52 +34,58 @@ const Filter = () => {
   );
 };
 
-export const DatesUI = () => {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+export const DatesUI = ({ date, onChange, unicId }) => {
+  const [sDate, eDate] = useMemo(
+    () =>
+      date?.match(/\d{2}\.\d{2}\.\d{4}/g)?.map((value) => {
+        const [date, month, year] = value.split(".");
+        return `${year}-${month}-${date}`;
+      }) || [getDateFrom2day(), getDateFrom2day(1)],
+    [date]
+  );
+  const [startDate, setStartDate] = useState(sDate);
+  const [endDate, setEndDate] = useState(eDate);
+  const [dateInputs, setInputs] = useState({ sInput: null, eInput: null });
 
-  const convertToShortDate = (date) =>
-    date
-      ? new Date(date).toLocaleString("ru", { month: "short", day: "numeric" })
-      : "";
+  const convertToShortDate = (date) => new Date(date).toLocaleString("ru", { month: "short", day: "numeric" });
 
-  const getDateFrom2day = (number = 0) => {
-    let today = new Date();
-    today.setDate(today.getDate() + number);
-
-    return today.toLocaleString("ru", { month: "short", day: "numeric" });
-  };
+  useEffect(() => {
+    setInputs((prev) => ({
+      ...prev,
+      sInput: document.getElementById("startDateInput" + unicId),
+      eInput: document.getElementById("endDateInput" + unicId),
+    }));
+  }, []);
 
   return (
     <div className={styles.dates}>
-      <button
-        type="button"
-        onClick={() => document.getElementById("startDateInput").showPicker()}
-      >
-        С{" "}
-        <span>
-          {startDate ? convertToShortDate(startDate) : getDateFrom2day()}
-        </span>
+      <button type="button" onClick={() => dateInputs.sInput.showPicker()}>
+        С <span>{convertToShortDate(startDate)}</span>
         <input
-          id="startDateInput"
+          id={"startDateInput" + unicId}
           type="date"
-          onChange={(e) => setStartDate(e.target.value)}
+					value={startDate}
+          onChange={(e) => setStartDate(prev => {
+						onChange(`${e.target.value.replaceAll('-', '.')} - ${endDate.replaceAll('-', '.')}`)
+						return e.target.value;
+					})}
           style={{ width: 0, padding: 0, margin: 0 }}
         />
       </button>
       /
       <button
         type="button"
-        onClick={() => document.getElementById("endDateInput").showPicker()}
+        onClick={() => dateInputs.eInput.showPicker()}
       >
-        По{" "}
-        <span>
-          {endDate ? convertToShortDate(endDate) : getDateFrom2day(1)}
-        </span>
+        По <span>{convertToShortDate(endDate)}</span>
         <input
-          id="endDateInput"
+          id={"endDateInput" + unicId}
           type="date"
-          onChange={(e) => setEndDate(e.target.value)}
+					value={endDate}
+          onChange={(e) => setEndDate(prev => {
+						onChange(`${startDate.replaceAll('-', '.')} - ${e.target.value.replaceAll('-', '.')}`)
+						return e.target.value;
+					})}
           style={{ width: 0, padding: 0, margin: 0 }}
         />
       </button>

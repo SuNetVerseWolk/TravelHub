@@ -38,4 +38,11 @@ export const getUser = (id) => {
   });
 };
 
+export const getDateFrom2day = (number = 0) => {
+  let date = new Date();
+  date.setDate(date.getDate() + number);
+
+  return date.toISOString().slice(0, 10);
+};
+
 export default getApi;
