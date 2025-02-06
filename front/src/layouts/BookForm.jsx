@@ -4,8 +4,9 @@ import axios from "axios";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "styles/forms.module.css";
+import headerstyles from "styles/header.module.css";
 
-const BookForm = ({ popupForm }) => {
+const BookForm = ({ setShowBookForm }) => {
 	const { type } = useParams();
 	const nowDate = useMemo(e => new Date().toISOString().slice(0, 10), []);
 	const queryClient = useQueryClient();
@@ -54,7 +55,7 @@ const BookForm = ({ popupForm }) => {
 				localStorage.setItem('id', res.data.id)
 
 			queryClient.invalidateQueries(['rooms'])
-			popupForm.current.style.display = 'none';
+			// popupForm.current.style.display = 'none';
 		}
 	});
 
@@ -67,119 +68,110 @@ const BookForm = ({ popupForm }) => {
 	useEffect(e => setPrice(countPrice()), [type]);
 
 	return (
-		<div ref={popupForm} className={styles.popUpForm}>
-			<button
-				onClick={(e) => (popupForm.current.style.display = "none")}
-				className={styles.close}
-			></button>
-
+		<div className={styles.popUpForm}>
 			<form ref={formRef} onChange={changeForm} onSubmit={submit}>
-				<div>
-					<h2>Данные клиента</h2>
-					<label htmlFor="lastName">
-						Фамилия:
-						<input
-							id="lastName"
-							name="lastName"
-							type="text"
-							placeholder="Павлов"
-							required
-							defaultValue={user?.lastName || ""}
-						/>
-					</label>
-					<label htmlFor="name">
-						Имя:
-						<input
-							id="name"
-							name="name"
-							type="text"
-							placeholder="Вадим"
-							required
-							defaultValue={user?.name || ""}
-						/>
-					</label>
-					<label htmlFor="fatherName">
-						Отчество:
-						<input
-							id="fatherName"
-							name="fatherName"
-							type="text"
-							placeholder="Владимирович"
-							required
-							defaultValue={user?.fatherName || ""}
-						/>
-					</label>
-					<label htmlFor="number">
-						Номер:
-						<input
-							id="number"
-							name="number"
-							type="tel"
-							placeholder="+7 (900) 800-90-90"
-							required
-							defaultValue={user?.number || ""}
-						/>
-					</label>
-				</div>
-				<div>
-					<select
-						name="typeRoom"
-						id="typeRoom"
-						defaultValue={popupForm.current?.getAttribute("data-type")}
-						onChange={(e) => {
-							formRef.current.countRooms.value = 1;
-							formRef.current.countPeople.value = 1;
-						}}
-					>
-						<option selected={type === 'Классика'}>Классика</option>
-						<option selected={type === 'Стандарт'}>Стандарт</option>
-						<option selected={type === 'Люкс'}>Люкс</option>
-					</select>
-					<label htmlFor="countPeople">
-						Кол-во человек:
-						<input
-							id="countPeople"
-							name="countPeople"
-							type="number"
-							required
-							defaultValue={1}
-						/>
-					</label>
-					<label htmlFor="countRooms">
-						Кол-во номеров:
-						<input
-							id="countRooms"
-							name="countRooms"
-							type="number"
-							required
-							defaultValue={1}
-							onChange={(e) => {
-								const roomByType = getCurrentRoomData();
+				<button
+					onClick={() => setShowBookForm(false)}
+					className={`${styles.exit} ${headerstyles.exit}`}
+				></button>
 
-								if (
-									+e.target.value + roomByType.bookedAmount >
-									roomByType.amount
-								)
-									e.target.value = roomByType.amount;
-							}}
-							min={1}
-						/>
-					</label>
+				<h2>Бронь тура</h2>
 
-					<label htmlFor="comeDate">
-						Дата приезда:
-						<input id="comeDate" name="comeDate" type="date" defaultValue={nowDate} required />
-					</label>
-					<label htmlFor="outDate">
-						Дата отъезда:
-						<input id="outDate" name="outDate" type="date" defaultValue={nowDate} required />
-					</label>
-				</div>
-				<div>
-					<button>Забронировать</button>
+				<input
+					id="lastName"
+					name="lastName"
+					type="text"
+					placeholder="Фамилия"
+					required
+					// defaultValue={user?.lastName || ""}
+				/>
+			
+				<input
+					id="name"
+					name="name"
+					type="text"
+					placeholder="Имя"
+					required
+					// defaultValue={user?.name || ""}
+				/>
+			
+				<input
+					id="fatherName"
+					name="fatherName"
+					type="text"
+					placeholder="Отчество"
+					required
+					// defaultValue={user?.fatherName || ""}
+				/>
+				<input
+					id="number"
+					name="number"
+					type="tel"
+					placeholder="Номер"
+					required
+					// defaultValue={user?.number || ""}
+				/>
 
-					<span>{price} руб.</span>
-				</div>
+				<select
+					name="typeRoom"
+					id="typeRoom"
+					// defaultValue={popupForm.current?.getAttribute("data-type")}
+					// onChange={(e) => {
+					// 	formRef.current.countRooms.value = 1;
+					// 	formRef.current.countPeople.value = 1;
+					// }}
+				>
+					<option selected={type === 'Классика'}>Классика</option>
+					<option selected={type === 'Стандарт'}>Стандарт</option>
+					<option selected={type === 'Люкс'}>Люкс</option>
+				</select>
+
+				<input
+					id="countPeople"
+					name="countPeople"
+					type="number"
+					placeholder="Кол-во взрослых"
+					required
+					defaultValue={1}
+				/>
+
+				<input
+					id="countRooms"
+					name="countRooms"
+					type="number"
+					required
+					placeholder="Кол-во детей"
+					defaultValue={1}
+					// onChange={(e) => {
+					// 	const roomByType = getCurrentRoomData();
+
+					// 	if (
+					// 		+e.target.value + roomByType.bookedAmount >
+					// 		roomByType.amount
+					// 	)
+					// 		e.target.value = roomByType.amount;
+					// }}
+					min={1}
+				/>
+
+				<input id="comeDate"
+					name="comeDate"
+					type="date"
+					placeholder="Дата приезда"
+					// defaultValue={nowDate}
+					required />
+
+				<input id="outDate"
+					name="outDate"
+					type="date"
+					placeholder="Дата отъезда"
+					// defaultValue={nowDate}
+					required />
+
+
+				<span>{price} руб.</span>
+				
+				<button>Забронировать</button>
 			</form>
 		</div>
 	);

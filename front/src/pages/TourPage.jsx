@@ -5,6 +5,7 @@ import useRole from "api/useRole";
 import axios from "axios";
 import Alert from "components/Alert";
 import { DatesUI } from "components/Filter";
+import BookForm from "layouts/BookForm";
 import Footer from "layouts/Footer";
 import Header from "layouts/Header";
 import React, { useState } from "react";
@@ -62,7 +63,6 @@ export const TourPage = () => {
                 <TourInfoAdmin tour={tour} id={id} />
               )}
             </div>
-            {/* {Object.keys(tour).map((key, i) => typeof tour[key] != 'object' && <p key={i}>{key}: {tour[key]}</p>)} */}
           </div>
         </>
       ) : (
@@ -73,6 +73,8 @@ export const TourPage = () => {
 };
 
 export const TourInfo = ({ tour }) => {
+  const [showBookForm, setShowBookForm] = useState(false);
+
   console.log(Difficulties[tour.difficulty]);
   return (
     <div>
@@ -101,7 +103,9 @@ export const TourInfo = ({ tour }) => {
       <h3>Описание</h3>
       <p>{tour.text}</p>
 
-      <button className={style.bookButton}>Забронировать</button>
+      <button className={style.bookButton}
+        onClick={() => setShowBookForm(true)}>Забронировать</button>
+        {showBookForm ? <BookForm setShowBookForm={setShowBookForm} /> : <></>}
     </div>
   );
 };

@@ -23,9 +23,9 @@
     width: 800px;
 }
 
-.mainTourInfo > div > div:nth-child(2) *:not(button, label, label *) {
-    width: 500px;
-}
+/* .mainTourInfo > div > div:nth-child(2) *:not(button, label, label *) {
+    min-width: 500px;
+} */
 
 .containerImgs {
     display: flex;
@@ -145,8 +145,8 @@ textarea {
         align-items: center;
         flex-direction: column;
     }
-    .mainTourInfo > div > div:nth-child(2) *:not(button, label, label *) {
+    /* .mainTourInfo > div > div:nth-child(2) *:not(button, label, label *, .popUpForm) {
         font-size: .7rem;
         max-width: 400px;
-    }
+    } */
 }
