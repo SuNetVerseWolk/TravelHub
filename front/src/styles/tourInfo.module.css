@@ -23,10 +23,6 @@
     width: 800px;
 }
 
-/* .mainTourInfo > div > div:nth-child(2) *:not(button, label, label *) {
-    min-width: 500px;
-} */
-
 .containerImgs {
     display: flex;
     justify-content: center;
@@ -39,25 +35,21 @@
     justify-content: center;
     align-items: center;
 
-    width: 400px;
-    height: 400px;
-	background: #f1a76626;
-    border-radius: 10px 10px 0 0;
+    width: 450px;
+    height: 500px;
 }
 
 .containerImgs div:nth-child(1) img {
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     border-radius: 20px;
+    box-shadow: #3b3b3b81 0 0 10px;
 }
 
 .containerImgs div:nth-child(2) {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* width: 100%; */
-    border-radius: 0 0 10px 10px;
 }
 
 .containerImgs div:nth-child(2) img {
@@ -107,9 +99,9 @@
 	right: 0;
 	translate: 25% 25%;
 }
-/* .containerImgs div:nth-child(2) img:hover {
-    filter: brightness(100%);
-} */
+.dataTourContainer {
+    min-width: 500px;
+}
 
 .bookButton {
     margin-top: 20px;
@@ -172,14 +164,14 @@ textarea {
     .mainTourInfo> div {
         flex-direction: column;
     }
-    .mainTourInfo > div > div:nth-child(2) {
+    /* .mainTourInfo > div > div:nth-child(2) {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-    }
-    /* .mainTourInfo > div > div:nth-child(2) *:not(button, label, label *, .popUpForm) {
-        font-size: .7rem;
-        max-width: 400px;
     } */
+    .dataTourContainer {
+        max-width: 400px;
+        margin: 50px;
+    }
 }

@@ -157,6 +157,11 @@
   border-bottom: 5px #f2801c26 solid;
   transition: all 0.3s ease-out;
 }
+.popUpForm span {
+  margin: 20px 0;
+  font-weight: 900;
+}
+
 
 .userPopupForm {
   display: grid;

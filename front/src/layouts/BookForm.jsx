@@ -83,7 +83,7 @@ const BookForm = ({ setShowBookForm }) => {
 					type="text"
 					placeholder="Фамилия"
 					required
-					// defaultValue={user?.lastName || ""}
+					defaultValue={user?.lastName || ""}
 				/>
 			
 				<input
@@ -92,7 +92,7 @@ const BookForm = ({ setShowBookForm }) => {
 					type="text"
 					placeholder="Имя"
 					required
-					// defaultValue={user?.name || ""}
+					defaultValue={user?.name || ""}
 				/>
 			
 				<input
@@ -101,7 +101,7 @@ const BookForm = ({ setShowBookForm }) => {
 					type="text"
 					placeholder="Отчество"
 					required
-					// defaultValue={user?.fatherName || ""}
+					defaultValue={user?.fatherName || ""}
 				/>
 				<input
 					id="number"
@@ -109,39 +109,25 @@ const BookForm = ({ setShowBookForm }) => {
 					type="tel"
 					placeholder="Номер"
 					required
-					// defaultValue={user?.number || ""}
+					defaultValue={user?.number || ""}
 				/>
 
-				<select
-					name="typeRoom"
-					id="typeRoom"
-					// defaultValue={popupForm.current?.getAttribute("data-type")}
-					// onChange={(e) => {
-					// 	formRef.current.countRooms.value = 1;
-					// 	formRef.current.countPeople.value = 1;
-					// }}
-				>
-					<option selected={type === 'Классика'}>Классика</option>
-					<option selected={type === 'Стандарт'}>Стандарт</option>
-					<option selected={type === 'Люкс'}>Люкс</option>
-				</select>
-
 				<input
-					id="countPeople"
-					name="countPeople"
+					id="countAdults"
+					name="countAdults"
 					type="number"
 					placeholder="Кол-во взрослых"
 					required
-					defaultValue={1}
+					min={1}
+					max={20}
 				/>
 
 				<input
-					id="countRooms"
-					name="countRooms"
+					id="countChildren"
+					name="countChildren"
 					type="number"
 					required
 					placeholder="Кол-во детей"
-					defaultValue={1}
 					// onChange={(e) => {
 					// 	const roomByType = getCurrentRoomData();
 
@@ -151,23 +137,24 @@ const BookForm = ({ setShowBookForm }) => {
 					// 	)
 					// 		e.target.value = roomByType.amount;
 					// }}
-					min={1}
+					min={0}
+					max={13}
 				/>
+				
 
-				<input id="comeDate"
-					name="comeDate"
-					type="date"
-					placeholder="Дата приезда"
-					// defaultValue={nowDate}
-					required />
-
-				<input id="outDate"
-					name="outDate"
-					type="date"
-					placeholder="Дата отъезда"
-					// defaultValue={nowDate}
-					required />
-
+				<select
+					name="datePick"
+					id="datePick"
+					// defaultValue={popupForm.current?.getAttribute("data-type")}
+					// onChange={(e) => {
+					// 	formRef.current.countRooms.value = 1;
+					// 	formRef.current.countPeople.value = 1;
+					// }}
+				>
+					<option selected={type === 'Классика'}>27.01.2025пн – 31.01.2025пт</option>
+					<option selected={type === 'Стандарт'}>27.01.2025пн – 31.01.2025пт</option>
+					<option selected={type === 'Люкс'}>27.01.2025пн – 31.01.2025пт</option>
+				</select>
 
 				<span>{price} руб.</span>
 				
