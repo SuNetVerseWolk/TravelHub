@@ -1,3 +1,5 @@
+const convertBase64ToImage = require("../scripts/upload");
+
 const express = require("express"),
   { getData, setData } = require("../getScripts"),
   router = express.Router();
@@ -24,6 +26,17 @@ router.post("/:id", (req, res) => {
 
   if (!tour) return res.sendStatus(404);
 	if (!req.body) return res.sendStatus(400);
+
+	req.body.imgs.forEach((imgSrc, index) => {
+		if (imgSrc.startsWith("data:")) {
+			let convertedFilename = convertBase64ToImage(imgSrc, tour.id);
+			console.log(convertedFilename)
+
+			if (convertedFilename) {
+				req.body.imgs[index] = convertedFilename;
+			}
+		}
+	});
 
 	res.sendStatus(setTours(tours.map(item => item.id === tour.id ? req.body : item)) ? 200 : 500);
 });

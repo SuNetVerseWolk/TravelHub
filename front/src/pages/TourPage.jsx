@@ -7,12 +7,13 @@ import Alert from "components/Alert";
 import { DatesUI } from "components/Filter";
 import BookForm from "layouts/BookForm";
 import Header from "layouts/Header";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import style from "styles/tourInfo.module.css";
 import { motion } from "framer-motion";
 
 export const TourPage = () => {
+  const fileInputRef = useRef();
   const { data: role } = useRole();
 
   const { id } = useParams();
@@ -21,8 +22,18 @@ export const TourPage = () => {
     path: [`tours/${id}`],
   });
   const [data, setData] = useState();
+	const currentData = useMemo(() => role === "admin" ? data : tour, [data, tour, role])
 
   const [selectedImg, setSelectedImg] = useState(0);
+  const imageHandler = (id) =>
+    setSelectedImg((prev) => {
+      setData((prev) => ({
+        ...prev,
+        imgs: prev.imgs.filter((item, itemId) => itemId != id),
+      }));
+
+      return prev >= data.imgs.length - 1 ? data.imgs.length - 2 : prev;
+    });
 
   useEffect(() => {
     setData(tour);
@@ -38,38 +49,37 @@ export const TourPage = () => {
               <div className={style.containerImgs}>
                 <div>
                   <img
-                    src={`/${tour.imgs[selectedImg]}`}
-                    alt={tour.title || "Tour Image"}
+                    src={currentData?.imgs[selectedImg]}
+                    alt={currentData?.title || "Tour Image"}
                   />
                 </div>
 
                 <div>
-                  {(role === "admin" ? data : tour)?.imgs?.map((img, id) => (
+                  {currentData?.imgs?.map((img, id) => (
                     <TourImgItem
                       key={img + id}
                       id={id}
-                      img={img}
+                      src={img}
                       isSelected={selectedImg}
                       setSelected={setSelectedImg}
-                      onClick={() =>
-                        setSelectedImg((prev) => {
-                          setData((prev) => ({
-                            ...prev,
-                            imgs: prev.imgs.filter(
-                              (item, itemId) => itemId != id
-                            ),
-                          }));
-
-                          return prev >= data.imgs.length - 1
-                            ? data.imgs.length - 2
-                            : prev;
-                        })
-                      }
+                      onClick={() => imageHandler(id)}
                       role={role}
                     />
                   ))}
-                  {(role === "admin" ? data : tour)?.imgs?.length < 4 && (
-                    <span>
+                  {currentData?.imgs?.length < 4 && (
+                    <span onClick={() => fileInputRef.current.click()}>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        hidden
+                        accept="image/*"
+                        onChange={(e) => {
+                          let reader = new FileReader();
+
+                          reader.onload = (event) => setData(prev => ({...prev, imgs: [...prev.imgs, event.target.result]}))
+                          reader.readAsDataURL(e.target.files[0]);
+                        }}
+                      />
                       <button>+</button>
                     </span>
                   )}
@@ -137,7 +147,7 @@ export const TourInfo = ({ tour }) => {
 };
 
 export const TourImgItem = ({
-  img,
+  src,
   id,
   isSelected,
   setSelected,
@@ -154,7 +164,7 @@ export const TourImgItem = ({
     >
       <img
         key={id}
-        src={`/${img}`}
+        src={src}
         onClick={() => setSelected(id)}
         className={`${style.thumnails} ${
           isSelected === id ? style.active : ""

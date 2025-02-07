@@ -4,6 +4,7 @@ const
 port = process.env.PORT || 3002,
 express = require('express'),
 cors = require('cors'),
+path = require('path'),
 app = express(),
 { users, tours } = require('./getRouts'),
 corsOptions = {
@@ -15,8 +16,7 @@ corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ extended: true }));
-
-app.use(express.static('./public'));
+app.use('/imgs', express.static(path.join(__dirname, 'data', 'imgs')));
 
 app.use('/users', users);
 app.use('/tours', tours);
