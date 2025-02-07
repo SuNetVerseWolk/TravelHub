@@ -70,9 +70,42 @@
 
     transition: all .2s linear;
 }
+.containerImgs div:nth-child(2) span {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 45px;
+	height: 45px;
+	border-radius: 10px;
+	margin: 10px 5px;
+	cursor: pointer;
+
+	transition: all .2s linear;
+}
+.containerImgs div:nth-child(2) span:not(.imgItem) button {
+	width: 75%;
+	background: #f2801c26;
+	border: 0;
+	border-radius: .5rem;
+	aspect-ratio: 1/1;
+}
 .thumnails.active {
-    border-color: #007bff;
-    filter: brightness(100%);
+	border-color: #007bff;
+	filter: brightness(100%) !important;
+}
+.imgItem {
+	position: relative;
+}
+.imgItem button {
+	background: red;
+	border: 1px solid #9b0000;
+	border-radius: .5rem;
+	width: 50%;
+	aspect-ratio: 1/1;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	translate: 25% 25%;
 }
 /* .containerImgs div:nth-child(2) img:hover {
     filter: brightness(100%);

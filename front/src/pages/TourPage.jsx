@@ -1,28 +1,32 @@
-import { useMutation } from "@tanstack/react-query";
-import { Difficulties, Types } from "api/enums";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Difficulties, Roles, Types } from "api/enums";
 import getApi, { getDateFrom2day } from "api/get";
 import useRole from "api/useRole";
 import axios from "axios";
 import Alert from "components/Alert";
 import { DatesUI } from "components/Filter";
 import BookForm from "layouts/BookForm";
-import Footer from "layouts/Footer";
 import Header from "layouts/Header";
-import React, { useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import style from "styles/tourInfo.module.css";
+import { motion } from "framer-motion";
 
 export const TourPage = () => {
-  const location = useLocation();
   const { data: role } = useRole();
 
   const { id } = useParams();
   const { data: tour } = getApi({
-    key: ["tour"],
-    path: [`tours/${id}`]
+    key: ["tour", id],
+    path: [`tours/${id}`],
   });
+  const [data, setData] = useState();
 
-  const [selectedImg, setSelectedImg] = useState();
+  const [selectedImg, setSelectedImg] = useState(0);
+
+  useEffect(() => {
+    setData(tour);
+  }, [tour]);
 
   return (
     <div>
@@ -34,33 +38,52 @@ export const TourPage = () => {
               <div className={style.containerImgs}>
                 <div>
                   <img
-                    src={
-                      selectedImg
-                        ? `/${tour.imgs[selectedImg]}`
-                        : `/${tour.imgs[0]}`
-                    }
+                    src={`/${tour.imgs[selectedImg]}`}
                     alt={tour.title || "Tour Image"}
                   />
                 </div>
 
                 <div>
-                  {tour.imgs.map((img, id) => (
-                    <img
-                      key={id}
-                      src={`/${img}`}
-                      onClick={() => setSelectedImg(id)}
-                      className={`thumnails ${
-                        selectedImg === id ? "active" : ""
-                      }`}
-                      alt={`Tour Image ${id + 1}`}
+                  {(role === "admin" ? data : tour)?.imgs?.map((img, id) => (
+                    <TourImgItem
+                      key={img + id}
+                      id={id}
+                      img={img}
+                      isSelected={selectedImg}
+                      setSelected={setSelectedImg}
+                      onClick={() =>
+                        setSelectedImg((prev) => {
+                          setData((prev) => ({
+                            ...prev,
+                            imgs: prev.imgs.filter(
+                              (item, itemId) => itemId != id
+                            ),
+                          }));
+
+                          return prev >= data.imgs.length - 1
+                            ? data.imgs.length - 2
+                            : prev;
+                        })
+                      }
+                      role={role}
                     />
                   ))}
+                  {(role === "admin" ? data : tour)?.imgs?.length < 4 && (
+                    <span>
+                      <button>+</button>
+                    </span>
+                  )}
                 </div>
               </div>
               {role != "admin" ? (
                 <TourInfo tour={tour} />
               ) : (
-                <TourInfoAdmin tour={tour} id={id} />
+                <TourInfoAdmin
+                  data={data}
+                  setData={setData}
+                  tour={tour}
+                  id={id}
+                />
               )}
             </div>
           </div>
@@ -75,12 +98,11 @@ export const TourPage = () => {
 export const TourInfo = ({ tour }) => {
   const [showBookForm, setShowBookForm] = useState(false);
 
-  console.log(Difficulties[tour.difficulty]);
   return (
     <div>
       <h1>Данные тура</h1>
 
-      <h3>{tour.title}</h3>
+      <h3>{tour?.title}</h3>
 
       <p>
         Вид тура: {Types[tour.type]}. Сложность -{" "}
@@ -103,29 +125,77 @@ export const TourInfo = ({ tour }) => {
       <h3>Описание</h3>
       <p>{tour.text}</p>
 
-      <button className={style.bookButton}
-        onClick={() => setShowBookForm(true)}>Забронировать</button>
-        {showBookForm ? <BookForm setShowBookForm={setShowBookForm} /> : <></>}
+      <button
+        className={style.bookButton}
+        onClick={() => setShowBookForm(true)}
+      >
+        Забронировать
+      </button>
+      {showBookForm ? <BookForm setShowBookForm={setShowBookForm} /> : <></>}
     </div>
   );
 };
 
-export const TourInfoAdmin = ({ tour, id }) => {
-  const [data, setData] = useState(tour);
-  const { mutate, isPending, isError } = useMutation({
+export const TourImgItem = ({
+  img,
+  id,
+  isSelected,
+  setSelected,
+  onClick,
+  role,
+}) => {
+  const [hovered, setHover] = useState(false);
+
+  return (
+    <motion.span
+      onHoverStart={() => setHover(true)}
+      onHoverEnd={() => setHover(false)}
+      className={style.imgItem}
+    >
+      <img
+        key={id}
+        src={`/${img}`}
+        onClick={() => setSelected(id)}
+        className={`${style.thumnails} ${
+          isSelected === id ? style.active : ""
+        }`}
+        alt={`Tour Image ${id + 1}`}
+      />
+      {role === Roles.Admin && hovered && (
+        <motion.button
+          animate={{ scale: 1 }}
+          initial={{ scale: 0.5 }}
+          onClick={onClick}
+        >
+          X
+        </motion.button>
+      )}
+    </motion.span>
+  );
+};
+
+export const TourInfoAdmin = ({ data, setData, id }) => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const {
+    mutate: saveChanges,
+    isSaving,
+    isSavingError,
+  } = useMutation({
     mutationFn: (data) => axios.post(`/api/tours/${id}`, data),
-    onError: (res) => {
-      console.log(res);
-      //switch (res.response.status) {
-      //  case 403:
-      //    ref.current.lastName.setCustomValidity("Пользователь уже имеется!");
-      //    ref.current.lastName.reportValidity();
-      //    break;
-      //  case 500:
-      //    ref.current.lastName.setCustomValidity("Что-то пошло не так...");
-      //    ref.current.lastName.reportValidity();
-      //    break;
-      //}
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tour", id]);
+    },
+  });
+  const {
+    mutate: getRidOf,
+    isPending,
+    isError,
+  } = useMutation({
+    mutationFn: (data) => axios.delete(`/api/tours/${id}`, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tours"]);
+      navigate("..");
     },
   });
 
@@ -164,7 +234,7 @@ export const TourInfoAdmin = ({ tour, id }) => {
         <input
           name="title"
           placeholder="Заголовок"
-          value={data.title}
+          value={data?.title}
           onChange={changeData}
         />
       </label>
@@ -174,7 +244,7 @@ export const TourInfoAdmin = ({ tour, id }) => {
             <select
               name="type"
               id="type"
-              value={data.type}
+              value={data?.type}
               onChange={changeData}
             >
               {Object.entries(Types).map((item) => (
@@ -188,7 +258,7 @@ export const TourInfoAdmin = ({ tour, id }) => {
             <select
               name="difficulty"
               id="difficulty"
-              value={data.difficulty}
+              value={data?.difficulty}
               onChange={changeData}
             >
               {Object.entries(Difficulties).map((item) => (
@@ -204,7 +274,7 @@ export const TourInfoAdmin = ({ tour, id }) => {
               name="ageFrom"
               type="number"
               placeholder="Минимальный возраст"
-              value={data.ageFrom}
+              value={data?.ageFrom}
               onChange={changeData}
             />
           </label>
@@ -215,7 +285,7 @@ export const TourInfoAdmin = ({ tour, id }) => {
             name="location"
             type="text"
             placeholder="Локация"
-            value={data.location}
+            value={data?.location}
             onChange={changeData}
           />
         </label>
@@ -225,13 +295,13 @@ export const TourInfoAdmin = ({ tour, id }) => {
             name="duration"
             type="text"
             placeholder="Длительность"
-            value={data.duration}
+            value={data?.duration}
             onChange={changeData}
           />
         </label>
         <div className={`${style.label} ${style.dateBox}`}>
           <p>Даты</p>
-          {data.dates.map((date) => (
+          {data?.dates?.map((date) => (
             <div key={date.id}>
               <DatesUI
                 date={date.date}
@@ -246,7 +316,7 @@ export const TourInfoAdmin = ({ tour, id }) => {
                 name="price"
                 type="number"
                 placeholder="Стоимость"
-                value={date.price}
+                value={date?.price}
                 onChange={(e) =>
                   setDate(date.id, { ...date, price: e.target.value })
                 }
@@ -262,15 +332,33 @@ export const TourInfoAdmin = ({ tour, id }) => {
         </div>
         <label>
           <h3>Описание</h3>
-          <textarea name="text" id="text" rows={5} onChange={changeData}>
-            {data.text}
-          </textarea>
+          <textarea
+            name="text"
+            id="text"
+            rows={5}
+            onChange={changeData}
+            defaultValue={data?.text}
+          />
         </label>
         <Alert isChildrenText={false}>
-          <button className={style.bookButton} onClick={(e) => mutate(data)}>
+          <button
+            className={style.bookButton}
+            style={{ background: "red", color: "white" }}
+            onClick={(e) => getRidOf(id)}
+          >
             {isPending
-              ? "Обрабатывается..."
+              ? "Удаляется..."
               : isError
+              ? "Что-то пошло не так"
+              : "Удалить"}
+          </button>
+          <button
+            className={style.bookButton}
+            onClick={(e) => saveChanges(data)}
+          >
+            {isSaving
+              ? "Сохраняется..."
+              : isSavingError
               ? "Что-то пошло не так"
               : "Сохранить"}
           </button>
