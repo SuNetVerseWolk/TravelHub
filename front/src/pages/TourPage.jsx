@@ -66,7 +66,7 @@ export const TourPage = () => {
                       role={role}
                     />
                   ))}
-                  {currentData?.imgs?.length < 4 && (
+                  {role === 'admin' && currentData?.imgs?.length < 4 && (
                     <span onClick={() => fileInputRef.current.click()}>
                       <input
                         ref={fileInputRef}
