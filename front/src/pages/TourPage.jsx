@@ -109,7 +109,7 @@ export const TourInfo = ({ tour }) => {
   const [showBookForm, setShowBookForm] = useState(false);
 
   return (
-    <div>
+    <div className={style.dataTourContainer}>
       <h1>Данные тура</h1>
 
       <h3>{tour?.title}</h3>
@@ -117,6 +117,14 @@ export const TourInfo = ({ tour }) => {
       <p>
         Вид тура: {Types[tour.type]}. Сложность -{" "}
         {Difficulties[tour.difficulty]}, разрешение с возроста {tour.ageFrom}
+      </p>
+      <p>
+        Категории:{" "}
+        {tour.restTypes.map((type, id) => (
+          <span key={id}>
+            {type}{id < tour.restTypes.length - 1 ? "; " : ""}
+          </span>
+        ))}
       </p>
       <p>Место проведения: {tour.location}</p>
       <p>Срок проведения: {tour.duration}</p>
