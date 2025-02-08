@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import styles from "styles/tour.module.css";
 import typeStyles from "styles/tourTypes.module.css";
 import { useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion';
 
 const Tour = ({ data }) => {
   const navigate = useNavigate();
@@ -34,8 +35,8 @@ export const TourTypes = ({ types }) => {
     <ul className={typeStyles.main}>
       {isHidden ? (
         <>
-          <li>{types[0]}</li>
-          <li onClick={() => setHidden(false)}>&gt;</li>
+          <li>{types?.at(0)}</li>
+          {types?.length > 1 && <li onClick={() => setHidden(false)}>&gt;</li>}
         </>
       ) : (
         <>
@@ -57,20 +58,20 @@ export const TourTypes = ({ types }) => {
 
 export const TourInfo = ({dates, duration}) => {
 	const getDate = (date) => {
-		const [day, month, year] = date.split('–')[0].trim().slice(0, 10).split('.');
+		const [day, month, year] = date?.split('–')[0].trim().slice(0, 10).split('.') || [];
 		const dateObject = new Date(`${year}-${month}-${day}`);
 		return dateObject.toLocaleString('ru', { month: 'short', day: 'numeric'});
 	}
-	const date = useMemo(() => getDate(dates[0].date), []);
+	const date = useMemo(() => getDate(dates?.at(0).date), []);
 
   return (
     <div>
 			<ul>
 				<li>{date}</li>
 				<li>ещё даты</li>
-				<li>{duration.split('/')[0].trim()}</li>
+				<li>{duration?.split('/')[0].trim()}</li>
 			</ul>
-			<button>от <span>{dates[0].price.toLocaleString('ru')}</span> руб.</button>
+			<button>от <span>{dates?.at(0).price.toLocaleString('ru')}</span> руб.</button>
 		</div>
   )
 }

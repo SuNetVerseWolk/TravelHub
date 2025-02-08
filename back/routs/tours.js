@@ -22,23 +22,31 @@ router.get("/:id", (req, res) => {
 });
 router.post("/:id", (req, res) => {
   const tours = getTours(),
-    tour = tours.find((tour) => tour.id === +req.params.id);
+    tour = tours.find((tour) => tour.id === +req.params.id),
+    isNew = req.params.id === "new";
 
-  if (!tour) return res.sendStatus(404);
-	if (!req.body) return res.sendStatus(400);
+  if (!isNew && !tour) return res.sendStatus(404);
+  if (!Object.keys(req.body).find(value => value === 'id')) return res.sendStatus(400);
 
-	req.body.imgs.forEach((imgSrc, index) => {
-		if (imgSrc.startsWith("data:")) {
-			let convertedFilename = convertBase64ToImage(imgSrc, tour.id);
-			console.log(convertedFilename)
+  req.body.imgs.forEach((imgSrc, index) => {
+    if (imgSrc.startsWith("data:")) {
+      let convertedFilename = convertBase64ToImage(imgSrc, req.body.id);
 
-			if (convertedFilename) {
-				req.body.imgs[index] = convertedFilename;
-			}
-		}
-	});
+      if (convertedFilename) {
+        req.body.imgs[index] = convertedFilename;
+      }
+    }
+  });
 
-	res.sendStatus(setTours(tours.map(item => item.id === tour.id ? req.body : item)) ? 200 : 500);
+  res.sendStatus(
+    setTours(
+      isNew
+        ? [...tours, req.body]
+        : tours.map((item) => (item.id === tour.id ? req.body : item))
+    )
+      ? 200
+      : 500
+  );
 });
 router.delete("/:id", (req, res) => {
   const tours = getTours();

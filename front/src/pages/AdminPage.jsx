@@ -25,8 +25,8 @@ const AdminPage = () => {
     {
       id: 2,
       text: "Добавить тур",
-      checked: "/add" === location.pathname,
-      page: "/",
+      checked: "/new" === location.pathname,
+      page: "tour/new",
     },
   ], [location.pathname]);
   const exit = (e) => {

@@ -13,13 +13,15 @@ import style from "styles/tourInfo.module.css";
 import { motion } from "framer-motion";
 
 export const TourPage = () => {
+  const { id } = useParams();
   const fileInputRef = useRef();
   const { data: role } = useRole();
+	const isNew = useMemo(() => id === 'new', [id]);
 
-  const { id } = useParams();
-  const { data: tour } = getApi({
+  const { data: tour, isPending, isError } = getApi({
     key: ["tour", id],
     path: [`tours/${id}`],
+		enabled: !isNew
   });
   const [data, setData] = useState();
 	const currentData = useMemo(() => role === "admin" ? data : tour, [data, tour, role])
@@ -36,12 +38,16 @@ export const TourPage = () => {
     });
 
   useEffect(() => {
-    setData(tour);
+    setData(tour || { id: Date.now() });
   }, [tour]);
 
   return (
     <div>
-      {tour ? (
+      {!isNew && isPending ? (
+				<Alert>Loading...</Alert>
+			) : !isNew && isError ? (
+				<Alert>No tour data available.</Alert>
+			) : (
         <>
           {role != "admin" && <Header />}
           <div className={style.mainTourInfo}>
@@ -49,7 +55,7 @@ export const TourPage = () => {
               <div className={style.containerImgs}>
                 <div>
                   <img
-                    src={currentData?.imgs[selectedImg]}
+                    src={currentData?.imgs?.at(selectedImg)}
                     alt={currentData?.title || "Tour Image"}
                   />
                 </div>
@@ -66,7 +72,7 @@ export const TourPage = () => {
                       role={role}
                     />
                   ))}
-                  {role === 'admin' && currentData?.imgs?.length < 4 && (
+                  {role === 'admin' && (currentData?.imgs?.length < 4 || isNew) && (
                     <span onClick={() => fileInputRef.current.click()}>
                       <input
                         ref={fileInputRef}
@@ -76,13 +82,14 @@ export const TourPage = () => {
                         onChange={(e) => {
                           let reader = new FileReader();
 
-                          reader.onload = (event) => setData(prev => ({...prev, imgs: [...prev.imgs, event.target.result]}))
+                          reader.onload = (event) => setData(prev => ({...prev, imgs: [...(prev?.imgs || []), event.target.result]}))
                           reader.readAsDataURL(e.target.files[0]);
                         }}
                       />
                       <button>+</button>
                     </span>
                   )}
+									{console.log(currentData)}
                 </div>
               </div>
               {role != "admin" ? (
@@ -92,14 +99,13 @@ export const TourPage = () => {
                   data={data}
                   setData={setData}
                   tour={tour}
+									isNew={isNew}
                   id={id}
                 />
               )}
             </div>
           </div>
         </>
-      ) : (
-        <p>No tour data available.</p>
       )}
     </div>
   );
@@ -115,22 +121,22 @@ export const TourInfo = ({ tour }) => {
       <h3>{tour?.title}</h3>
 
       <p>
-        Вид тура: {Types[tour.type]}. Сложность -{" "}
-        {Difficulties[tour.difficulty]}, разрешение с возроста {tour.ageFrom}
+        Вид тура: {Types[tour?.type]}. Сложность -{" "}
+        {Difficulties[tour?.difficulty]}, разрешение с возроста {tour?.ageFrom}
       </p>
       <p>
         Категории:{" "}
-        {tour.restTypes.map((type, id) => (
+        {tour?.restTypes.map((type, id) => (
           <span key={id}>
             {type}{id < tour.restTypes.length - 1 ? "; " : ""}
           </span>
         ))}
       </p>
-      <p>Место проведения: {tour.location}</p>
-      <p>Срок проведения: {tour.duration}</p>
+      <p>Место проведения: {tour?.location}</p>
+      <p>Срок проведения: {tour?.duration}</p>
       <p>
         Даты:{" "}
-        {tour.dates.length > 0
+        {tour?.dates.length > 0
           ? tour.dates.map((date, id) => (
               <span key={id}>
                 {`${date.date}. Цена: ${date.price}`}
@@ -141,7 +147,7 @@ export const TourInfo = ({ tour }) => {
       </p>
 
       <h3>Описание</h3>
-      <p>{tour.text}</p>
+      <p>{tour?.text}</p>
 
       <button
         className={style.bookButton}
@@ -192,7 +198,7 @@ export const TourImgItem = ({
   );
 };
 
-export const TourInfoAdmin = ({ data, setData, id }) => {
+export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const {
@@ -202,7 +208,9 @@ export const TourInfoAdmin = ({ data, setData, id }) => {
   } = useMutation({
     mutationFn: (data) => axios.post(`/api/tours/${id}`, data),
     onSuccess: () => {
-      queryClient.invalidateQueries(["tour", id]);
+      queryClient.invalidateQueries(["tours"]);
+      queryClient.invalidateQueries(["tour", isNew ? data.id : id]);
+			if (isNew) navigate(`../tour/${data.id}`, {replace: true})
     },
   });
   const {
@@ -229,7 +237,7 @@ export const TourInfoAdmin = ({ data, setData, id }) => {
     setData({
       ...data,
       dates: [
-        ...data.dates,
+        ...(data?.dates || []),
         {
           id: Date.now(),
           date: `${getDateFrom2day().replaceAll("-", ".")} - ${getDateFrom2day(
@@ -317,6 +325,7 @@ export const TourInfoAdmin = ({ data, setData, id }) => {
             onChange={changeData}
           />
         </label>
+				
         <div className={`${style.label} ${style.dateBox}`}>
           <p>Даты</p>
           {data?.dates?.map((date) => (
@@ -378,7 +387,7 @@ export const TourInfoAdmin = ({ data, setData, id }) => {
               ? "Сохраняется..."
               : isSavingError
               ? "Что-то пошло не так"
-              : "Сохранить"}
+              : isNew ? "Добавить" : "Сохранить"}
           </button>
         </Alert>
       </div>
