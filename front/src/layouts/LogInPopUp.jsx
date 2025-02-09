@@ -38,7 +38,7 @@ const LogInPopUp = ({ popUpLogIn, setPopUpLogIn }) => {
   const submit = (e) => {
     e.preventDefault();
 
-    mutate(getFormData(ref));
+    mutate({...getFormData(ref), ...data});
   };
 
   const setMissedFill = (e) => {

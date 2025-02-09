@@ -8,7 +8,7 @@ import headerstyles from "styles/header.module.css";
 const UserForm = ({ popUpUserForm, setPopUpUserForm, user }) => {
   const formRef = useRef();
   const queryClient = useQueryClient();
-	const [data, setData] = useState(user || {});
+  const [data, setData] = useState(user || {});
 
   const exit = (e) => {
     localStorage.removeItem("id");
@@ -40,7 +40,7 @@ const UserForm = ({ popUpUserForm, setPopUpUserForm, user }) => {
             ref={formRef}
             onSubmit={(e) => {
               e.preventDefault();
-              submitUserData(data);
+              mutate({ ...getFormData(ref), ...data });
             }}
           >
             <button

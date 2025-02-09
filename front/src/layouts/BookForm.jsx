@@ -50,7 +50,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
   const submit = (e) => {
     e.preventDefault();
 
-    mutate({ ...Object.fromEntries(new FormData(e.target).entries()), price });
+		mutate({...getFormData(formRef), ...data, price: price});
   };
 
   useEffect((e) => setPrice(countPrice()), [type]);
