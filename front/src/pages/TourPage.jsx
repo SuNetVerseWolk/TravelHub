@@ -16,15 +16,22 @@ export const TourPage = () => {
   const { id } = useParams();
   const fileInputRef = useRef();
   const { data: role } = useRole();
-	const isNew = useMemo(() => id === 'new', [id]);
+  const isNew = useMemo(() => id === "new", [id]);
 
-  const { data: tour, isPending, isError } = getApi({
+  const {
+    data: tour,
+    isPending,
+    isError,
+  } = getApi({
     key: ["tour", id],
     path: [`tours/${id}`],
-		enabled: !isNew
+    enabled: !isNew,
   });
   const [data, setData] = useState();
-	const currentData = useMemo(() => role === "admin" ? data : tour, [data, tour, role])
+  const currentData = useMemo(
+    () => (role === "admin" ? data : tour),
+    [data, tour, role]
+  );
 
   const [selectedImg, setSelectedImg] = useState(0);
   const imageHandler = (id) =>
@@ -44,10 +51,10 @@ export const TourPage = () => {
   return (
     <div>
       {!isNew && isPending ? (
-				<Alert>Loading...</Alert>
-			) : !isNew && isError ? (
-				<Alert>No tour data available.</Alert>
-			) : (
+        <Alert>Loading...</Alert>
+      ) : !isNew && isError ? (
+        <Alert>No tour data available.</Alert>
+      ) : (
         <>
           {role != "admin" && <Header />}
           <div className={style.mainTourInfo}>
@@ -72,34 +79,42 @@ export const TourPage = () => {
                       role={role}
                     />
                   ))}
-                  {role === 'admin' && (currentData?.imgs?.length < 4 || isNew) && (
-                    <span onClick={() => fileInputRef.current.click()}>
-                      <input
-                        ref={fileInputRef}
-                        type="file"
-                        hidden
-                        accept="image/*"
-                        onChange={(e) => {
-                          let reader = new FileReader();
+                  {role === "admin" &&
+                    (currentData?.imgs?.length < 4 || isNew) && (
+                      <span onClick={() => fileInputRef.current.click()}>
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          hidden
+                          accept="image/*"
+                          onChange={(e) => {
+                            let reader = new FileReader();
 
-                          reader.onload = (event) => setData(prev => ({...prev, imgs: [...(prev?.imgs || []), event.target.result]}))
-                          reader.readAsDataURL(e.target.files[0]);
-                        }}
-                      />
-                      <button>+</button>
-                    </span>
-                  )}
-									{console.log(currentData)}
+                            reader.onload = (event) =>
+                              setData((prev) => ({
+                                ...prev,
+                                imgs: [
+                                  ...(prev?.imgs || []),
+                                  event.target.result,
+                                ],
+                              }));
+                            reader.readAsDataURL(e.target.files[0]);
+                          }}
+                        />
+                        <button>+</button>
+                      </span>
+                    )}
+                  {console.log(currentData)}
                 </div>
               </div>
               {role != "admin" ? (
-                <TourInfo tour={tour} />
+                <TourInfo tour={currentData} />
               ) : (
                 <TourInfoAdmin
                   data={data}
                   setData={setData}
                   tour={tour}
-									isNew={isNew}
+                  isNew={isNew}
                   id={id}
                 />
               )}
@@ -113,6 +128,7 @@ export const TourPage = () => {
 
 export const TourInfo = ({ tour }) => {
   const [showBookForm, setShowBookForm] = useState(false);
+  const unknown = useMemo(() => "Не УКАЗАННО", []);
 
   return (
     <div className={style.dataTourContainer}>
@@ -121,33 +137,33 @@ export const TourInfo = ({ tour }) => {
       <h3>{tour?.title}</h3>
 
       <p>
-        Вид тура: {Types[tour?.type]}. Сложность -{" "}
-        {Difficulties[tour?.difficulty]}, разрешение с возроста {tour?.ageFrom}
+        Вид тура: {Types[tour?.type] || unknown}. Сложность -{" "}
+        {Difficulties[tour?.difficulty] || unknown}, разрешение с возроста{" "}
+        {tour?.ageFrom || unknown}
       </p>
       <p>
         Категории:{" "}
-        {tour?.restTypes.map((type, id) => (
+        {tour?.restTypes?.map((type, id) => (
           <span key={id}>
-            {type}{id < tour.restTypes.length - 1 ? "; " : ""}
+            {type}
+            {id < tour.restTypes.length - 1 ? "; " : ""}
           </span>
-        ))}
+        )) || unknown}
       </p>
-      <p>Место проведения: {tour?.location}</p>
-      <p>Срок проведения: {tour?.duration}</p>
+      <p>Место проведения: {tour?.location || unknown}</p>
+      <p>Срок проведения: {tour?.duration || unknown}</p>
       <p>
         Даты:{" "}
-        {tour?.dates.length > 0
-          ? tour.dates.map((date, id) => (
-              <span key={id}>
-                {`${date.date}. Цена: ${date.price}`}
-                {id < tour.dates.length - 1 ? ", " : ""}
-              </span>
-            ))
-          : "Нет доступных дат"}
+        {tour?.dates?.map((date, id) => (
+          <span key={id}>
+            {`${date.date}. Цена: ${date.price}`}
+            {id < tour.dates.length - 1 ? ", " : ""}
+          </span>
+        )) || "Нет доступных дат"}
       </p>
 
       <h3>Описание</h3>
-      <p>{tour?.text}</p>
+      <p>{tour?.text || unknown}</p>
 
       <button
         className={style.bookButton}
@@ -210,7 +226,7 @@ export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
     onSuccess: () => {
       queryClient.invalidateQueries(["tours"]);
       queryClient.invalidateQueries(["tour", isNew ? data.id : id]);
-			if (isNew) navigate(`../tour/${data.id}`, {replace: true})
+      if (isNew) navigate(`../tour/${data.id}`, { replace: true });
     },
   });
   const {
@@ -325,7 +341,7 @@ export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
             onChange={changeData}
           />
         </label>
-				
+
         <div className={`${style.label} ${style.dateBox}`}>
           <p>Даты</p>
           {data?.dates?.map((date) => (
@@ -387,7 +403,9 @@ export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
               ? "Сохраняется..."
               : isSavingError
               ? "Что-то пошло не так"
-              : isNew ? "Добавить" : "Сохранить"}
+              : isNew
+              ? "Добавить"
+              : "Сохранить"}
           </button>
         </Alert>
       </div>

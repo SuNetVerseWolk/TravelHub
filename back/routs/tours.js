@@ -28,7 +28,7 @@ router.post("/:id", (req, res) => {
   if (!isNew && !tour) return res.sendStatus(404);
   if (!Object.keys(req.body).find(value => value === 'id')) return res.sendStatus(400);
 
-  req.body.imgs.forEach((imgSrc, index) => {
+  req.body.imgs?.forEach((imgSrc, index) => {
     if (imgSrc.startsWith("data:")) {
       let convertedFilename = convertBase64ToImage(imgSrc, req.body.id);
 
