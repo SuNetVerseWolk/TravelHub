@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "styles/users.module.css";
 import { motion } from "framer-motion";
-import formatPhoneNumber from "api/formatPhoneNumber";
+import { formatPhoneNumber } from "api/formatData";
 import { useNavigate } from "react-router-dom";
 
 export const UserItem = ({ user }) => {
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div className={styles.item}>

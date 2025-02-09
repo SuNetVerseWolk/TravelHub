@@ -1,13 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "styles/forms.module.css";
+import bgImg from "/woowNature.jpg";
+import { formatPhoneNumber } from "api/formatData";
+import { getFormData } from "api/get";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const ref = useRef();
+  const [data, setData] = useState(getFormData(ref));
   const { mutate } = useMutation({
     mutationFn: (data) => axios.post(`/api/users/signUp`, data),
     onSuccess: (res) => {
@@ -31,8 +35,8 @@ const SignUp = () => {
 
   const submit = (e) => {
     e.preventDefault();
+    mutate(data);
     queryClient.invalidateQueries(["user"]);
-    mutate(Object.fromEntries(new FormData(e.target).entries()));
   };
 
   const setMissedFill = (e) => {
@@ -47,7 +51,7 @@ const SignUp = () => {
       <div id={styles.signUp}>
         <h2>Регистрация</h2>
 
-        <img id={styles.i1} src="/woowNature.jpg" alt="" />
+        <img id={styles.i1} src={bgImg} alt="" />
 
         <form ref={ref} onSubmit={submit}>
           <div>
@@ -82,7 +86,14 @@ const SignUp = () => {
                 id="number"
                 name="number"
                 type="tel"
-                placeholder="Номер"
+                placeholder="+7 (000) 000-00-00"
+                value={formatPhoneNumber.userFriendly(data.number)}
+                onChange={(e) =>
+                  setData((prev) => ({
+                    ...prev,
+                    number: formatPhoneNumber.dataFriendly(e.target.value),
+                  }))
+                }
                 required
               />
 

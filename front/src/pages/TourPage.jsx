@@ -171,7 +171,7 @@ export const TourInfo = ({ tour }) => {
       >
         Забронировать
       </button>
-      {showBookForm ? <BookForm setShowBookForm={setShowBookForm} /> : <></>}
+      {showBookForm ? <BookForm setShowBookForm={setShowBookForm} tour={tour} /> : <></>}
     </div>
   );
 };
