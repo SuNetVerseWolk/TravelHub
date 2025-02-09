@@ -20,7 +20,7 @@
     flex-direction: row;
     gap: 30px;
 
-    width: 800px;
+    max-width: 800px;
 }
 
 .containerImgs {
@@ -164,14 +164,26 @@ textarea {
     .mainTourInfo> div {
         flex-direction: column;
     }
-    /* .mainTourInfo > div > div:nth-child(2) {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    } */
     .dataTourContainer {
-        max-width: 400px;
-        margin: 50px;
+        max-width: 500px;
+    }
+}
+@media (max-width: 555px) {
+    .containerImgs div:nth-child(1) img {
+        width: 70%;
+        height: 90%;
+    }
+    .containerImgs div:nth-child(1) {
+        height: 400px;
+        align-items: flex-end;
+    }
+    .dataTourContainer {
+        min-width: 0;
+        width: 400px;
+        padding: 0 50px 20px 80px;
+    }
+    .dataTourContainer > *:not(h3, h1, div) {
+        font-size: .5rem;
+        width: 300px;
     }
 }
