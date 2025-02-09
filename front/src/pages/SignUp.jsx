@@ -35,7 +35,7 @@ const SignUp = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    mutate(data);
+    mutate(getFormData(ref));
     queryClient.invalidateQueries(["user"]);
   };
 

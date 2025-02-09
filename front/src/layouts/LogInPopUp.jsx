@@ -38,8 +38,7 @@ const LogInPopUp = ({ popUpLogIn, setPopUpLogIn }) => {
   const submit = (e) => {
     e.preventDefault();
 
-		console.log(data)
-    mutate(data);
+    mutate(getFormData(ref));
   };
 
   const setMissedFill = (e) => {
@@ -83,7 +82,7 @@ const LogInPopUp = ({ popUpLogIn, setPopUpLogIn }) => {
                 name="password"
                 type="password"
                 placeholder="Пароль"
-                onChange={e => setData(prev => ({...prev, password: e.target.value}))}
+                //onChange={e => setData(prev => ({...prev, password: e.target.value}))}
                 required
               />
 

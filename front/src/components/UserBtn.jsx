@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import LogInBtn from "./LogInBtn";
 import UserForm from "layouts/UserForm";
 import useRole from "api/useRole";
+import { formatPhoneNumber } from "api/formatData";
 
 const UserBtn = () => {
 	const { data: role} = useRole();
@@ -15,13 +16,14 @@ const UserBtn = () => {
       {isLoading ? (
         <LogInBtn value="Загрузка..." />
       ) : role === "user" ? (
-				<LogInBtn value={user.number} onClick={(e) => setPopUpUserForm(true)} />
+				<LogInBtn value={formatPhoneNumber.userFriendly(user.number)} onClick={(e) => setPopUpUserForm(true)} />
       ) : (
         <LogInBtn />
       )}
 
       {popUpUserForm && (
         <UserForm
+					user={user}
           popUpUserForm={popUpUserForm}
           setPopUpUserForm={setPopUpUserForm}
         />
