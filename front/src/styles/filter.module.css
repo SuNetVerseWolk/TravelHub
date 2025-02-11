@@ -88,7 +88,7 @@
     display: block;
     border-bottom: #00000082 1px solid;
     height: 20px;
-    width: 100%;
+    min-width: 90%;
 }
 .dates button:hover {
     color: #000000;
@@ -141,22 +141,20 @@
     .filterContainer form {
         display: grid;
         grid-template-rows: repeat(6, 1fr);
+        grid-template-columns: repeat(1, .6fr);
+
         justify-content: center;
     }
     .filterContainer form input,
-    .filterContainer form button {
+    .filterContainer form button,
+    .dates {
         width: 100%;
+        margin: 0;
         margin-block: 5px;
     }
-    /* .filterContainer form button {
-        width: 100%;
-        margin-block: 5px;
-    } */
-    .dates, .filterContainer form button {
-        margin-left: 3px;
-        margin-right: -1px;
-    }
-    .dates button {
-        padding-block: 0;
+}
+@media (max-width: 450px) {
+    .filterContainer form {
+        grid-template-columns: repeat(1, 1fr);
     }
 }
