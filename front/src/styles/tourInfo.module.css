@@ -167,6 +167,7 @@ textarea {
     }
     .dataTourContainer {
         max-width: 500px;
+        padding: 0 0 50px 0;
     }
 }
 @media (max-width: 555px) {
@@ -176,12 +177,12 @@ textarea {
     }
     .containerImgs div:nth-child(1) {
         height: 400px;
-        align-items: flex-end;
+        /* align-items: flex-end; */
     }
     .dataTourContainer {
         min-width: 0;
         width: 400px;
-        padding: 0 50px 20px 80px;
+        padding: 0 50px 50px 80px;
     }
     .dataTourContainer > *:not(h3, h1, div) {
         font-size: .5rem;
