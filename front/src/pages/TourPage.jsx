@@ -222,7 +222,7 @@ export const TourImgItem = ({
       )}
       {role === Roles.Admin && ((isSelected && hoveredImgId === -1) || hoveredImgId === id) && (
         <motion.button
-          animate={{ scale: 1, transition: {delay: isSelected ? .3 : 0 } }}
+          animate={{ scale: 1, transition: {delay: isSelected ? .15 : 0 } }}
           initial={{ scale: isSelected ? 0 : 0.5 }}
           onClick={onClick}
         >
