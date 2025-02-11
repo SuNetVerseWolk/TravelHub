@@ -173,6 +173,8 @@ header button:hover .user img {
 
 	.buttonAccount {
 		display: var(--in);
+
+		font-size: .7rem;
 	}
 
 	.userIconContainer {
@@ -192,7 +194,7 @@ header button:hover .user img {
 @media (max-width: 340px) {
 	.buttonAccount {
 		padding: 10px 5px;
-		font-size: .9rem;
+		font-size: .5rem;
 	}
 	.buttonAccount > div {
 		display: none;

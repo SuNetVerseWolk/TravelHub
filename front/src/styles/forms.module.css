@@ -244,8 +244,8 @@
 .exit::after {
   content: '>';
   position: absolute;
-  top: 17%;
-  right: 30%;
+  top: 7px;
+  right: 12px;
 
   font-size: 1rem;
 }
