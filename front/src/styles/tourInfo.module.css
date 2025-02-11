@@ -169,6 +169,18 @@ textarea {
         max-width: 500px;
         padding: 0 0 50px 0;
     }
+
+    /* .mainTourInfo > div > div:nth-child(2) {
+        width: 100%;
+        padding-inline: 60px;
+    }
+    .mainTourInfo > div > div:nth-child(2) > div,
+    .mainTourInfo > div > div:nth-child(2) > .label {
+        width: 100%;
+    }
+    .mainTourInfo > div > div:nth-child(2) *:not(h1, h3) {
+        font-size: .5rem;
+    } */
 }
 @media (max-width: 555px) {
     .containerImgs div:nth-child(1) img {
@@ -177,7 +189,6 @@ textarea {
     }
     .containerImgs div:nth-child(1) {
         height: 400px;
-        /* align-items: flex-end; */
     }
     .dataTourContainer {
         min-width: 0;
@@ -188,4 +199,15 @@ textarea {
         font-size: .5rem;
         width: 300px;
     }
+}
+@media (max-width: 325px) {
+    /* .mainTourInfo > div > div:nth-child(2) {
+        width: 100%;
+        padding: 0;
+        padding-left: 90px;
+    }
+    .mainTourInfo > div > div:nth-child(2) > div,
+    .mainTourInfo > div > div:nth-child(2) > .label {
+        width: 60%;
+    } */
 }
