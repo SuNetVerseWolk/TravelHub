@@ -4,7 +4,7 @@
 	animation: infinite load;
 }
 
-.loading > * {
+.loading *:not(button) {
 	color: #fff;
 }
 
