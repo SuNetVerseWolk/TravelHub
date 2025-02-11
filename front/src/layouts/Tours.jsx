@@ -19,7 +19,7 @@ export const Tours = ({ filters }) => {
 
   const filtredList = useMemo(
     () =>
-      tours.filter((tour) =>
+      tours?.filter((tour) =>
         filters?.length
           ? filters.some((filter) => tour.restTypes?.includes(filter))
           : true
