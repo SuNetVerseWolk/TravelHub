@@ -34,15 +34,24 @@ export const TourPage = () => {
     [data, tour, role]
   );
 
-  const [selectedImg, setSelectedImg] = useState(0);
+  const [imgsGlobalValue, setImgsGlobalValue] = useState({
+    selected: 0,
+    hovered: -1,
+  });
   const imageHandler = (id) =>
-    setSelectedImg((prev) => {
+    setImgsGlobalValue((prev) => {
       setData((prev) => ({
         ...prev,
         imgs: prev.imgs.filter((item, itemId) => itemId != id),
       }));
 
-      return prev >= data.imgs.length - 1 ? data.imgs.length - 2 : prev;
+      return {
+        ...prev,
+        selected:
+          prev.selected >= data.imgs.length - 1
+            ? data.imgs.length - 2
+            : prev.selected,
+      };
     });
 
   useEffect(() => {
@@ -62,7 +71,7 @@ export const TourPage = () => {
                 <div>
                   <img
                     className={isLoading ? loadStyles.loading : ""}
-                    src={currentData?.imgs?.at(selectedImg)}
+                    src={currentData?.imgs?.at(imgsGlobalValue.selected)}
                     alt={currentData?.title || "Tour Image"}
                   />
                 </div>
@@ -72,13 +81,15 @@ export const TourPage = () => {
                     ? [0, 1, 2].map((i) => (
                         <TourImgItem isLoading={isLoading} />
                       ))
-                    : currentData?.imgs?.map((img, id) => (
+                    : (currentData?.imgs?.length > 1 || role === "admin") &&
+                      currentData?.imgs?.map((img, id) => (
                         <TourImgItem
                           key={img + id}
                           id={id}
                           src={img}
-                          isSelected={selectedImg}
-                          setSelected={setSelectedImg}
+                          isSelected={imgsGlobalValue.selected === id}
+													hoveredImgId={imgsGlobalValue.hovered}
+                          setGlobalValue={setImgsGlobalValue}
                           onClick={() => imageHandler(id)}
                           role={role}
                         />
@@ -188,34 +199,31 @@ export const TourImgItem = ({
   src,
   id,
   isSelected,
-  setSelected,
+	hoveredImgId,
+  setGlobalValue,
   onClick,
   role,
   isLoading,
 }) => {
-  const [hovered, setHover] = useState(false);
-
   return (
     <motion.span
-      onHoverStart={() => setHover(true)}
-      onHoverEnd={() => setHover(false)}
+      onHoverStart={() => setGlobalValue(prev => ({...prev, hovered: id}))}
+      onHoverEnd={() => setGlobalValue(prev => ({...prev, hovered: -1}))}
       className={`${style.imgItem} ${isLoading ? loadStyles.loading : ""}`}
     >
       {!isLoading && (
         <img
           key={id}
           src={src}
-          onClick={() => setSelected(id)}
-          className={`${style.thumnails} ${
-            isSelected === id ? style.active : ""
-          }`}
+          onClick={() => setGlobalValue((prev) => ({ ...prev, selected: id }))}
+          className={`${style.thumnails} ${isSelected ? style.active : ""}`}
           alt={`Tour Image ${id + 1}`}
         />
       )}
-      {role === Roles.Admin && hovered && (
+      {role === Roles.Admin && ((isSelected && hoveredImgId === -1) || hoveredImgId === id) && (
         <motion.button
-          animate={{ scale: 1 }}
-          initial={{ scale: 0.5 }}
+          animate={{ scale: 1, transition: {delay: isSelected ? .3 : 0 } }}
+          initial={{ scale: isSelected ? 0 : 0.5 }}
           onClick={onClick}
         >
           X
