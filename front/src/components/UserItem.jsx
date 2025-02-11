@@ -15,7 +15,7 @@ export const UserItem = ({ user }) => {
         <p>{user.fatherName}</p>
       </div>
       <p>{user.email}</p>
-      <p>{formatPhoneNumber(user.number)}</p>
+      <p>{formatPhoneNumber.userFriendly(user.number)}</p>
       <motion.button
         whileHover={{ background: "#000", color: "#fff" }}
         whileTap={{ background: "#000", color: "#fff" }}
