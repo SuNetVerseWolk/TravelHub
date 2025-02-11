@@ -1,68 +1,71 @@
 .mainTourInfo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-    /* width: fit-content */
-    margin-top: 40px;
+	/* width: fit-content */
+	margin-top: 40px;
 }
 
-.mainTourInfo p, .mainTourInfo h3 {
-    margin: 10px 0;
+.mainTourInfo p,
+.mainTourInfo h3 {
+	margin: 10px 0;
 }
+
 .mainTourInfo p {
-    font-size: .8rem;
+	font-size: .8rem;
 }
 
-.mainTourInfo > div {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    gap: 30px;
+.mainTourInfo>div {
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	gap: 30px;
 
-    max-width: 800px;
+	max-width: 800px;
 }
 
 .containerImgs {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .containerImgs div:nth-child(1) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-    width: 450px;
-    height: 500px;
+	width: 450px;
+	height: 500px;
 }
 
 .containerImgs div:nth-child(1) img {
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    box-shadow: #3b3b3b81 0 0 10px;
-		background: #000;
+	width: 100%;
+	height: 100%;
+	border-radius: 20px;
+	box-shadow: #3b3b3b81 0 0 10px;
+	background: #000;
 }
 
 .containerImgs div:nth-child(2) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .containerImgs div:nth-child(2) img {
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
-    margin: 10px 5px;
-    cursor: pointer;
-    filter: brightness(50%);
+	width: 45px;
+	height: 45px;
+	border-radius: 10px;
+	margin: 10px 5px;
+	cursor: pointer;
+	filter: brightness(50%);
 
-    transition: all .2s linear;
+	transition: all .2s linear;
 }
+
 .containerImgs div:nth-child(2) span {
 	display: flex;
 	justify-content: center;
@@ -75,6 +78,7 @@
 
 	transition: all .2s linear;
 }
+
 .containerImgs div:nth-child(2) span:not(.imgItem) button {
 	width: 75%;
 	background: #f2801c26;
@@ -82,13 +86,16 @@
 	border-radius: .5rem;
 	aspect-ratio: 1/1;
 }
+
 .thumnails.active {
 	border-color: #007bff;
 	filter: brightness(100%) !important;
 }
+
 .imgItem {
 	position: relative;
 }
+
 .imgItem button {
 	background: red;
 	border: 1px solid #9b0000;
@@ -100,13 +107,14 @@
 	right: 0;
 	translate: 25% 25%;
 }
+
 .dataTourContainer {
-    min-width: 500px;
+	min-width: 500px;
 }
 
 .bookButton {
-    margin-top: 20px;
-    padding: 15px 40px;
+	margin-top: 20px;
+	padding: 15px 40px;
 	border: 0;
 	border-bottom: 0px #f2801c26 solid;
 	border-radius: 10px;
@@ -119,73 +127,105 @@
 	flex-flow: column nowrap;
 	margin-bottom: .3rem;
 }
+
 .label * {
 	line-height: normal;
 }
+
 .itemsBox {
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
 	gap: .1rem;
 }
+
 .itemsBox * {
 	border: 0;
 }
+
 .itemsBox .label {
 	display: flex;
 	flex-flow: row nowrap;
 }
+
 .label.underline {
 	border-bottom: 1px solid;
 	width: 15%;
 }
+
 .label.underline p {
 	margin-right: .3rem;
 }
+
 .label.underline * {
 	line-height: 0;
 }
+
 .label.underline input {
 	width: 100%;
 }
-.dateBox > div {
+
+.dateBox>div {
 	display: flex;
 }
+
 textarea {
 	width: 100%;
 }
+
 .scrollable {
 	overflow-y: scroll;
 }
+
 .scrollable::-webkit-scrollbar {
 	display: none;
 }
+ul {
+	display: flex;
+	flex-flow: row wrap;
+	gap: .5rem;
+	padding: .3rem;
+}
+li {
+	border-radius: .3rem;
+	padding: .3rem;
+	box-shadow: #aaa 0 0 3px;
+	cursor: pointer;
+}
+li.active {
+	background: #007bff;
+}
 
 @media (max-width: 1024px) {
-    .mainTourInfo> div {
-        flex-direction: column;
-    }
-    .dataTourContainer {
-        max-width: 500px;
-        padding: 0 0 50px 0;
-    }
+	.mainTourInfo>div {
+		flex-direction: column;
+	}
+
+	.dataTourContainer {
+		max-width: 500px;
+		padding: 0 0 50px 0;
+	}
 }
+
 @media (max-width: 555px) {
-    .containerImgs div:nth-child(1) img {
-        width: 70%;
-        height: 90%;
-    }
-    .containerImgs div:nth-child(1) {
-        height: 400px;
-        /* align-items: flex-end; */
-    }
-    .dataTourContainer {
-        min-width: 0;
-        width: 400px;
-        padding: 0 50px 50px 80px;
-    }
-    .dataTourContainer > *:not(h3, h1, div) {
-        font-size: .5rem;
-        width: 300px;
-    }
+	.containerImgs div:nth-child(1) img {
+		width: 70%;
+		height: 90%;
+	}
+
+	.containerImgs div:nth-child(1) {
+		height: 400px;
+		/* align-items: flex-end; */
+	}
+
+	.dataTourContainer {
+		min-width: 0;
+		width: 400px;
+		padding: 0 50px 50px 80px;
+	}
+
+	.dataTourContainer>*:not(h3, h1, div) {
+		font-size: .5rem;
+		width: 300px;
+	}
 }

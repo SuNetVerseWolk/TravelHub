@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Difficulties, Roles, Types } from "api/enums";
+import { Difficulties, RelaxTypes, Roles, Types } from "api/enums";
 import getApi, { getDateFrom2day } from "api/get";
 import useRole from "api/useRole";
 import axios from "axios";
@@ -343,14 +343,29 @@ export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
           />
         </label>
         <label className={style.label}>
-          <p>Длительность</p>
-          <input
-            name="duration"
-            type="text"
-            placeholder="Длительность"
-            value={data?.duration}
-            onChange={changeData}
-          />
+          <p>Типы отдыха</p>
+          <ul>
+            {RelaxTypes.map((value, index) => (
+              <li
+                className={
+                  data?.restTypes?.includes(value.text) ? style.active : ""
+                }
+                onClick={(e) =>
+                  setData((prev) => ({
+                    ...prev,
+                    restTypes: prev.restTypes?.includes(value.text)
+                      ? prev.restTypes.filter(
+                          (restType) => restType != value.text
+                        )
+                      : [...(prev.restTypes || []), value.text],
+                  }))
+                }
+              >
+                <img src={value.src} alt="" />
+                <span>{value.text}</span>
+              </li>
+            ))}
+          </ul>
         </label>
 
         <div className={`${style.label} ${style.dateBox}`}>
@@ -359,10 +374,7 @@ export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
             <div key={date.id}>
               <DatesUI
                 date={date.date}
-                onChange={(value) => {
-                  console.log(value);
-                  setDate(date.id, { ...date, date: value });
-                }}
+                onChange={(value) => setDate(date.id, { ...date, date: value })}
                 unicId={date.id}
                 data={date}
               />
