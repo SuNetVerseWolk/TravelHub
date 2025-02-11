@@ -188,12 +188,12 @@ ul {
 }
 li {
 	border-radius: .3rem;
-	padding: .3rem;
-	box-shadow: #aaa 0 0 3px;
+	padding: .5rem;
+	box-shadow: #eee 0 0 3px;
 	cursor: pointer;
 }
 li.active {
-	background: #007bff;
+	background: #f2801c26;
 }
 
 @media (max-width: 1024px) {
