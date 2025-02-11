@@ -11,6 +11,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import style from "styles/tourInfo.module.css";
 import { motion } from "framer-motion";
+import loadStyles from "styles/load.module.css";
 
 export const TourPage = () => {
   const { id } = useParams();
@@ -20,7 +21,7 @@ export const TourPage = () => {
 
   const {
     data: tour,
-    isPending,
+    isLoading,
     isError,
   } = getApi({
     key: ["tour", id],
@@ -50,9 +51,7 @@ export const TourPage = () => {
 
   return (
     <div>
-      {!isNew && isPending ? (
-        <Alert>Loading...</Alert>
-      ) : !isNew && isError ? (
+      {!isNew && isError ? (
         <Alert>No tour data available.</Alert>
       ) : (
         <>
@@ -62,23 +61,28 @@ export const TourPage = () => {
               <div className={style.containerImgs}>
                 <div>
                   <img
+                    className={isLoading ? loadStyles.loading : ""}
                     src={currentData?.imgs?.at(selectedImg)}
                     alt={currentData?.title || "Tour Image"}
                   />
                 </div>
 
                 <div>
-                  {currentData?.imgs?.map((img, id) => (
-                    <TourImgItem
-                      key={img + id}
-                      id={id}
-                      src={img}
-                      isSelected={selectedImg}
-                      setSelected={setSelectedImg}
-                      onClick={() => imageHandler(id)}
-                      role={role}
-                    />
-                  ))}
+                  {isLoading
+                    ? [0, 1, 2].map((i) => (
+                        <TourImgItem isLoading={isLoading} />
+                      ))
+                    : currentData?.imgs?.map((img, id) => (
+                        <TourImgItem
+                          key={img + id}
+                          id={id}
+                          src={img}
+                          isSelected={selectedImg}
+                          setSelected={setSelectedImg}
+                          onClick={() => imageHandler(id)}
+                          role={role}
+                        />
+                      ))}
                   {role === "admin" &&
                     (currentData?.imgs?.length < 4 || isNew) && (
                       <span onClick={() => fileInputRef.current.click()}>
@@ -171,7 +175,11 @@ export const TourInfo = ({ tour }) => {
       >
         Забронировать
       </button>
-      {showBookForm ? <BookForm setShowBookForm={setShowBookForm} tour={tour} /> : <></>}
+      {showBookForm ? (
+        <BookForm setShowBookForm={setShowBookForm} tour={tour} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
@@ -183,6 +191,7 @@ export const TourImgItem = ({
   setSelected,
   onClick,
   role,
+  isLoading,
 }) => {
   const [hovered, setHover] = useState(false);
 
@@ -190,17 +199,19 @@ export const TourImgItem = ({
     <motion.span
       onHoverStart={() => setHover(true)}
       onHoverEnd={() => setHover(false)}
-      className={style.imgItem}
+      className={`${style.imgItem} ${isLoading ? loadStyles.loading : ""}`}
     >
-      <img
-        key={id}
-        src={src}
-        onClick={() => setSelected(id)}
-        className={`${style.thumnails} ${
-          isSelected === id ? style.active : ""
-        }`}
-        alt={`Tour Image ${id + 1}`}
-      />
+      {!isLoading && (
+        <img
+          key={id}
+          src={src}
+          onClick={() => setSelected(id)}
+          className={`${style.thumnails} ${
+            isSelected === id ? style.active : ""
+          }`}
+          alt={`Tour Image ${id + 1}`}
+        />
+      )}
       {role === Roles.Admin && hovered && (
         <motion.button
           animate={{ scale: 1 }}

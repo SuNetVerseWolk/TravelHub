@@ -1,0 +1,19 @@
+.loading {
+	color: #fff;
+	background: linear-gradient(to right, #333333, #555555) !important;
+	animation: infinite load;
+}
+
+.loading > * {
+	color: #fff;
+}
+
+@keyframes load {
+	from {
+		background-position-x: -200px;
+	}
+
+	to {
+		background-position-x: calc(100% + -200px);
+	}
+}
