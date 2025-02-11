@@ -115,6 +115,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
           type="number"
           placeholder="Кол-во взрослых"
           required
+					defaultValue={1}
           min={1}
           max={20}
         />
@@ -125,15 +126,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
           type="number"
           required
           placeholder="Кол-во детей"
-          // onChange={(e) => {
-          // 	const roomByType = getCurrentRoomData();
-
-          // 	if (
-          // 		+e.target.value + roomByType.bookedAmount >
-          // 		roomByType.amount
-          // 	)
-          // 		e.target.value = roomByType.amount;
-          // }}
+					defaultValue={0}
           min={0}
           max={13}
         />
@@ -141,11 +134,6 @@ const BookForm = ({ setShowBookForm, tour }) => {
         <select
           name="datePick"
           id="datePick"
-          // defaultValue={popupForm.current?.getAttribute("data-type")}
-          // onChange={(e) => {
-          // 	formRef.current.countRooms.value = 1;
-          // 	formRef.current.countPeople.value = 1;
-          // }}
         >
           {tour?.dates?.map((value) => <option>{value.date}</option>) || (
             <option>Дат нет</option>
