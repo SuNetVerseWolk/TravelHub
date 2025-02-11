@@ -17,19 +17,22 @@ const BookForm = ({ setShowBookForm, tour }) => {
   });
   const [data, setData] = useState({ ...getFormData(formRef), ...user });
 
+  const [price, setPrice] = useState(0);
   const countPrice = (e) => {
     const formData = getFormData(formRef);
-    const come = formData.datePick;
+    const [come, out] = formData.datePick.split(" - ");
 
-    //const days = datediff(come, out) + 1;
+    const days = datediff(new Date(come), new Date(out)) + 1;
+    const price = tour.dates.find(
+      (date) => date.date === formData.datePick
+    )?.price;
 
-    //return getCurrentRoomData()?.price *
-    //formData.countPeople *
-    //formData.countRooms *
-    //(days || 1)
-    return come;
+    console.log(tour.dates.find((date) => date.date === formData.datePick));
+    return (
+      (formData.countAdults * price + formData.countChildren * price * 0.45) *
+      (days || 1)
+    );
   };
-  const [price, setPrice] = useState(0);
 
   function datediff(first, second) {
     return Math.round((second - first) / (1000 * 60 * 60 * 24));
@@ -50,7 +53,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
   const submit = (e) => {
     e.preventDefault();
 
-		mutate({...getFormData(formRef), ...data, price: price});
+    mutate({ ...getFormData(formRef), ...data, price: price });
   };
 
   useEffect((e) => setPrice(countPrice()), [type]);
