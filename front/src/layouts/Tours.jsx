@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import getApi from "api/get";
 import Alert from "components/Alert";
 import Tour from "components/Tour";
 import style from "styles/toursComponent.module.css";
-import loadStyles from "styles/load.module.css";
 import { TourLoading } from "components/load/TourLoading";
 
-export const Tours = () => {
+export const Tours = ({ filters }) => {
   const {
     data: tours,
     isLoading,
@@ -18,13 +17,25 @@ export const Tours = () => {
 
   const [showMore, setShowMore] = useState(false);
 
-  const displayedTours = showMore ? tours : tours?.slice(0, 4);
+  const filtredList = useMemo(
+    () =>
+      tours.filter((tour) =>
+        filters?.length
+          ? filters.some((filter) => tour.restTypes?.includes(filter))
+          : true
+      ),
+    [tours, filters]
+  );
+  const displayedTours = useMemo(
+    () => (showMore ? filtredList : filtredList?.slice(0, 4)),
+    [showMore, filtredList]
+  );
 
-  return isLoading ? [0,1,2,3].map(i => (
-		<TourLoading key={i + 'loading'} i={i * 2} />
-	)) : isError ? (
+  return isLoading ? (
+    [0, 1, 2, 3].map((i) => <TourLoading key={i + "loading"} i={i * 2} />)
+  ) : isError ? (
     <Alert>Что-то пошло не так</Alert>
-  ) : tours?.length <= 0 ? (
+  ) : filtredList?.length <= 0 ? (
     <Alert>К сожалению туров нет</Alert>
   ) : (
     <>

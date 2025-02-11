@@ -79,8 +79,11 @@
     transition: all .2s;
 }
 
-#tours > ul > li:hover {
+#tours > ul > li:hover, #tours > ul > li.active {
     background: #f2801c26;
+}
+#tours > ul > li.active:hover {
+	background: #f2801c3a;
 }
 
 @media (max-width: 760px) {
