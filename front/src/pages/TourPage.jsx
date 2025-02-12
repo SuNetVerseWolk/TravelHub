@@ -72,7 +72,7 @@ export const TourPage = () => {
                   <img
                     className={isLoading ? loadStyles.loading : ""}
                     src={currentData?.imgs?.at(imgsGlobalValue.selected)}
-                    alt={currentData?.title || "Tour Image"}
+                    alt={currentData?.title || isNew ? "Добавьте изображение" : "Изображение тура"}
                   />
                 </div>
 
