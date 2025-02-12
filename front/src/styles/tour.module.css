@@ -40,17 +40,17 @@
 
 	width: 100%;
 	max-height: 164px;
-	padding: .75rem;
+	/* padding: .75rem; */
 
 	background: #f3f9ff4d;
 	border-radius: 4px;
 	backdrop-filter: blur(4px);
 
-	font-size: 16px;
-	font-weight: 400;
-	line-height: 23px;
-	word-wrap: break-word;
-	font-family: Open Sans, Helvetica, sans-serif;
+	/* font-size: 16px;	 */
+	/* font-weight: 400; */
+	/* line-height: 23px; */
+	/* word-wrap: break-word; */
+	/* font-family: Open Sans, Helvetica, sans-serif; */
 }
 .main>div>div:last-child>ul {
 	display: flex;
