@@ -85,7 +85,7 @@ export const TourPage = () => {
                     ? [0, 1, 2].map((i) => (
                         <TourImgItem isLoading={isLoading} />
                       ))
-                    : (currentData?.imgs?.length > 1 || role === "admin") &&
+                    : (role === "admin" || currentData?.imgs?.length > 1) &&
                       currentData?.imgs?.map((img, id) => (
                         <TourImgItem
                           key={img + id}
@@ -99,7 +99,7 @@ export const TourPage = () => {
                         />
                       ))}
                   {role === "admin" &&
-                    (currentData?.imgs?.length < 4 || isNew) && (
+                    (currentData?.imgs?.length < 4 || !currentData?.imgs) && (
                       <span onClick={() => fileInputRef.current.click()}>
                         <input
                           ref={fileInputRef}
@@ -123,7 +123,6 @@ export const TourPage = () => {
                         <button>+</button>
                       </span>
                     )}
-                  {console.log(currentData)}
                 </div>
               </div>
               {role != "admin" ? (
@@ -407,7 +406,7 @@ export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
                 placeholder="Стоимость"
                 value={date?.price}
                 onChange={(e) =>
-                  setDate(date.id, { ...date, price: e.target.value })
+                  setDate(date.id, { ...date, price: +e.target.value })
                 }
               />
               <button onClick={(e) => removeDate(date.id)}>X</button>
