@@ -18,7 +18,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* width: 70%; */
+	
 	padding: 1rem;
 	background: #ffffff;
 	border-radius: 10px;
@@ -113,5 +113,18 @@
 		border-radius: 1rem;
 		cursor: pointer;
 		margin-inline: auto;
+	}
+
+	
+	.items > div > div > div > div:nth-child(2) {
+		width: 400px;
+		padding-left: 50px;
+	}
+}
+
+@media (max-width: 375px) {
+	.items > div > div > div > div:nth-child(2) {
+		width: 350px;
+		padding-left: 80px;
 	}
 }
