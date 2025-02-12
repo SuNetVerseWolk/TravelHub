@@ -152,6 +152,8 @@
         margin: 0;
         margin-block: 5px;
     }
+
+    .loupe { top: 7px; }
 }
 @media (max-width: 450px) {
     .filterContainer form {

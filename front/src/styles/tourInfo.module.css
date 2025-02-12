@@ -3,8 +3,8 @@
 	justify-content: center;
 	align-items: center;
 
-	/* width: fit-content */
 	margin-top: 40px;
+	width: ;
 }
 
 .mainTourInfo p,
@@ -27,7 +27,7 @@
 
 .containerImgs {
 	display: flex;
-	justify-content: center;
+	/* justify-content: center; */
 	align-items: center;
 	flex-direction: column;
 }
@@ -189,8 +189,7 @@ ul {
 }
 li {
 	border-radius: .3rem;
-	padding: .5rem;
-	box-shadow: #eee 0 0 3px;
+	padding-block: .5rem;
 	cursor: pointer;
 }
 li.active {
@@ -216,7 +215,6 @@ li.active {
 
 	.containerImgs div:nth-child(1) {
 		height: 400px;
-		/* align-items: flex-end; */
 	}
 
 	.dataTourContainer {
@@ -226,7 +224,7 @@ li.active {
 	}
 
 	.dataTourContainer>*:not(h3, h1, div) {
-		font-size: .5rem;
+		font-size: .6rem;
 		width: 300px;
 	}
 }
