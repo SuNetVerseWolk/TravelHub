@@ -27,7 +27,6 @@ const BookForm = ({ setShowBookForm, tour }) => {
       (date) => date.date === formData.datePick
     )?.price;
 
-    console.log(tour.dates.find((date) => date.date === formData.datePick));
     return (
       (formData.countAdults * price + formData.countChildren * price * 0.45) *
       (days || 1)

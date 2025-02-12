@@ -47,6 +47,13 @@ export const getDateFrom2day = (number = 0) => {
 
   return date.toISOString().slice(0, 10);
 };
+export const getDateDiff = (date) => {
+	console.log(date)
+	const [come, out] = date.split(" - ");
+	const days = Math.round((new Date(out) - new Date(come)) / (1000 * 60 * 60 * 24));
+
+	return days;
+}
 
 export const getFormData = (ref) =>
   Object.fromEntries(new FormData(ref?.current)?.entries());

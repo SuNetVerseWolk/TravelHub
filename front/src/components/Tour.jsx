@@ -3,6 +3,7 @@ import styles from "styles/tour.module.css";
 import typeStyles from "styles/tourTypes.module.css";
 import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion';
+import { getDateDiff } from "api/get";
 
 const Tour = ({ data }) => {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ export const TourInfo = ({dates, duration}) => {
 			<ul>
 				<li>{date}</li>
 				<li>ещё даты</li>
-				<li>{duration?.split('/')[0].trim()}</li>
+				<li>{getDateDiff(dates?.at(0).date)} дней</li>
 			</ul>
 			<button>от <span>{dates?.at(0).price.toLocaleString('ru')}</span> руб.</button>
 		</div>

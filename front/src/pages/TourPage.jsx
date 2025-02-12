@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Difficulties, RelaxTypes, Roles, Types } from "api/enums";
-import getApi, { getDateFrom2day } from "api/get";
+import getApi, { getDateDiff, getDateFrom2day } from "api/get";
 import useRole from "api/useRole";
 import axios from "axios";
 import Alert from "components/Alert";
@@ -169,7 +169,7 @@ export const TourInfo = ({ tour }) => {
         )) || unknown}
       </p>
       <p>Место проведения: {tour?.location || unknown}</p>
-      <p>Срок проведения: {tour?.duration || unknown}</p>
+      <p>Срок проведения: {tour?.dates?.map((date, id) => tour.dates.length - 1 === id ? getDateDiff(date.date) : `${getDateDiff(date.date)} / `) + ' дней' || unknown}</p>
       <p>
         Даты:{" "}
         {tour?.dates?.map((date, id) => (
