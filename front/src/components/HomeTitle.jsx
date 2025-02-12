@@ -2,7 +2,7 @@ import React from "react";
 import styles from "styles/filter.module.css";
 import Filter from "./Filter";
 
-const HomeTitle = () => {
+const HomeTitle = ({ setFilters }) => {
   return (
     <div className={styles.filterContainer}>
       <div>
@@ -16,7 +16,7 @@ const HomeTitle = () => {
           насладиться каждой минутой вашего путешествия.
         </p>
 
-        <Filter />
+        <Filter setGlobalFilters={setFilters} />
       </div>
     </div>
   );

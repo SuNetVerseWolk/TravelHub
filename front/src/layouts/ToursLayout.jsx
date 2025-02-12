@@ -5,7 +5,7 @@ import { Tours } from "./Tours";
 import { RelaxTypes } from "api/enums";
 import { motion } from "framer-motion";
 
-const ToursLayout = ({ showAdminPanel }) => {
+const ToursLayout = ({ showAdminPanel, extraFilters }) => {
   const [filters, setFilters] = useState([]);
 
   return (
@@ -40,7 +40,7 @@ const ToursLayout = ({ showAdminPanel }) => {
       )}
       <h3>Выбор туров</h3>
       <div className={toursStyles.tours}>
-        <Tours filters={filters} />
+        <Tours filters={filters} extraFilters={extraFilters} />
       </div>
     </div>
   );

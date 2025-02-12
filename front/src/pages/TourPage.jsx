@@ -72,7 +72,11 @@ export const TourPage = () => {
                   <img
                     className={isLoading ? loadStyles.loading : ""}
                     src={currentData?.imgs?.at(imgsGlobalValue.selected)}
-                    alt={currentData?.title || isNew ? "Добавьте изображение" : "Изображение тура"}
+                    alt={
+                      currentData?.title || isNew
+                        ? "Добавьте изображение"
+                        : "Изображение тура"
+                    }
                   />
                 </div>
 
@@ -88,7 +92,7 @@ export const TourPage = () => {
                           id={id}
                           src={img}
                           isSelected={imgsGlobalValue.selected === id}
-													hoveredImgId={imgsGlobalValue.hovered}
+                          hoveredImgId={imgsGlobalValue.hovered}
                           setGlobalValue={setImgsGlobalValue}
                           onClick={() => imageHandler(id)}
                           role={role}
@@ -199,7 +203,7 @@ export const TourImgItem = ({
   src,
   id,
   isSelected,
-	hoveredImgId,
+  hoveredImgId,
   setGlobalValue,
   onClick,
   role,
@@ -207,8 +211,8 @@ export const TourImgItem = ({
 }) => {
   return (
     <motion.span
-      onHoverStart={() => setGlobalValue(prev => ({...prev, hovered: id}))}
-      onHoverEnd={() => setGlobalValue(prev => ({...prev, hovered: -1}))}
+      onHoverStart={() => setGlobalValue((prev) => ({ ...prev, hovered: id }))}
+      onHoverEnd={() => setGlobalValue((prev) => ({ ...prev, hovered: -1 }))}
       className={`${style.imgItem} ${isLoading ? loadStyles.loading : ""}`}
     >
       {!isLoading && (
@@ -220,15 +224,16 @@ export const TourImgItem = ({
           alt={`Tour Image ${id + 1}`}
         />
       )}
-      {role === Roles.Admin && ((isSelected && hoveredImgId === -1) || hoveredImgId === id) && (
-        <motion.button
-          animate={{ scale: 1, transition: {delay: isSelected ? .15 : 0 } }}
-          initial={{ scale: isSelected ? 0 : 0.5 }}
-          onClick={onClick}
-        >
-          X
-        </motion.button>
-      )}
+      {role === Roles.Admin &&
+        ((isSelected && hoveredImgId === -1) || hoveredImgId === id) && (
+          <motion.button
+            animate={{ scale: 1, transition: { delay: isSelected ? 0.15 : 0 } }}
+            initial={{ scale: isSelected ? 0 : 0.5 }}
+            onClick={onClick}
+          >
+            X
+          </motion.button>
+        )}
     </motion.span>
   );
 };
@@ -347,6 +352,16 @@ export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
             type="text"
             placeholder="Локация"
             value={data?.location}
+            onChange={changeData}
+          />
+        </label>
+        <label className={style.label}>
+          <p>Максимальное кол-во человек</p>
+          <input
+            name="maxAmount"
+            type="number"
+            placeholder="Макс. кол-во человек"
+            value={data?.maxAmount}
             onChange={changeData}
           />
         </label>

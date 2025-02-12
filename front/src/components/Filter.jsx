@@ -2,11 +2,14 @@ import { getDateFrom2day } from "api/get";
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "styles/filter.module.css";
 
-const Filter = () => {
+const Filter = ({ setGlobalFilters }) => {
+	const [filters, setFilters] = useState({});
+	const changeHandler = (e) => setFilters(prev => ({...prev, [e.target.id]: e.target.value}))
+
   return (
     <form>
-      <input id="from" type="text" placeholder="Откуда" />
-      <input id="where" type="text" placeholder="Куда" />
+      <input id="from" type="text" placeholder="Откуда" onChange={changeHandler} />
+      <input id="where" type="text" placeholder="Куда" onChange={changeHandler} />
       <DatesUI />
 
       <input
@@ -15,6 +18,7 @@ const Filter = () => {
         max="20"
         type="number"
         placeholder="Кол-во взрослых"
+				onChange={changeHandler}
       />
       <input
         id="countChildren"
@@ -22,9 +26,10 @@ const Filter = () => {
         max="12"
         type="number"
         placeholder="Кол-во детей"
+				onChange={changeHandler}
       />
 
-      <button className={styles.buttonFind}>
+      <button type="button" className={styles.buttonFind} onClick={e => setGlobalFilters(filters)}>
         Найти
         <div className={styles.loupe}>
           <img src="/loupe.png" alt="Search Icon" />

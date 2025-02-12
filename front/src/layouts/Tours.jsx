@@ -5,7 +5,7 @@ import Tour from "components/Tour";
 import style from "styles/toursComponent.module.css";
 import { TourLoading } from "components/load/TourLoading";
 
-export const Tours = ({ filters }) => {
+export const Tours = ({ filters, extraFilters }) => {
   const {
     data: tours,
     isLoading,
@@ -17,15 +17,27 @@ export const Tours = ({ filters }) => {
 
   const [showMore, setShowMore] = useState(false);
 
-  const filtredList = useMemo(
-    () =>
-      tours?.filter((tour) =>
-        filters?.length
-          ? filters.some((filter) => tour.restTypes?.includes(filter))
-          : true
-      ),
-    [tours, filters]
-  );
+  const filtredList = useMemo(() => {
+    let filtred = tours?.filter((tour) =>
+      filters?.length
+        ? filters.some((filter) => tour.restTypes?.includes(filter))
+        : true
+    );
+		
+    if (extraFilters && !!Object.keys(extraFilters)?.length) {
+      filtred = filtred?.filter(
+        (tour) =>
+          tour.location
+            .toLowerCase()
+            .includes(extraFilters?.where?.toLowerCase() || "") &&
+          tour.location
+            .toLowerCase()
+            .includes(extraFilters?.from?.toLowerCase() || "")
+      );
+    }
+
+    return filtred;
+  }, [tours, filters, extraFilters]);
   const displayedTours = useMemo(
     () => (showMore ? filtredList : filtredList?.slice(0, 4)),
     [showMore, filtredList]
