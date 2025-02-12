@@ -48,6 +48,14 @@ export const DatesUI = ({ date, onChange, unicId }) => {
   const [dateInputs, setInputs] = useState({ sInput: null, eInput: null });
 
   const convertToShortDate = (date) => new Date(date).toLocaleString("ru", { month: "short", day: "numeric" });
+	const changeHandler = (firstDate, secondDate, isFirstMain) => {
+		(isFirstMain ? setStartDate : setEndDate)(prev => {
+			if (onChange) {
+				onChange(`${firstDate.replaceAll('-', '.')} - ${secondDate.replaceAll('-', '.')}`)
+			}
+			return isFirstMain ? firstDate : secondDate;
+		})
+	}
 
   useEffect(() => {
     setInputs((prev) => ({
@@ -65,10 +73,7 @@ export const DatesUI = ({ date, onChange, unicId }) => {
           id={"startDateInput" + unicId}
           type="date"
 					value={startDate}
-          onChange={(e) => setStartDate(prev => {
-						onChange(`${e.target.value.replaceAll('-', '.')} - ${endDate.replaceAll('-', '.')}`)
-						return e.target.value;
-					})}
+          onChange={(e) => changeHandler(e.target.value, endDate, true)}
           style={{ width: 0, padding: 0, margin: 0 }}
         />
       </button>
@@ -82,10 +87,7 @@ export const DatesUI = ({ date, onChange, unicId }) => {
           id={"endDateInput" + unicId}
           type="date"
 					value={endDate}
-          onChange={(e) => setEndDate(prev => {
-						onChange(`${startDate.replaceAll('-', '.')} - ${e.target.value.replaceAll('-', '.')}`)
-						return e.target.value;
-					})}
+          onChange={(e) => changeHandler(startDate, e.target.value, false)}
           style={{ width: 0, padding: 0, margin: 0 }}
         />
       </button>
