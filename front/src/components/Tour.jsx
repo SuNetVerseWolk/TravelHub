@@ -58,7 +58,7 @@ export const TourTypes = ({ types }) => {
 
 export const TourInfo = ({dates, duration}) => {
 	const getDate = (date) => {
-		const [day, month, year] = date?.split('–')[0].trim().slice(0, 10).split('.') || [];
+		const [year, month, day] = date?.split('–')[0].trim().slice(0, 10).split('.') || [];
 		const dateObject = new Date(`${year}-${month}-${day}`);
 		return dateObject.toLocaleString('ru', { month: 'short', day: 'numeric'});
 	}

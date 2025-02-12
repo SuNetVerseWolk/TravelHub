@@ -247,8 +247,8 @@ export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
   } = useMutation({
     mutationFn: (data) => axios.post(`/api/tours/${id}`, data),
     onSuccess: () => {
-      queryClient.invalidateQueries(["tours"]);
       queryClient.invalidateQueries(["tour", isNew ? data.id : id]);
+      queryClient.invalidateQueries(["tours"]);
       if (isNew) navigate(`../tour/${data.id}`, { replace: true });
     },
   });
