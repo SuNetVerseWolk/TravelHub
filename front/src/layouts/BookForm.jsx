@@ -44,7 +44,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
     onSuccess: (res) => {
       if (!localStorage.getItem("id")) localStorage.setItem("id", res.data.id);
 
-      queryClient.invalidateQueries(["rooms"]);
+      queryClient.invalidateQueries(["tours"]);
     },
   });
 

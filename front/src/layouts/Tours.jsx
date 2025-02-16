@@ -22,7 +22,7 @@ export const Tours = ({ filters, extraFilters }) => {
       filters?.length
         ? filters.some((filter) => tour.restTypes?.includes(filter))
         : true
-    );
+    ).filter(tour => (tour?.leftAmount != undefined ? tour?.leftAmount : tour?.maxAmount) > 0);
 		
     if (extraFilters && !!Object.keys(extraFilters)?.length) {
       filtred = filtred?.filter(
