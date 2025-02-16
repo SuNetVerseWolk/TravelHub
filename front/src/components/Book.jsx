@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "styles/tour.module.css";
-import typeStyles from "styles/TourTypes.module.css";
+import typeStyles from "styles/tourTypes.module.css";
 import { motion } from 'framer-motion';
 import { getDateDiff, getTour } from "api/get";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
