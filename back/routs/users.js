@@ -8,7 +8,13 @@ const setUsers = (data) => setData("users", data);
 router.get("/", (req, res) => {
   const users = getUsers();
 
-  res.json(users.map((user) => ({ ...user, password: "" })));
+  res.json(
+    users.map((user) => {
+      let { password, ...data } = user;
+
+      return data;
+    })
+  );
 });
 router.get("/:id", (req, res) => {
   const users = getUsers(),
@@ -19,53 +25,6 @@ router.get("/:id", (req, res) => {
   res.status(404).json(false);
 });
 
-router.post("/book", (req, res) => {
-  const users = getUsers();
-  const rooms = getData("tours");
-  let book = {
-      id: Date.now(),
-      countPeople: +req.body.countPeople,
-      countRooms: +req.body.countRooms,
-      comeDate: req.body.comeDate,
-      outDate: req.body.outDate,
-      price: req.body.price,
-    },
-    typeRoom = req.body.typeRoom,
-    user = users.find((user) => user.number === req.body.number),
-    haveUser = !!user;
-
-  if (book.price <= 0) return res.sendStatus(400);
-
-  user = haveUser
-    ? user
-    : {
-        name: req.body.name,
-        lastName: req.body.lastName,
-        fatherName: req.body.fatherName,
-        number: req.body.number,
-        email: "",
-        password: req.body.number,
-        id: Date.now(),
-        bookedRooms: [],
-      };
-
-  const room = user.bookedRooms.find((room) => room.typeRoom === typeRoom);
-
-  if (!!room) room.books.push(book);
-  else user.bookedRooms.push({ typeRoom, books: [book] });
-
-  if (!haveUser) users.push(user);
-
-  const roomType = rooms.find((room) => room.name === typeRoom);
-  if (roomType.bookedAmount + book.countRooms > roomType.amount)
-    return res.sendStatus(403);
-  roomType.bookedAmount = roomType.bookedAmount + book.countRooms;
-  setData("rooms", rooms);
-
-  if (setUsers(users)) return res.status(201).json({ id: user.id });
-
-  res.sendStatus(500);
-});
 router.post("/logIn", (req, res) => {
   if (
     req.body.number === process.env.ADMIN_NAME &&
@@ -75,7 +34,7 @@ router.post("/logIn", (req, res) => {
 
   const users = getUsers();
   let user = users.find((user) => user.number === req.body.number);
-
+	
   if (!user) return res.sendStatus(404);
 
   const { id, password } = user;
@@ -98,7 +57,7 @@ router.post("/signUp", (req, res) => {
   ) {
     return res.status(400).json(false);
   }
-  const user = { ...req.body, id: Date.now(), bookedRooms: [] };
+  const user = { ...req.body, id: Date.now() };
   const users = getUsers();
 
   if (users.findIndex((selfUser) => selfUser.number === user.number) != -1)
@@ -108,16 +67,14 @@ router.post("/signUp", (req, res) => {
   res.status(500).json(false);
 });
 router.post("/:id", (req, res) => {
-  const users = getUsers();
+  let users = getUsers();
   const user = users.find((user) => user.id === +req.params.id);
-
+	
   if (!user) return res.sendStatus(404);
+	console.log(req.body)
+	users = users.map(user => user.id === +req.params.id ? {...user, ...req.body} : user);
 
-  Object.keys(req.body).forEach((key) => (user[key] = req.body[key]));
-
-  if (setUsers(users)) return res.sendStatus(201);
-
-  res.sendStatus(500);
+  res.sendStatus(setUsers(users) ? 201 : 500);
 });
 
 router.delete("/:id", (req, res) => {

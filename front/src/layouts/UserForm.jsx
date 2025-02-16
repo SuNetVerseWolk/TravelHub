@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { formatPhoneNumber } from "api/formatData";
+import { getFormData } from "api/get";
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import styles from "styles/forms.module.css";
@@ -13,7 +14,8 @@ const UserForm = ({ popUpUserForm, setPopUpUserForm, user }) => {
   const exit = (e) => {
     localStorage.removeItem("id");
     queryClient.setQueryData(["user"], {});
-    queryClient.invalidateQueries(["user", "role"]);
+    queryClient.invalidateQueries(["user"]);
+    queryClient.invalidateQueries(["role"]);
     setPopUpUserForm(false);
   };
 
@@ -24,7 +26,7 @@ const UserForm = ({ popUpUserForm, setPopUpUserForm, user }) => {
       exit();
     },
   });
-  const { mutate: submitUserData } = useMutation({
+  const { mutate: submitUserData, isPending } = useMutation({
     mutationFn: (data) =>
       axios.post("/api/users/" + localStorage.getItem("id"), data),
     onSuccess: (res) => {
@@ -40,7 +42,7 @@ const UserForm = ({ popUpUserForm, setPopUpUserForm, user }) => {
             ref={formRef}
             onSubmit={(e) => {
               e.preventDefault();
-              mutate({ ...getFormData(ref), ...data });
+              submitUserData({ ...getFormData(formRef), number: data.number });
             }}
           >
             <button
@@ -104,7 +106,7 @@ const UserForm = ({ popUpUserForm, setPopUpUserForm, user }) => {
               required
             />
 
-            <button type="submit">Изменить</button>
+            <button type="submit">{isPending ? "Подождите" : "Изменить"}</button>
             <button onClick={(e) => exit()}>Выйти</button>
             <button onClick={(e) => deleteUser()}>Удалить</button>
           </form>

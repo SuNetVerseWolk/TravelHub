@@ -22,6 +22,6 @@ export const formatPhoneNumber = Object.freeze({
     if (!number) return "";
     number = leaveNumbersOnly(number).substring(0, 11);
 
-    return number[0] == 7 ? `+${number}` : number;
+    return number[0] == 7 || number[0] == 8 ? `+7${number.substring(1, 11)}` : number;
   },
 });

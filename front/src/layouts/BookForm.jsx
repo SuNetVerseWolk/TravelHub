@@ -15,7 +15,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
     key: ["user"],
     path: "/users/" + localStorage.getItem("id"),
   });
-  const [data, setData] = useState({ ...getFormData(formRef), ...user });
+  const [data, setData] = useState({ ...user });
 
   const [price, setPrice] = useState(0);
   const countPrice = (e) => {
@@ -39,20 +39,27 @@ const BookForm = ({ setShowBookForm, tour }) => {
 
   const changeForm = (e) => setPrice(countPrice());
 
-  const { mutate } = useMutation({
-    mutationFn: (data) => axios.post("/api/users/book", data),
+  const { mutate, isSuccess } = useMutation({
+    mutationFn: (data) => axios.post("/api/books/book", data),
     onSuccess: (res) => {
       if (!localStorage.getItem("id")) localStorage.setItem("id", res.data.id);
 
       queryClient.invalidateQueries(["rooms"]);
-      // popupForm.current.style.display = 'none';
     },
   });
 
   const submit = (e) => {
     e.preventDefault();
+		if (isSuccess) return setShowBookForm(false);
+    const formData = getFormData(formRef);
 
-    mutate({ ...getFormData(formRef), ...data, price: price });
+    mutate({
+      userId: user.id,
+      tourId: tour.id,
+      countAdults: formData.countAdults,
+      countChildren: formData.countChildren,
+      price: price,
+    });
   };
 
   useEffect((e) => setPrice(countPrice()), [type]);
@@ -114,7 +121,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
           type="number"
           placeholder="Кол-во взрослых"
           required
-					defaultValue={1}
+          defaultValue={1}
           min={1}
           max={20}
         />
@@ -125,15 +132,12 @@ const BookForm = ({ setShowBookForm, tour }) => {
           type="number"
           required
           placeholder="Кол-во детей"
-					defaultValue={0}
+          defaultValue={0}
           min={0}
           max={13}
         />
 
-        <select
-          name="datePick"
-          id="datePick"
-        >
+        <select name="datePick" id="datePick">
           {tour?.dates?.map((value) => <option>{value.date}</option>) || (
             <option>Дат нет</option>
           )}
@@ -141,7 +145,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
 
         <span>{price} руб.</span>
 
-        <button>Забронировать</button>
+        <button>{isSuccess ? "Готово" : "Забронировать"}</button>
       </form>
     </div>
   );
