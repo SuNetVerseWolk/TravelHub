@@ -1,4 +1,4 @@
 module.exports = {
-	setData: require('./scripts/setData'),
-	getData: require('./scripts/getData')
+	...require('./scripts/getData'),
+	...require('./scripts/setData'),
 }

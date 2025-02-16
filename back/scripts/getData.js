@@ -14,5 +14,13 @@ const getData = (filePath) => {
 		)
 	)
 }
+const getUsers = () => getData("users");
+const getTours = () => getData("tours");
+const getBooks = () => getData("books");
 
-module.exports = getData
+module.exports = {
+	getUsers,
+	getTours,
+	getBooks,
+	getData
+}

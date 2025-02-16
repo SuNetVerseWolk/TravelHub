@@ -1,9 +1,13 @@
 const express = require("express"),
-  { getData, setData } = require("../getScripts"),
+  {
+    getUsers,
+    setUsers,
+    getBooks,
+    getTours,
+    setBooks,
+    setTours,
+  } = require("../getScripts"),
   router = express.Router();
-
-const getUsers = (e) => getData("users");
-const setUsers = (data) => setData("users", data);
 
 router.get("/", (req, res) => {
   const users = getUsers();
@@ -34,7 +38,7 @@ router.post("/logIn", (req, res) => {
 
   const users = getUsers();
   let user = users.find((user) => user.number === req.body.number);
-	
+
   if (!user) return res.sendStatus(404);
 
   const { id, password } = user;
@@ -69,51 +73,45 @@ router.post("/signUp", (req, res) => {
 router.post("/:id", (req, res) => {
   let users = getUsers();
   const user = users.find((user) => user.id === +req.params.id);
-	
+
   if (!user) return res.sendStatus(404);
-	console.log(req.body)
-	users = users.map(user => user.id === +req.params.id ? {...user, ...req.body} : user);
+  console.log(req.body);
+  users = users.map((user) =>
+    user.id === +req.params.id ? { ...user, ...req.body } : user
+  );
 
   res.sendStatus(setUsers(users) ? 201 : 500);
 });
 
 router.delete("/:id", (req, res) => {
   const users = getUsers(),
-    user = users.find((user) => user.id === +req.params.id),
-    rooms = getData("rooms");
+    id = +req.params.id,
+    user = users.find((user) => user.id === id);
 
-  user.bookedRooms.forEach((bookedRoom) =>
-    bookedRoom.books.forEach((book) => {
-      const roomType = rooms.find((room) => room.name === bookedRoom.typeRoom);
-      roomType.bookedAmount = roomType.bookedAmount - book.countRooms;
-    })
-  );
+  if (!user) {
+    return res.sendStatus(404);
+  }
+  const tours = getTours();
+  let books = getBooks();
+
+  books.forEach((book) => {
+    if (book.userId == id) {
+      const tour = tours.find((tour) => tour.id == book.tourId);
+
+      tour.leftAmount += +book.countAdults + +book.countChildren;
+    }
+  });
+  books = books.filter((book) => book.userId != id);
 
   res.sendStatus(
-    setData("rooms", rooms)
-      ? setUsers(users.filter((user) => user.id != +req.params.id))
-        ? 200
+    setTours(tours)
+      ? setBooks(books)
+        ? setUsers(users.filter((user) => user.id != id))
+          ? 200
+          : 500
         : 500
       : 500
   );
-});
-router.delete("/book/:id", (req, res) => {
-  const type = req.query.type,
-    users = getUsers(),
-    user = users.find((user) => user.id === +req.query.userID),
-    typeRoom = user.bookedRooms.find((room) => room.typeRoom === type),
-    rooms = getData("rooms");
-
-  const roomType = rooms.find((room) => room.name === type);
-  roomType.bookedAmount =
-    roomType.bookedAmount -
-    typeRoom.books.find((room) => room.id === +req.params.id).countRooms;
-
-  typeRoom.books = typeRoom.books.filter((room) => room.id != +req.params.id);
-  if (typeRoom.books.length <= 0)
-    user.bookedRooms = user.bookedRooms.filter((room) => room.typeRoom != type);
-
-  res.sendStatus(setUsers(users) ? (setData("rooms", rooms) ? 200 : 500) : 500);
 });
 
 module.exports = router;

@@ -18,5 +18,13 @@ const setData = (filePath, data) => {
   }
   return true;
 };
+const setUsers = (data) => setData("users", data);
+const setTours = (data) => setData("tours", data);
+const setBooks = (data) => setData("books", data);
 
-module.exports = setData;
+module.exports = {
+	setUsers,
+	setTours,
+	setBooks,
+	setData
+}
