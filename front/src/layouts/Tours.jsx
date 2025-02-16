@@ -4,6 +4,7 @@ import Alert from "components/Alert";
 import Tour from "components/Tour";
 import style from "styles/toursComponent.module.css";
 import { TourLoading } from "components/load/TourLoading";
+import useRole from "api/useRole";
 
 export const Tours = ({ filters, extraFilters }) => {
   const {
@@ -14,6 +15,7 @@ export const Tours = ({ filters, extraFilters }) => {
     key: ["tours"],
     path: "tours",
   });
+	const { data: role } = useRole();
 
   const [showMore, setShowMore] = useState(false);
 
@@ -22,7 +24,10 @@ export const Tours = ({ filters, extraFilters }) => {
       filters?.length
         ? filters.some((filter) => tour.restTypes?.includes(filter))
         : true
-    ).filter(tour => (tour?.leftAmount != undefined ? tour?.leftAmount : tour?.maxAmount) > 0);
+    );
+		if (role != "admin") {
+			filtred = filtred.filter(tour => (tour?.leftAmount != undefined ? tour?.leftAmount : tour?.maxAmount) > 0);
+		}
 		
     if (extraFilters && !!Object.keys(extraFilters)?.length) {
       filtred = filtred?.filter(
