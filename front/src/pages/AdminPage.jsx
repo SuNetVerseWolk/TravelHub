@@ -19,13 +19,13 @@ const AdminPage = () => {
     {
       id: 1,
       text: "Туры",
-      checked: location.pathname.includes('/tour') || location.pathname === '/',
+      checked: !location.pathname.includes('/tour/new') && (location.pathname.includes('/tour') || location.pathname === '/'),
       page: "/",
     },
     {
       id: 2,
       text: "Добавить тур",
-      checked: "/new" === location.pathname,
+      checked: location.pathname.includes('/tour/new'),
       page: "tour/new",
     },
   ], [location.pathname]);
