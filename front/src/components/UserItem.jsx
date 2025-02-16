@@ -23,7 +23,7 @@ export const UserItem = ({ user }) => {
         transition={{ duration: 0.3 }}
         onClick={(e) => navigate("/user/" + user.id, { state: { user } })}
       >
-        Редактировать
+        Просмотр
       </motion.button>
     </div>
   );

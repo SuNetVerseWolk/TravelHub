@@ -30,6 +30,11 @@ export const getUsers = () =>
     key: ["users"],
     path: "users",
   });
+export const getBooks = () =>
+	getApi({
+		key: ["books"],
+		path: "books",
+	});
 
 export const getUser = (id) => {
   const userId = id || localStorage.getItem("id");
