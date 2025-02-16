@@ -37,16 +37,16 @@ const LogInPopUp = ({ popUpLogIn, setPopUpLogIn }) => {
 
   const submit = (e) => {
     e.preventDefault();
+		ref.current.number.setCustomValidity("");
+		ref.current.password.setCustomValidity("");
 
     mutate({...getFormData(ref), ...data});
   };
 
-  const setMissedFill = (e) => {
-    if (e.target.value.length <= 0) {
-      e.target.setCustomValidity("Вы пропустили это поле.");
-      e.target.reportValidity();
-    } else e.target.setCustomValidity("");
-  };
+  const setDefaultValidity = (e) => {
+		ref.current.number.setCustomValidity("");
+		ref.current.password.setCustomValidity("");
+	}
 
   return (
     <>
@@ -68,11 +68,11 @@ const LogInPopUp = ({ popUpLogIn, setPopUpLogIn }) => {
                 placeholder="+7 (000) 000-00-00"
                 value={formatPhoneNumber.userFriendly(data.number)}
                 onChange={(e) => {
-                  setData((prev) => ({
-                    ...prev,
+									setData((prev) => ({
+										...prev,
                     number: formatPhoneNumber.dataFriendly(e.target.value) || e.target.value,
                   }));
-									setMissedFill(e);
+									setDefaultValidity(e);
 								}}
                 required
               />
@@ -82,7 +82,7 @@ const LogInPopUp = ({ popUpLogIn, setPopUpLogIn }) => {
                 name="password"
                 type="password"
                 placeholder="Пароль"
-                //onChange={e => setData(prev => ({...prev, password: e.target.value}))}
+								onChange={setDefaultValidity}
                 required
               />
 
