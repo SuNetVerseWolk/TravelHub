@@ -1,19 +1,27 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import { getBooks } from "api/get";
+import Book from "components/Book";
+import { TourLoading } from "components/load/TourLoading";
+import React, { useMemo } from "react";
+import { useParams } from "react-router-dom";
+import styles from "styles/tours.module.css";
 
 export const UserLayout = () => {
-  const location = useLocation();
-  const { user } = location.state || {};
+	const { id } = useParams();
+	const { data: books, isLoading } = getBooks();
+	const usersBooks = useMemo(() => books?.filter(book => book.userId == id), [books, id]);
 
   return (
-    <div>
-      {user ? (
+    <div className={styles.tours}>
+      {isLoading ? (
+				[0, 1, 2, 3].map((i) => <TourLoading key={i + "loading"} i={i * 2} />)
+			) : usersBooks?.length ? (
         <div>
-          <h1>User Details</h1>
-					{Object.keys(user).map((key, i) => typeof user[key] != 'object' && <p key={i}>{key}: {user[key]}</p>)}
+					{usersBooks?.map(book => (
+						<Book key={book.id} data={book} />
+					))}
         </div>
       ) : (
-        <p>No user data available.</p>
+        <p>Пусто</p>
       )}
     </div>
   );

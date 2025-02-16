@@ -26,7 +26,7 @@ export const Tours = ({ filters, extraFilters }) => {
         : true
     );
 		if (role != "admin") {
-			filtred = filtred.filter(tour => (tour?.leftAmount != undefined ? tour?.leftAmount : tour?.maxAmount) > 0);
+			filtred = filtred?.filter(tour => (tour?.leftAmount != undefined ? tour?.leftAmount : tour?.maxAmount) > 0);
 		}
 		
     if (extraFilters && !!Object.keys(extraFilters)?.length) {

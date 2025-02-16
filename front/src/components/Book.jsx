@@ -1,27 +1,26 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import styles from "styles/tour.module.css";
-import typeStyles from "styles/tourTypes.module.css";
-import { useNavigate } from "react-router-dom";
+import typeStyles from "styles/TourTypes.module.css";
 import { motion } from 'framer-motion';
-import { getDateDiff } from "api/get";
+import { getDateDiff, getTour } from "api/get";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
-const Tour = ({ data }) => {
-  const navigate = useNavigate();
-	const open = () => navigate("/tour/" + data.id);
+const Book = ({ data }) => {
+	const { data: tour } = getTour(data.tourId);
 
   return (
-    <div className={styles.main} style={{ "--img": `url(${data?.imgs?.at(0)})` }}>
-      <div onClick={open} />
-      <TourTypes types={data?.restTypes} />
+    <div className={styles.main} style={{ "--img": `url(${tour?.imgs?.at(0)})` }}>
+      <BookTypes types={tour?.restTypes} />
       <div>
-        <TourTitle {...data} />
-        <TourInfo {...data} click={open} />
+        <BookTitle {...tour} />
+        <BookInfo {...tour} id={data.id} />
       </div>
     </div>
   );
 };
 
-export const TourTitle = ({location, title}) => {
+export const BookTitle = ({location, title}) => {
   return (
     <div>
 			<p>{location}</p>
@@ -30,7 +29,7 @@ export const TourTitle = ({location, title}) => {
   )
 }
 
-export const TourTypes = ({ types }) => {
+export const BookTypes = ({ types }) => {
   const [isHidden, setHidden] = useState(true);
 
   return (
@@ -58,24 +57,28 @@ export const TourTypes = ({ types }) => {
   );
 };
 
-export const TourInfo = ({dates, click}) => {
+export const BookInfo = ({dates, id}) => {
 	const getDate = (date) => {
 		const [year, month, day] = date?.split('–')[0].trim().slice(0, 10).split('.') || [];
 		const dateObject = new Date(`${year}-${month}-${day}`);
 		return dateObject.toLocaleString('ru', { month: 'short', day: 'numeric'});
 	}
-	const date = useMemo(() => getDate(dates?.at(0).date), []);
+	const queryClient = useQueryClient();
+	const { mutate } = useMutation({
+		mutationFn: () => axios.delete(`/api/books/${id}`),
+		onSuccess: () => queryClient.invalidateQueries(['books'])
+	})
 
   return (
-    <div onClick={click}>
+    <div>
 			<ul>
-				<li>{date}</li>
-				<li>ещё даты</li>
-				<li>{getDateDiff(dates?.at(0).date)} дней</li>
+				<li>{getDate(dates?.at(0).date)}</li>
+				<li><span>{dates?.at(0).price.toLocaleString('ru')}</span> руб.</li>
+				<li>{getDateDiff(dates?.at(0)?.date)} дней</li>
 			</ul>
-			<button>от <span>{dates?.at(0).price.toLocaleString('ru')}</span> руб.</button>
+			<button onClick={mutate}>Отменить</button>
 		</div>
   )
 }
 
-export default Tour;
+export default Book;

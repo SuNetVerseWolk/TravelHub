@@ -45,6 +45,10 @@ export const getUser = (id) => {
     enabled: !!userId,
   });
 };
+export const getTour = (id) => getApi({
+	key: ["tour", id],
+	path: `tours/${id}`
+});
 
 export const getDateFrom2day = (number = 0) => {
   let date = new Date();
@@ -54,7 +58,7 @@ export const getDateFrom2day = (number = 0) => {
 };
 export const getDateDiff = (date) => {
 	console.log(date)
-	const [come, out] = date.split(" - ");
+	const [come, out] = date?.split(" - ") || [];
 	const days = Math.round((new Date(out) - new Date(come)) / (1000 * 60 * 60 * 24));
 
 	return days;
