@@ -18,6 +18,17 @@ header {
 	padding-inline: clamp(30px, 3.5svw, 30px);
 	width: clamp(320px, 95svw, 1000px);
 }
+.container > div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	gap: 10px;
+}
+
+.slotBooks {
+	padding: 5px 10px;
+}
 
 header ul {
 	display: flex;
@@ -88,28 +99,6 @@ header button:hover .user img {
 	height: 80px;
 }
 
-/* .burgerMenu, .burgerMenu::after, .burgerMenu::before {
-    background: #20202a;
-    width: 40px;
-    height: 1px;
-  } */
-/* .burgerMenu::after, .burgerMenu::before {
-    position: absolute;
-    z-index: 5;
-    content: '';
-  } */
-/* .burgerMenu {
-    position: relative;
-    z-index: 5;
-  }
-  .burgerMenu::after {
-    top: 10px;
-    left: 0;
-  }
-  .burgerMenu::before {
-    bottom: 10px;
-    left: 0;
-  } */
 .userIconContainer {
 	display: flex;
 	justify-content: center;
@@ -122,45 +111,12 @@ header button:hover .user img {
 	width: 5px;
 }
 
-/* .burgerContainer:hover .burgerMenu, .burgerContainer:hover .burgerMenu::after, .burgerContainer:hover .burgerMenu::before {
-    background: #c1beb1;
-  } */
-/* .popup, .popup ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  } */
-/* .popup {
-    justify-content: center;
-    position: absolute;
-    z-index: 3;
-    right: 0;
-    width: 50%;
-    translate: 0 -100%;
-    height: 100vh;
-    background: #2f2f33;
-    animation: appear 0.3s forwards ease-in;
-  } */
 @keyframes appear {
 	to {
 		translate: 0 0;
 	}
 }
 
-/* .popup * {
-    color: #c1beb1;
-  }
-  .popup button {
-    border: #c1beb1 1px solid;
-  }
-  .popup button:hover {
-    background: #c1beb1;
-    color: #20202a;
-  }
-  .popup ul a::before, .popup ul a::after {
-    background: #c1beb1;
-  } */
 @media (max-width: 768px) {
 	header {
 		justify-content: start;
@@ -171,7 +127,7 @@ header button:hover .user img {
 		width: 100%;
 	}
 
-	.buttonAccount {
+	.buttonAccount, .slotBooks {
 		display: var(--in);
 
 		font-size: .7rem;
@@ -180,6 +136,15 @@ header button:hover .user img {
 	.userIconContainer {
 		display: flex;
 		align-items: center;
+	}
+	
+	.container > div {
+		flex-direction: column-reverse;
+	}
+
+	.slotBooks {
+		padding: 3px 0;
+		width: 100%;
 	}
 }
 @media (min-width: 768px) {
@@ -206,31 +171,6 @@ header button:hover .user img {
 	background: none !important;
 	border: #bc9191 1px solid;
 }
-
-/* .headerBlack {
-    background: #20202a;
-    border-bottom: #c1beb1 1px solid;
-    transition: background 0.3s ease-in;
-  }
-  .headerBlack * {
-    color: #c1beb1;
-  }
-  .headerBlack ul a::before, .headerBlack ul a::after {
-    background: #c1beb1;
-  }
-  .headerBlack button {
-    border: #c1beb1 1px solid;
-  }
-  .headerBlack button:hover {
-    background: #c1beb1;
-    color: #20202a;
-  } */
-/* .headerBlack .burgerMenu, .headerBlack .burgerMenu::after, .headerBlack .burgerMenu::before {
-    background: #c1beb1;
-  }
-  .headerBlack .burgerContainer:hover .burgerMenu, .headerBlack .burgerContainer:hover .burgerMenu::after, .headerBlack .burgerContainer:hover .burgerMenu::before {
-    background: #2f2f33;
-  } */
 
 .user {
 	display: flex;
