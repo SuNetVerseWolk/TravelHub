@@ -17,7 +17,7 @@ const Header = () => {
                 <div className={headerstyles.logo}></div>
             </a>
             <div>
-                {hasBooksUser && <button className={headerstyles.slotBooks}><img src="/destination.png" alt="" /></button>}
+                <button hidden={!hasBooksUser} className={headerstyles.slotBooks}><img src="/destination.png" alt="" /></button>
                 <UserBtn />
                 {role === 'guest' && <UserIconButton />}
             </div>
