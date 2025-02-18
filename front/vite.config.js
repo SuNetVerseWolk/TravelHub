@@ -12,8 +12,8 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        //target: 'http://localhost:3002',
-				target: process.env.VITE_BACK,
+        target: 'http://localhost:3002',
+				//target: process.env.VITE_BACK,
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }
