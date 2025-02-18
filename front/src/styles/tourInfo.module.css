@@ -128,6 +128,9 @@
 	margin-bottom: .3rem;
 }
 
+.label:not(.underline) input {
+	padding: .5rem .3rem;
+}
 .label * {
 	line-height: normal;
 }
@@ -139,8 +142,16 @@
 	gap: .1rem;
 }
 
+.itemsBox {
+	background: #505050;
+	padding: .3rem;
+	border-radius: .5rem;
+}
 .itemsBox * {
 	border: 0;
+	background: transparent;
+	color: #fff;
+	background: #505050;
 }
 
 .itemsBox .label {
@@ -210,6 +221,7 @@
 
 textarea {
 	width: 100%;
+	padding: .5rem;
 }
 
 .scrollable {
