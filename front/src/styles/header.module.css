@@ -81,6 +81,9 @@ header button:hover, .slotBooks:hover {
 }
 
 .slotBooks {
+	display: flex !important;
+	justify-content: center;
+	align-items: center;
 	padding: 5px 10px;
 }
 
