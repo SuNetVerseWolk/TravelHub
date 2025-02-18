@@ -4,6 +4,7 @@ import UserIconButton from "components/UserIconButton";
 import headerstyles from "styles/header.module.css";
 import { getBooks } from "api/get";
 import useRole from "api/useRole";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     const { data: role } = useRole();
@@ -13,11 +14,11 @@ const Header = () => {
     return (
         <header>
         <div className={headerstyles.container}>
-            <a href="" to="">
+            <a href="/">
                 <div className={headerstyles.logo}></div>
             </a>
             <div>
-                <button hidden={!hasBooksUser} className={headerstyles.slotBooks}><img src="/destination.png" alt="" /></button>
+                <Link to='/books' hidden={!hasBooksUser} className={headerstyles.slotBooks}><img src="/destination.png" alt="" /></Link>
                 <UserBtn />
                 {role === 'guest' && <UserIconButton />}
             </div>

@@ -6,7 +6,8 @@ import { useParams } from "react-router-dom";
 import styles from "styles/tours.module.css";
 
 export const UserLayout = () => {
-	const { id } = useParams();
+	let { id } = useParams();
+	id = id ? id : localStorage.getItem('id');
 	const { data: books, isLoading } = getBooks();
 	const usersBooks = useMemo(() => books?.filter(book => book.userId == id), [books, id]);
 

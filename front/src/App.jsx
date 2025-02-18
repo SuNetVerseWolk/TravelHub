@@ -7,27 +7,28 @@ import { Users } from "layouts/Users";
 import useRole from "api/useRole";
 import { UserLayout } from "layouts/UserLayout";
 import { Tours } from "layouts/Tours";
+import { BooksPage } from "pages/BooksPage";
 
 const App = () => {
   const { data: role } = useRole();
 
   return (
     <Routes>
-      {role === 'admin' ? (
+      {role === "admin" ? (
         <Route path="/" element={<AdminPage />}>
           <Route index element={<Tours />} />
           <Route path="/users" element={<Users />} />
           <Route path="/user/:id" element={<UserLayout />} />
-          <Route path="/tour/:id" element={<TourPage />} />
         </Route>
       ) : (
         <>
           <Route path="/" element={<Home />} />
-          <Route path="/tour/:id" element={<TourPage />} />
+          <Route path="/signUp" element={<SignUp />} />
+					<Route path="/books" element={<BooksPage />} />
         </>
       )}
 
-      <Route path="/signUp" element={<SignUp />} />
+      <Route path="/tour/:id" element={<TourPage />} />
     </Routes>
   );
 };

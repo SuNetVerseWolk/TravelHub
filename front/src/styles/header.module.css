@@ -26,10 +26,6 @@ header {
 	gap: 10px;
 }
 
-.slotBooks {
-	padding: 5px 10px;
-}
-
 header ul {
 	display: flex;
 	gap: 30px;
@@ -67,7 +63,7 @@ header ul a:hover::after {
 	opacity: 1;
 }
 
-header button {
+header button, .slotBooks {
 	position: relative;
 
 	padding: 15px 40px;
@@ -79,9 +75,13 @@ header button {
 	transition: border .07s cubic-bezier(0.4, 0, 1, 1);
 }
 
-header button:hover {
+header button:hover, .slotBooks:hover {
 	background: transparent;
 	border-bottom-width: 5px;
+}
+
+.slotBooks {
+	padding: 5px 10px;
 }
 
 header button:hover .user {
