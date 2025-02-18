@@ -13,9 +13,8 @@ const UserForm = ({ popUpUserForm, setPopUpUserForm, user }) => {
 
   const exit = (e) => {
     localStorage.removeItem("id");
-    queryClient.setQueryData(["user"], {});
-    queryClient.invalidateQueries(["user"]);
     queryClient.invalidateQueries(["role"]);
+    queryClient.setQueryData(["user"], {});
     setPopUpUserForm(false);
   };
 
