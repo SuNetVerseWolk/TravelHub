@@ -81,7 +81,7 @@ header button:hover, .slotBooks:hover {
 }
 
 .slotBooks {
-	display: flex !important;
+	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 5px 10px;
@@ -130,7 +130,7 @@ header button:hover .user img {
 		width: 100%;
 	}
 
-	.buttonAccount, .slotBooks {
+	.buttonAccount {
 		display: var(--in);
 
 		font-size: .7rem;
