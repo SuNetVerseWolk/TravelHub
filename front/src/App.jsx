@@ -19,16 +19,17 @@ const App = () => {
           <Route index element={<Tours />} />
           <Route path="/users" element={<Users />} />
           <Route path="/user/:id" element={<UserLayout />} />
+					<Route path="/tour/:id" element={<TourPage />} />
         </Route>
       ) : (
         <>
           <Route path="/" element={<Home />} />
           <Route path="/signUp" element={<SignUp />} />
 					<Route path="/books" element={<BooksPage />} />
+					<Route path="/tour/:id" element={<TourPage />} />
         </>
       )}
 
-      <Route path="/tour/:id" element={<TourPage />} />
     </Routes>
   );
 };
