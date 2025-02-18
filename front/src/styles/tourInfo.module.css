@@ -165,6 +165,11 @@
 	width: 100%;
 }
 
+.dateBox {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 0.5rem;
+}
 .dateBox>div:not(:last-child) {
 	display: flex;
 	flex-flow: column;

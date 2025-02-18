@@ -398,7 +398,7 @@ export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
         </label>
 
         <div className={`${style.label} ${style.dateBox}`}>
-          <p>Даты</p>
+          <h3>Даты</h3>
           {data?.dates?.map((date) => (
             <div key={date.id}>
               <DatesUI
