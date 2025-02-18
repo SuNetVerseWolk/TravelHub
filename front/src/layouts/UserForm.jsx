@@ -3,12 +3,14 @@ import { formatPhoneNumber } from "api/formatData";
 import { getFormData } from "api/get";
 import axios from "axios";
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "styles/forms.module.css";
 import headerstyles from "styles/header.module.css";
 
 const UserForm = ({ popUpUserForm, setPopUpUserForm, user }) => {
   const formRef = useRef();
   const queryClient = useQueryClient();
+	const navigate = useNavigate();
   const [data, setData] = useState(user || {});
 
   const exit = (e) => {
@@ -16,6 +18,7 @@ const UserForm = ({ popUpUserForm, setPopUpUserForm, user }) => {
     queryClient.invalidateQueries(["role"]);
     queryClient.setQueryData(["user"], {});
     setPopUpUserForm(false);
+		navigate('/');
   };
 
   const { mutate: deleteUser } = useMutation({
