@@ -169,7 +169,14 @@ export const TourInfo = ({ tour }) => {
         )) || unknown}
       </p>
       <p>Место проведения: {tour?.location || unknown}</p>
-      <p>Срок проведения: {tour?.dates?.map((date, id) => tour.dates.length - 1 === id ? getDateDiff(date.date) : `${getDateDiff(date.date)} / `) + ' дней' || unknown}</p>
+      <p>
+        Срок проведения:{" "}
+        {tour?.dates?.map((date, id) =>
+          tour.dates.length - 1 === id
+            ? getDateDiff(date.date)
+            : `${getDateDiff(date.date)} / `
+        ) + " дней" || unknown}
+      </p>
       <p>
         Даты:{" "}
         {tour?.dates?.map((date, id) => (
@@ -303,7 +310,7 @@ export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
           onChange={changeData}
         />
       </label>
-      <div className={style.scrollable}>
+      <div>
         <div className={style.itemsBox}>
           <label className={style.label}>
             <select
@@ -400,16 +407,19 @@ export const TourInfoAdmin = ({ data, setData, id, isNew }) => {
                 unicId={date.id}
                 data={date}
               />
-              <input
-                name="price"
-                type="number"
-                placeholder="Стоимость"
-                value={date?.price}
-                onChange={(e) =>
-                  setDate(date.id, { ...date, price: +e.target.value })
-                }
-              />
-              <button onClick={(e) => removeDate(date.id)}>X</button>
+              <label>
+                <input
+                  name="price"
+                  type="number"
+                  placeholder="Стоимость"
+                  value={date?.price}
+                  onChange={(e) =>
+                    setDate(date.id, { ...date, price: +e.target.value })
+                  }
+                />
+                <span> руб.</span>
+              </label>
+              <button onClick={(e) => removeDate(date.id)}>Удалить</button>
             </div>
           ))}
           <Alert isChildrenText={false}>

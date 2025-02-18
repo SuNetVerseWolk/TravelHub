@@ -165,8 +165,42 @@
 	width: 100%;
 }
 
-.dateBox>div {
+.dateBox>div:not(:last-child) {
 	display: flex;
+	flex-flow: column;
+	background-color: #505050;
+	gap: .3rem;
+	padding: .5rem;
+	border-radius: .5rem;
+}
+.dateBox>div:not(:last-child) > button {
+	background: #9b0000;
+	color: #fff;
+
+	padding-block: .5rem;
+	border: 0;
+}
+.dateBox>div:not(:last-child) > label {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: .3rem;
+}
+.dateBox>div:not(:last-child) > label span {
+	color: #fff;
+	display: block;
+	width: 40%;
+}
+.dateBox>div:not(:last-child) > label input {
+	background: transparent;
+	color: #fff;
+	text-align: end;
+	font-weight: bold;
+	font-size: 1.3rem;
+
+	padding: .5rem 0;
+	border: 0;
+	width: 60%;
 }
 
 textarea {
@@ -183,11 +217,14 @@ textarea {
 ul {
 	display: flex;
 	flex-flow: row wrap;
-	padding: .3rem;
+	gap: .3rem;
 }
 li {
+	display: flex;
+	align-items: center;
+	gap: .3rem;
 	border-radius: .3rem;
-	padding-block: .5rem;
+	padding: .5rem;
 	cursor: pointer;
 }
 li.active {
