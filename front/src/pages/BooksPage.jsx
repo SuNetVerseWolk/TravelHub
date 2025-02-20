@@ -12,7 +12,7 @@ export const BooksPage = () => {
       <Alert isChildrenText={false}>
         <div
           className={styles.tours}
-          style={{ maxWidth: "clamp(320px, 95svw, 1000px)", padding: '2rem 3rem' }}
+          style={{ maxWidth: "clamp(320px, 95svw, 1000px)", padding: 'clamp(1rem, 5vw, 2rem) clamp(1rem, 5vw, 3rem)' }}
         >
           <UserLayout />
         </div>
