@@ -13,11 +13,8 @@ const UserBtn = () => {
 
   return (
     <>
-      {isLoading ? (
-        <LogInBtn value="Загрузка..." />
-      ) : role === "user" ? (
+      {role === "user" ? (
 				<LogInBtn value={formatPhoneNumber.userFriendly(user.number)} onClick={(e) => setPopUpUserForm(true)} />
-
       ) : (
         <LogInBtn />
       )}
