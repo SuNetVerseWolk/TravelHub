@@ -14,7 +14,7 @@ const UserBtn = () => {
   return (
     <>
       {role === "user" ? (
-				<LogInBtn value={formatPhoneNumber.userFriendly(user.number)} onClick={(e) => setPopUpUserForm(true)} />
+				<LogInBtn value={formatPhoneNumber.userFriendly(user?.number)} onClick={(e) => setPopUpUserForm(true)} />
       ) : (
         <LogInBtn />
       )}
