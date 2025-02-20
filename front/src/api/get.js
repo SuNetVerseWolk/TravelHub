@@ -40,9 +40,8 @@ export const getUser = (id) => {
   const userId = id || localStorage.getItem("id");
 
   return getApi({
-    key: ["user"],
+		key: ["user", userId],
     path: `users/${userId}`,
-    enabled: !!userId,
   });
 };
 export const getTour = (id) => getApi({

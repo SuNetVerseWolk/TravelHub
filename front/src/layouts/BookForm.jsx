@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatPhoneNumber } from "api/formatData";
-import getApi, { getFormData } from "api/get";
+import getApi, { getFormData, getUser } from "api/get";
 import axios from "axios";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -11,10 +11,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
   const { type } = useParams();
   const queryClient = useQueryClient();
   const formRef = useRef();
-  const { data: user } = getApi({
-    key: ["user"],
-    path: "/users/" + localStorage.getItem("id"),
-  });
+  const { data: user } = getUser();
   const [data, setData] = useState({ ...user });
 
   const [price, setPrice] = useState(0);
@@ -39,7 +36,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
 
   const changeForm = (e) => setPrice(countPrice());
 
-  const { mutate, isSuccess } = useMutation({
+  const { mutate, isSuccess, isError, isPending } = useMutation({
     mutationFn: (data) => axios.post("/api/books/book", data),
     onSuccess: (res) => {
       if (!localStorage.getItem("id")) localStorage.setItem("id", res.data.id);
@@ -54,7 +51,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
     const formData = getFormData(formRef);
 
     mutate({
-      userId: user.id,
+      userId: user?.id,
       tourId: tour.id,
       countAdults: formData.countAdults,
       countChildren: formData.countChildren,
@@ -145,7 +142,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
 
         <span>{price} руб.</span>
 
-        <button>{isSuccess ? "Готово" : "Забронировать"}</button>
+        <button>{isSuccess ? "Готово" : isError ? "Зарегистрируйтесь сначала" : isPending ? "Подождите..." : "Забронировать"}</button>
       </form>
     </div>
   );
