@@ -12,6 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import style from "styles/tourInfo.module.css";
 import { motion } from "framer-motion";
 import loadStyles from "styles/load.module.css";
+import adminStyles from "styles/adminPage.module.css";
 
 export const TourPage = () => {
   const { id } = useParams();
@@ -59,7 +60,7 @@ export const TourPage = () => {
   }, [tour]);
 
   return (
-    <div>
+    <div className={adminStyles.page}>
       {!isNew && isError ? (
         <Alert>No tour data available.</Alert>
       ) : (

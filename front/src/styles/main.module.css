@@ -11,6 +11,7 @@
 }
 #tours {
     margin-top: 6rem;
+		padding: 1rem;
 }
 #tours > h2, #tours > h3, #tours > h5 {
     text-align: center;

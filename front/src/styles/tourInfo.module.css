@@ -242,7 +242,7 @@ li {
 	align-items: center;
 	gap: .3rem;
 	border-radius: .3rem;
-	padding: .5rem;
+	padding: .5rem .3rem;
 	cursor: pointer;
 }
 li.active {

@@ -59,6 +59,9 @@
 	flex-flow: row nowrap;
 	font-size: .8rem;
 }
+.main>div>div:last-child>ul>li {
+	text-align: center;
+}
 .main>div>div:last-child>ul>li:nth-child(2) {
 	font-family: Open Sans, Helvetica, sans-serif;
 	padding: .125rem .5rem;

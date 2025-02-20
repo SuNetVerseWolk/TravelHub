@@ -11,6 +11,7 @@ const Book = ({ data }) => {
 
   return (
     <div className={styles.main} style={{ "--img": `url(${tour?.imgs?.at(0)})` }}>
+			<div />
       <BookTypes types={tour?.restTypes} />
       <div>
         <BookTitle {...tour} />
