@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import getApi from "api/get";
+import { getTours, splitAndParseDates } from "api/get";
 import Alert from "components/Alert";
 import Tour from "components/Tour";
 import style from "styles/toursComponent.module.css";
@@ -7,15 +7,8 @@ import { TourLoading } from "components/load/TourLoading";
 import useRole from "api/useRole";
 
 export const Tours = ({ filters, extraFilters }) => {
-  const {
-    data: tours,
-    isLoading,
-    isError,
-  } = getApi({
-    key: ["tours"],
-    path: "tours",
-  });
-	const { data: role } = useRole();
+  const { data: tours, isLoading, isError } = getTours();
+  const { data: role } = useRole();
 
   const [showMore, setShowMore] = useState(false);
 
@@ -25,18 +18,37 @@ export const Tours = ({ filters, extraFilters }) => {
         ? filters.some((filter) => tour.restTypes?.includes(filter))
         : true
     );
-		if (role != "admin") {
-			filtred = filtred?.filter(tour => (tour?.leftAmount != undefined ? tour?.leftAmount : tour?.maxAmount) > 0);
-		}
-		
-    if (extraFilters && !!Object.keys(extraFilters)?.length) {
+    if (role != "admin") {
       filtred = filtred?.filter(
         (tour) =>
-          tour.location
+          (tour?.leftAmount != undefined ? tour?.leftAmount : tour?.maxAmount) >
+          0
+      );
+    }
+
+    if (extraFilters && !!Object.keys(extraFilters)?.length) {
+      filtred = filtred?.filter((tour) => {
+				const [filterStartDate, filterEndDate] = splitAndParseDates(extraFilters?.date);
+				let doesDateMatch;
+				
+				if (extraFilters?.date) {
+					tour.dates.forEach(date => {
+						const [dateStart, dateEnd] = splitAndParseDates(date.date);
+
+						if (dateStart >= filterStartDate && filterEndDate >= dateStart) {
+							doesDateMatch = true;
+						}
+					});
+				}
+
+        return (
+          doesDateMatch && tour.location
             .toLowerCase()
             .includes(extraFilters?.where?.toLowerCase() || "") &&
-					(tour.leftAmount >= 0 ? tour.leftAmount : tour.maxAmount) >= (+extraFilters?.countAdults + +extraFilters?.countChildren || 0)
-      );
+          (tour.leftAmount >= 0 ? tour.leftAmount : tour.maxAmount) >=
+            (+extraFilters?.countAdults + +extraFilters?.countChildren || 0)
+        );
+      });
     }
 
     return filtred;
@@ -57,7 +69,7 @@ export const Tours = ({ filters, extraFilters }) => {
       {displayedTours.map((tour) => (
         <Tour key={tour.id} data={tour} />
       ))}
-      {tours.length > 4 && (
+      {filtredList.length > 4 && (
         <div className={style.containerButton}>
           <button
             className={style.buttonShowMoreAndHide}

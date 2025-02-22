@@ -31,24 +31,30 @@ export const getUsers = () =>
     path: "users",
   });
 export const getBooks = () =>
-	getApi({
-		key: ["books"],
-		path: "books",
-	});
+  getApi({
+    key: ["books"],
+    path: "books",
+  });
+export const getTours = () =>
+  getApi({
+    key: ["tours"],
+    path: "tours",
+  });
 
 export const getUser = (id) => {
   const userId = id || localStorage.getItem("id");
 
   return getApi({
-		key: ["user", userId],
+    key: ["user", userId],
     path: `users/${userId}`,
   });
 };
-export const getTour = (id, enabled = true) => getApi({
-	key: ["tour", id],
-	path: `tours/${id}`,
-	enabled: enabled
-});
+export const getTour = (id, enabled = true) =>
+  getApi({
+    key: ["tour", id],
+    path: `tours/${id}`,
+    enabled: enabled,
+  });
 
 export const getDateFrom2day = (number = 0) => {
   let date = new Date();
@@ -57,10 +63,22 @@ export const getDateFrom2day = (number = 0) => {
   return date.toISOString().slice(0, 10);
 };
 export const getDateDiff = (date) => {
-	const [come, out] = date?.split(" - ") || [];
-	const days = Math.round((new Date(out) - new Date(come)) / (1000 * 60 * 60 * 24));
+  const [come, out] = date?.split(" - ") || [];
+  const days = Math.round(
+    (new Date(out) - new Date(come)) / (1000 * 60 * 60 * 24)
+  );
 
-	return days;
+  return days;
+};
+export const convertDateFormat = (str) => {
+  return str.split(".").join("-");
+};
+
+export const splitAndParseDates = (fullDateTime) => {
+  const [start, end] = fullDateTime.split("-");
+
+	//console.log(convertDateFormat(start), convertDateFormat(end))
+  return [new Date(convertDateFormat(start)), new Date(convertDateFormat(end))];
 }
 
 export const getFormData = (ref) =>

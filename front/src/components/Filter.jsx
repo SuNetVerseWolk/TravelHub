@@ -21,7 +21,7 @@ const Filter = ({ setGlobalFilters }) => {
         placeholder="Куда"
         onChange={changeHandler}
       />
-      <DatesUI />
+      <DatesUI onChange={date => setFilters(prev => ({...prev, date: date}))} />
 
       <input
         id="countAdults"
