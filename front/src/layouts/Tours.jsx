@@ -35,9 +35,7 @@ export const Tours = ({ filters, extraFilters }) => {
           tour.location
             .toLowerCase()
             .includes(extraFilters?.where?.toLowerCase() || "") &&
-          tour.location
-            .toLowerCase()
-            .includes(extraFilters?.from?.toLowerCase() || "")
+					(tour.leftAmount >= 0 ? tour.leftAmount : tour.maxAmount) >= (+extraFilters?.countAdults + +extraFilters?.countChildren || 0)
       );
     }
 
