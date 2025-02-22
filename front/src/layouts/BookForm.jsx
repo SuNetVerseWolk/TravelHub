@@ -36,7 +36,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
 
   const changeForm = (e) => setPrice(countPrice());
 
-  const { mutate, isSuccess, isError, isPending } = useMutation({
+  const { mutate, isSuccess, isError, isPending, error } = useMutation({
     mutationFn: (data) => axios.post("/api/books/book", data),
     onSuccess: (res) => {
       if (!localStorage.getItem("id")) localStorage.setItem("id", res.data.id);
@@ -142,7 +142,7 @@ const BookForm = ({ setShowBookForm, tour }) => {
 
         <span>{price} руб.</span>
 
-        <button>{isSuccess ? "Готово" : isError ? "Зарегистрируйтесь сначала" : isPending ? "Подождите..." : "Забронировать"}</button>
+        <button>{isSuccess ? "Готово" : isError ? error?.status === 409 ? "Превышенно кол-во мест." : "Зарегистрируйтесь сначала" : isPending ? "Подождите..." : "Забронировать"}</button>
       </form>
     </div>
   );

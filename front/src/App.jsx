@@ -5,7 +5,7 @@ import { TourPage } from "pages/TourPage";
 import AdminPage from "pages/AdminPage";
 import { Users } from "layouts/Users";
 import useRole from "api/useRole";
-import { UserLayout } from "layouts/UserLayout";
+import { Books } from "layouts/Books";
 import { Tours } from "layouts/Tours";
 import { BooksPage } from "pages/BooksPage";
 
@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/" element={<AdminPage />}>
           <Route index element={<Tours />} />
           <Route path="/users" element={<Users />} />
-          <Route path="/user/:id" element={<UserLayout />} />
+          <Route path="/user/:id" element={<Books />} />
 					<Route path="/tour/:id" element={<TourPage />} />
         </Route>
       ) : (

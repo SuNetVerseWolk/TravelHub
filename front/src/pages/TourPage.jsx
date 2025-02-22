@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Difficulties, RelaxTypes, Roles, Types } from "api/enums";
-import getApi, { getDateDiff, getDateFrom2day } from "api/get";
+import { getDateDiff, getDateFrom2day, getTour } from "api/get";
 import useRole from "api/useRole";
 import axios from "axios";
 import Alert from "components/Alert";
@@ -20,15 +20,7 @@ export const TourPage = () => {
   const { data: role } = useRole();
   const isNew = useMemo(() => id === "new", [id]);
 
-  const {
-    data: tour,
-    isLoading,
-    isError,
-  } = getApi({
-    key: ["tour", id],
-    path: [`tours/${id}`],
-    enabled: !isNew,
-  });
+  const { data: tour, isLoading, isError } = getTour(id, !isNew);
   const [data, setData] = useState();
   const currentData = useMemo(
     () => (role === "admin" ? data : tour),
@@ -58,6 +50,10 @@ export const TourPage = () => {
   useEffect(() => {
     setData(tour || { id: Date.now() });
   }, [tour]);
+
+	if (isError) {
+		console.dir(JSON.stringify(error))
+	}
 
   return (
     <div className={adminStyles.page}>
@@ -177,6 +173,12 @@ export const TourInfo = ({ tour }) => {
             ? getDateDiff(date.date)
             : `${getDateDiff(date.date)} / `
         ) + " дней" || unknown}
+      </p>
+      <p>
+        Мест осталось:{" "}
+        <b style={{ color: "orangered" }}>
+          {tour?.leftAmount >= 0 ? tour?.leftAmount : tour?.maxAmount || unknown}
+        </b>
       </p>
       <p>
         Даты:{" "}

@@ -18,46 +18,48 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/book", (req, res) => {
-	const allFieldsPresent = [
-		req.body?.userId,
-		req.body?.tourId,
-		req.body?.countAdults,
-		req.body?.countChildren,
-		req.body?.price,
-	].every(field => field !== null && field !== undefined);
-	
-  if (!allFieldsPresent) {
-		const requiredFields = ["userId", "tourId", "countAdults", "countChildren", "price"];
-		const missingFields = requiredFields.filter(field => !req.body?.[field]);
+  const allFieldsPresent = [
+    req.body?.userId,
+    req.body?.tourId,
+    req.body?.countAdults,
+    req.body?.countChildren,
+    req.body?.price,
+  ].every((field) => field !== null && field !== undefined);
 
-		return res.status(400).json({
-			error: "Missing required fields",
-			details: missingFields,
-		});
-	}
+  if (!allFieldsPresent) {
+    const requiredFields = [
+      "userId",
+      "tourId",
+      "countAdults",
+      "countChildren",
+      "price",
+    ];
+    const missingFields = requiredFields.filter((field) => !req.body?.[field]);
+
+    return res.status(400).json({
+      error: "Missing required fields",
+      details: missingFields,
+    });
+  }
 
   let books = getBooks(),
     tours = getTours(),
     isEnough = true;
 
   books = [...books, { id: Date.now(), ...req.body }];
-  tours = tours.map((tour) => {
-    if (tour.id != req.body.tourId) {
-      return tour;
-    }
+  const tour = tours.find((tour) => tour.id === req.body.tourId);
 
-    const leftAmount =
-      (tour?.leftAmount || tour.maxAmount) -
-      (+req.body.countAdults + +req.body.countChildren);
-    isEnough = leftAmount >= 0;
+  if (!tour) {
+    return res.status(404).json(false);
+  }
 
-    return {
-      ...tour,
-      leftAmount: leftAmount,
-    };
-  });
+  tour.leftAmount =
+    (tour?.leftAmount >= 0 ? tour?.leftAmount : tour.maxAmount) -
+    (+req.body.countAdults + +req.body.countChildren);
 
-  res.sendStatus(isEnough ? setBooks(books) && setTours(tours) ? 200 : 500 : 409);
+  res.sendStatus(
+    tour.leftAmount >= 0 ? (setBooks(books) && setTours(tours) ? 200 : 500) : 409
+  );
 });
 //router.post("/:id", (req, res) => {
 //  let books = getBooks();

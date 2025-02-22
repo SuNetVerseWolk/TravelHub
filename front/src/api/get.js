@@ -44,9 +44,10 @@ export const getUser = (id) => {
     path: `users/${userId}`,
   });
 };
-export const getTour = (id) => getApi({
+export const getTour = (id, enabled = true) => getApi({
 	key: ["tour", id],
-	path: `tours/${id}`
+	path: `tours/${id}`,
+	enabled: enabled
 });
 
 export const getDateFrom2day = (number = 0) => {

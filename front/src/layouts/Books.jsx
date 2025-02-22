@@ -4,7 +4,7 @@ import { TourLoading } from "components/load/TourLoading";
 import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 
-export const UserLayout = () => {
+export const Books = () => {
   let { id } = useParams();
   id = id ? id : localStorage.getItem("id");
   const { data: books, isLoading } = getBooks();

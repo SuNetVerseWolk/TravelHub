@@ -15,7 +15,7 @@ const Book = ({ data }) => {
       <BookTypes types={tour?.restTypes} />
       <div>
         <BookTitle {...tour} />
-        <BookInfo {...tour} id={data.id} />
+        <BookInfo dates={tour?.dates} leftAmount={+data?.countAdults + +data?.countChildren} id={data.id} />
       </div>
     </div>
   );
@@ -58,7 +58,7 @@ export const BookTypes = ({ types }) => {
   );
 };
 
-export const BookInfo = ({dates, id}) => {
+export const BookInfo = ({dates, id, leftAmount}) => {
 	const getDate = (date) => {
 		const [year, month, day] = date?.split('–')[0].trim().slice(0, 10).split('.') || [];
 		const dateObject = new Date(`${year}-${month}-${day}`);
@@ -75,7 +75,7 @@ export const BookInfo = ({dates, id}) => {
 			<ul>
 				<li>{getDate(dates?.at(0).date)}</li>
 				<li><span>{dates?.at(0).price.toLocaleString('ru')}</span> руб.</li>
-				<li>{getDateDiff(dates?.at(0)?.date)} дней</li>
+				<li>{leftAmount} чел.</li>
 			</ul>
 			<button onClick={mutate}>Отменить</button>
 		</div>
