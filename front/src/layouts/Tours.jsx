@@ -28,10 +28,13 @@ export const Tours = ({ filters, extraFilters }) => {
 
     if (extraFilters && !!Object.keys(extraFilters)?.length) {
       filtred = filtred?.filter((tour) => {
-				const [filterStartDate, filterEndDate] = splitAndParseDates(extraFilters?.date);
 				let doesDateMatch;
+				const countChildren = +extraFilters?.countChildren ? +extraFilters?.countChildren : 0;
+				const countAdults = +extraFilters?.countAdults ? +extraFilters?.countAdults : 0;
 				
 				if (extraFilters?.date) {
+					const [filterStartDate, filterEndDate] = splitAndParseDates(extraFilters?.date);
+
 					tour.dates.forEach(date => {
 						const [dateStart, dateEnd] = splitAndParseDates(date.date);
 
@@ -39,14 +42,14 @@ export const Tours = ({ filters, extraFilters }) => {
 							doesDateMatch = true;
 						}
 					});
-				}
+				} else doesDateMatch = true;
 
         return (
           doesDateMatch && tour.location
             .toLowerCase()
             .includes(extraFilters?.where?.toLowerCase() || "") &&
           (tour.leftAmount >= 0 ? tour.leftAmount : tour.maxAmount) >=
-            (+extraFilters?.countAdults + +extraFilters?.countChildren || 0)
+            (countAdults + countChildren || 0)
         );
       });
     }
