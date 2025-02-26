@@ -145,6 +145,14 @@ export const TourInfo = ({ tour }) => {
   const [showBookForm, setShowBookForm] = useState(false);
   const unknown = useMemo(() => "Не УКАЗАННО", []);
 
+  const getDayForm = (days) => {
+    if (days === 0) return "В течении дня";
+    if (days === 1) return 'день';
+    if (days >= 2 && days <= 4) return 'дня';
+
+    return 'дней';
+  }
+
   return (
     <div className={style.dataTourContainer}>
       <h1>Данные тура</h1>
@@ -168,11 +176,15 @@ export const TourInfo = ({ tour }) => {
       <p>Место проведения: {tour?.location || unknown}</p>
       <p>
         Срок проведения:{" "}
-        {tour?.dates?.map((date, id) =>
-          tour.dates.length - 1 === id
-            ? getDateDiff(date.date)
-            : `${getDateDiff(date.date)} / `
-        ) + " дней" || unknown}
+        {
+          tour?.dates?.length > 0
+          ? tour.dates.map((date, id) =>
+              tour.dates.length - 1 === id
+                ? `${getDateDiff(date.date) === 0 ? "В течении дня" : `${getDateDiff(date.date)} ${getDayForm(getDateDiff(date.date))}`}`
+                : `${getDateDiff(date.date) === 0 ? "В течении дня" : `${getDateDiff(date.date)} ${getDayForm(getDateDiff(date.date))}`}` + " / "
+            ) + " "
+          : ""
+        }
       </p>
       <p>
         Мест осталось:{" "}

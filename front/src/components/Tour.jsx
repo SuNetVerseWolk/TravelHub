@@ -66,12 +66,25 @@ export const TourInfo = ({dates, click}) => {
 	}
 	const date = useMemo(() => getDate(dates?.at(0).date), []);
 
+  const getDayWord = (days) => {
+    if (days === 1) return 'день';
+    if (days >= 2 && days <= 4) return 'дня';
+
+    return 'дней';
+  }
+
   return (
     <div onClick={click}>
 			<ul>
 				<li>{date}</li>
 				<li>ещё даты</li>
-				<li>{getDateDiff(dates?.at(0).date)} дней</li>
+        {
+          getDateDiff(dates?.at(0).date) > 0 && (
+            <li>
+              {getDateDiff(dates?.at(0).date)} {getDayWord(getDateDiff(dates?.at(0).date))}
+            </li>
+          )
+        }
 			</ul>
 			<button>от <span>{dates?.at(0).price.toLocaleString('ru')}</span> руб.</button>
 		</div>
